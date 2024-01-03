@@ -64,7 +64,7 @@ OBJ     = $(addprefix $(OBJ_DIR)/, $(_FILES:%.c=%.o))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@make -C $(LIBFT)
+	@make -C $(LIBFT) --no-print-directory
 	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -o $@
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
@@ -73,12 +73,12 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:
-	@make clean -C $(LIBFT)
+	@make clean -C $(LIBFT) --no-print-directory
 	@$(RM) $(OBJ_DIR)
 	@echo "$(YELLOW)$(NAME)$(RESET) Objects Deleted"
 
 fclean: clean
-	@make fclean -C $(LIBFT)
+	@make fclean -C $(LIBFT) --no-print-directory
 	@$(RM) $(NAME)
 	@echo "$(RED)$(NAME)$(RESET) Deleted"
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/03 16:09:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:43:48 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int main(int argc, char **argv, char **env)
     pid_t pid;
     (void)argv;
     (void)argc;
-	char *const parmList[] = {"/bin/ls", "-l", "/Users/bruno", NULL};
+	char *const parmList[] = {"/bin/ls", "-l", "/home/brunolopes", NULL};
+	// char *const parmList[] = {"/bin/ls", "-l", "/Users/Bruno", NULL};
 
     if ((pid = fork()) == -1)
     {
@@ -37,8 +38,9 @@ int main(int argc, char **argv, char **env)
         exit(EXIT_FAILURE);     // Exit the child process on failure
     }
     else
+	{
         waitpid(pid, NULL, 0); // Wait for the child process to finish
-
+	}
 	get_env(&envp, env);
 	printLinkedList(envp);
 	
