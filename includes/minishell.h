@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/03 16:33:45 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/03 17:36:11 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,17 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
-typedef struct minishell
+typedef struct s_variables
+{
+	char	*home;
+	char	*path;
+	char	**paths;
+}				t_variables;
+
+typedef struct s_shell
 {
 	t_list	*env;
-}				t_minishell;
+	t_variables *var;
+}				t_shell;
+
 #endif

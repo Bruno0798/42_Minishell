@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/03 16:43:48 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/03 18:05:30 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,38 @@ void get_env(t_env **env,char **envp);
 t_env	*ft_new_env(char *key, char *value);
 void printLinkedList(t_env *head);
 void	ft_add_env_back(t_env **env_lst, t_env *new_env);
+char *ft_search_key(t_env *env, char *search);
 
 int main(int argc, char **argv, char **env)
 {
+	t_shell *shell;
 	t_env *envp = NULL;
 	
     pid_t pid;
     (void)argv;
     (void)argc;
-	char *const parmList[] = {"/bin/ls", "-l", "/home/brunolopes", NULL};
+	char **parmList = (char **)malloc(sizeof(char *) * 4);
+	// char *const parmList[] = {"/bin/ls", "-l", "/home/brunolopes", NULL};
 	// char *const parmList[] = {"/bin/ls", "-l", "/Users/Bruno", NULL};
+
+	shell = (t_shell *)malloc(sizeof(t_shell));
+	shell->var = (t_variables *)malloc(sizeof(t_variables));
+	
+	get_env(&envp, env);
+	shell->var->home = ft_search_key(envp, "HOME");
+	shell->var->path = ft_search_key(envp, "PATH");
+	parmList[0] = "/bin/ls";
+	parmList[1] = "-l";
+	parmList[2] = shell->var->home;
+	parmList[3] = NULL;
+
+	shell->var->paths = ft_split(shell->var->path, ':');
+	printf("%s\n", shell->var->home);
+	printf("%s\n", shell->var->path);
+	for(int i = 0; shell->var->paths[i]; i++)
+		printf("oui: %s\n", shell->var->paths[i]);
+	// printLinkedList(envp);
+	// paths =  ft_split(paths[], ':');
 
     if ((pid = fork()) == -1)
     {
@@ -41,8 +63,6 @@ int main(int argc, char **argv, char **env)
 	{
         waitpid(pid, NULL, 0); // Wait for the child process to finish
 	}
-	get_env(&envp, env);
-	printLinkedList(envp);
 	
 
     return 0;
@@ -97,6 +117,19 @@ void printLinkedList(t_env *head)
         current = current->next;
     }
 }
+
+char *ft_search_key(t_env *env, char *search)
+{
+	t_env *current = env;
+
+	while(current != NULL)
+	{
+		if (!ft_strcmp(current->key, search))
+			return (current->value);
+		current = current->next;
+	}
+	return (NULL);
+} 
 
 void	ft_add_env_back(t_env **env_lst, t_env *new_env)
 {
