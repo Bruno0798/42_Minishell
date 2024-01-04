@@ -53,8 +53,9 @@ LIBFT_LIB = $(LIBFT)/libft.a
 NAME    = minishell
 _FILES  += main.c environment.c utils1.c
 FOLDERS += environment utils
-SRC = $(foreach folder, $(FOLDERS), $(wildcard $(SRC_DIR)/$(folder)/*.c))
+SRC = $(shell find $(SRC_DIR) -name '*.c' -type f)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 #·                                                                                           ·#
