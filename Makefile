@@ -51,7 +51,7 @@ LIBFT_LIB = $(LIBFT)/libft.a
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-_FILES  += main.c
+_FILES  += main.c environment.c utils1.c 
 SRC     = $(addprefix $(SRC_DIR)/, $(_FILES))
 OBJ     = $(addprefix $(OBJ_DIR)/, $(_FILES:%.c=%.o))
 
