@@ -51,9 +51,10 @@ LIBFT_LIB = $(LIBFT)/libft.a
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-_FILES  += main.c
-SRC     = $(addprefix $(SRC_DIR)/, $(_FILES))
-OBJ     = $(addprefix $(OBJ_DIR)/, $(_FILES:%.c=%.o))
+_FILES  += main.c environment.c utils1.c
+FOLDERS += environment utils
+SRC = $(foreach folder, $(FOLDERS), $(wildcard $(SRC_DIR)/$(folder)/*.c))
+OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 #·                                                                                           ·#
@@ -69,7 +70,7 @@ $(NAME): $(OBJ)
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(@D)
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean:

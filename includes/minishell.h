@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/03 17:36:11 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/04 15:23:45 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,12 @@ typedef struct s_shell
 	t_list	*env;
 	t_variables *var;
 }				t_shell;
+
+
+void get_env(t_env **env,char **envp);
+t_env	*ft_new_env(char *key, char *value);
+void printLinkedList(t_env *head);
+void	ft_add_env_back(t_env **env_lst, t_env *new_env);
+char *ft_search_key(t_env *env, char *search);
 
 #endif

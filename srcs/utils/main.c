@@ -6,17 +6,12 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/04 15:01:54 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/04 15:26:06 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
-void get_env(t_env **env,char **envp);
-t_env	*ft_new_env(char *key, char *value);
-void printLinkedList(t_env *head);
-void	ft_add_env_back(t_env **env_lst, t_env *new_env);
-char *ft_search_key(t_env *env, char *search);
 
 int main(int argc, char **argv, char **env)
 {
