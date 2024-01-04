@@ -6,11 +6,11 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/04 15:23:26 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/04 15:31:22 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../../includes/minishell.h"
 
 int main(int argc, char **argv, char **env)
 {
@@ -47,8 +47,6 @@ int main(int argc, char **argv, char **env)
 	{
         waitpid(pid, NULL, 0); // Wait for the child process to finish
 	}
-	
-
     return 0;
 }
 
