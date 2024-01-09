@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 02:00:33 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/09 03:07:30 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ typedef struct s_variables
 
 typedef struct s_shell
 {
-	t_list	*env;
-	t_variables *var;
-	char *line;
+	t_list		*env;
+	t_variables	*var;
+	char		*input;
 }				t_shell;
 
 
@@ -58,5 +58,6 @@ t_env	*ft_new_env(char *key, char *value);
 void printLinkedList(t_env *head);
 void	ft_add_env_back(t_env **env_lst, t_env *new_env);
 char *ft_search_key(t_env *env, char *search);
+void ft_pwd();
 
 #endif

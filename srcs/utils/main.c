@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 02:06:36 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/09 03:23:01 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **env)
 	
 	while (1)
 	{
-		shell->line = readline("Minishell$>");
+		shell->input = readline("Minishell$>");
 		parser(shell);
 	}
     return 0;
@@ -39,34 +39,35 @@ int main(int argc, char **argv, char **env)
 
 void parser(t_shell *shell)
 {
-	char pwd[4096];
-	if(count_quotes(shell->line))
+	if(count_quotes(shell->input))
 		exit(1);
-	if(!(strcmp(shell->line, "pwd")))
-	{
-		getcwd(pwd, sizeof(pwd));
-		ft_printf("%s\n", pwd);
-		exit(1);
-	}
-	
+	if(!(strcmp(shell->input, "pwd")))
+        ft_pwd();
 }
 
 int count_quotes(char *str)
 {
 	int i;
-	int count = 0;
-	int count_double = 0;
+	int count;
+    int s_quote;
+    int d_quote;
 	
-	i = 0;
-	while(str[i])
-	{
-		if(str[i] == 34)
-			count_double++;
-		if(str[i] == 39)
+	i = -1;
+    count = 0;
+    d_quote = 0;
+    s_quote = 0;
+	while(str[++i])
+		if(str[i] == 34 && !s_quote)
+        {
+            d_quote = !d_quote;
 			count++;
-		i++;
-	}
-	if(count_double % 2 != 0 || count % 2 != 0)
+        }
+		else if(str[i] == 39 && !d_quote)
+        {
+            s_quote =  !s_quote;
+			count++;
+        }
+	if(count % 2 != 0)
 		return 1;
 	return 0; 
 }
