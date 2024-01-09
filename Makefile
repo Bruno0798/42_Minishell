@@ -51,7 +51,7 @@ LIBFT_LIB = $(LIBFT)/libft.a
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-_FILES  += main.c environment.c utils1.c
+_FILES  += main environment utils1
 FOLDERS += environment utils
 SRC = $(shell find $(SRC_DIR) -name '*.c' -type f)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
