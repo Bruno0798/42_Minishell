@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 01:57:52 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/09 02:06:36 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int main(int argc, char **argv, char **env)
 	(void)argv;
 	(void)env;
 	
+	shell = malloc(sizeof(t_shell));
 	if (argc != 1)
 	{
 		ft_printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
@@ -41,7 +42,7 @@ void parser(t_shell *shell)
 	char pwd[4096];
 	if(count_quotes(shell->line))
 		exit(1);
-	if(!(strcmp(shell->line, "pdw")))
+	if(!(strcmp(shell->line, "pwd")))
 	{
 		getcwd(pwd, sizeof(pwd));
 		ft_printf("%s\n", pwd);
