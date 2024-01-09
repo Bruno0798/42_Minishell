@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/09 01:43:16 by brunolopes       ###   ########.fr       */
-=======
-/*   Updated: 2024/01/04 18:48:52 by bsousa-d         ###   ########.fr       */
->>>>>>> 539245ce433a2f5c55980aee1f3cf8b410b2718e
+/*   Updated: 2024/01/09 02:00:33 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +17,6 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-<<<<<<< HEAD
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-=======
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -39,7 +30,6 @@ typedef enum s_type
 	command,
 	files
 } 		t_type;
->>>>>>> 539245ce433a2f5c55980aee1f3cf8b410b2718e
 
 typedef struct s_env
 {
