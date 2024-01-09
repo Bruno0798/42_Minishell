@@ -67,12 +67,12 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT) --no-print-directory
-	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -o $@ -lreadline
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(@D)
-	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@ -lreadline
 
 clean:
 	@make clean -C $(LIBFT) --no-print-directory

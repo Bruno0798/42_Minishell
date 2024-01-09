@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/04 15:28:54 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/09 01:43:16 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 typedef struct s_env
 {
