@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 03:07:30 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/09 04:04:21 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,9 @@
 # define RED	"\033[1m\033[31m"
 # define GREEN	"\033[1m\033[32m"
 # define ENDC	"\033[0m"
+
+# define DOUBLE_QUOTE 34
+# define SINGLE_QUOTE 39
 
 typedef enum s_type
 {
@@ -59,5 +62,6 @@ void printLinkedList(t_env *head);
 void	ft_add_env_back(t_env **env_lst, t_env *new_env);
 char *ft_search_key(t_env *env, char *search);
 void ft_pwd();
+void ft_echo(char *str);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 03:23:01 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/09 04:12:13 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void parser(t_shell *shell)
 		exit(1);
 	if(!(strcmp(shell->input, "pwd")))
         ft_pwd();
+    if(!(strncmp(shell->input, "echo", 4)))
+        ft_echo(shell->input + 4);
 }
 
 int count_quotes(char *str)
@@ -57,12 +59,12 @@ int count_quotes(char *str)
     d_quote = 0;
     s_quote = 0;
 	while(str[++i])
-		if(str[i] == 34 && !s_quote)
+		if(str[i] == DOUBLE_QUOTE && !s_quote)
         {
             d_quote = !d_quote;
 			count++;
         }
-		else if(str[i] == 39 && !d_quote)
+		else if(str[i] == SINGLE_QUOTE && !d_quote)
         {
             s_quote =  !s_quote;
 			count++;
