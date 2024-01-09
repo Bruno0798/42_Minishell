@@ -51,7 +51,7 @@ LIBFT_LIB = $(LIBFT)/libft.a
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-_FILES  += main.c environment.c utils1.c
+_FILES  += main environment utils1
 FOLDERS += environment utils
 SRC = $(shell find $(SRC_DIR) -name '*.c' -type f)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
@@ -67,7 +67,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT) --no-print-directory
-	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -o $@
+	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -lreadline -o $@
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
