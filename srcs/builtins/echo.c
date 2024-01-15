@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/09 04:11:47 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/15 15:44:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /*
 	todo:
-		Options | Spaces in the middle | Checking start of text to print
+	Options | Spaces in the middle | Checking start of text to print
+		
 */ 
 void ft_echo(char *str)
 {

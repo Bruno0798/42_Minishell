@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/04 15:05:40 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/15 16:52:39 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,3 +34,41 @@ char *ft_search_key(t_env *env, char *search)
 	}
 	return (NULL);
 } 
+
+bool is_space(char c)
+{
+	if (c == 32)
+		return true;
+	return false;
+}
+
+int find_next_space(char *str)
+{
+	int i = 0;
+
+	while(str[i] && str[i] != 0)
+		i++;
+	return i;
+	
+}
+
+void ft_token_list(t_shell shell, char *input)
+{
+	int i = -1;
+	
+	t_token token;
+	
+	while(input[++i])
+	{
+		if(is_space(input[i]))
+			continue;
+		if (input[i] == '|')
+		{
+			token.content = input[i];
+			token.type = pipes;
+		}
+		token.content = ft_substr(&input[i], 0, find_next_space(&input[i]));
+		i += find_next_space(input[i]);
+		
+	}
+}

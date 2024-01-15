@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/09 04:04:21 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/15 15:45:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
+# define SPACE 32
 
 typedef enum s_type
 {
@@ -33,6 +34,14 @@ typedef enum s_type
 	command,
 	files
 } 		t_type;
+
+typedef struct s_token
+{
+	char *content;
+	t_type type;
+	struct s_token *prev;
+	struct s_token *next;
+}		t_token;
 
 typedef struct s_env
 {
@@ -50,8 +59,12 @@ typedef struct s_variables
 
 typedef struct s_shell
 {
-	t_list		*env;
+	char 		**envp;
+	char		**paths;
+	char		**input_split;
+	t_env		*env;
 	t_variables	*var;
+	t_token		*token_list;
 	char		*input;
 }				t_shell;
 
@@ -63,5 +76,6 @@ void	ft_add_env_back(t_env **env_lst, t_env *new_env);
 char *ft_search_key(t_env *env, char *search);
 void ft_pwd();
 void ft_echo(char *str);
+char **get_path(t_env *env_lst);
 
 #endif
