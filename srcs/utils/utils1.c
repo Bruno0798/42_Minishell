@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/15 16:52:39 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:28:38 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,25 @@ void ft_token_list(t_shell shell, char *input)
 			token.content = input[i];
 			token.type = pipes;
 		}
-		token.content = ft_substr(&input[i], 0, find_next_space(&input[i]));
-		i += find_next_space(input[i]);
-		
+		if (input[i] == '>')
+		{
+			token.content = input[i];
+			token.type = redir_out;
+		}
+		if(input[i] == '<')
+		{
+			token.content = input[i];
+			token.type = redir_in;
+		}
+		else
+		{
+			token.content = ft_substr(&input[i], 0, find_next_space(&input[i]));
+			i += find_next_space(input[i]);
+		}
 	}
+}
+
+void create_token(t_token token, char *str)
+{
+	
 }

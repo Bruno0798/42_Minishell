@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/15 15:45:18 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 12:08:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ typedef enum s_type
 {
 	pipes,
 	command,
-	files
+	files,
+	redir_in,
+	redir_in2,
+	redir_out,
+	redir_out2
 } 		t_type;
 
 typedef struct s_token
