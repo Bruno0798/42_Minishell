@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/16 16:40:10 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/16 18:56:03 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,41 +53,32 @@ typedef struct s_env
 	struct s_env	*next;
 }				t_env;
 
-typedef struct s_variables
-{
-	char	*home;
-	char	*path;
-	char	**paths;
-}				t_variables;
-
 typedef struct s_commands
 {
 	t_env	*env;
 	t_token	*token;
-	int		index;
-	struct	s_commands;	
-}		t_command;
+	struct	s_commands *next;	
+}		t_commands;
 
-typedef struct s_shell
-{
-	char		**paths;
-	char		**input_split;
-	//! t_env		*env;
-	t_variables	*var;
-	//! t_token		*token_list;
-	t_command	*commands;
-	char		*input;
-}				t_shell;
+// typedef struct s_shell
+// {
+// 	//! char		**paths;
+// 	//! char		**input_split;
+// 	//! t_env		*env;
+// 	//! t_token		*token_list;
+// 	t_command	*commands;
+// 	//! char		*input;
+// }				t_shell;
 
 
-void get_env(t_env **env,char **envp);
+void	init_env(t_env **env,char **envp);
 t_env	*ft_new_env(char *key, char *value);
-void printLinkedList(t_env *head);
+void	ft_print_token_list(t_token *head);
 void	ft_add_env_back(t_env **env_lst, t_env *new_env);
-char *ft_search_key(t_env *env, char *search);
-void ft_pwd();
-void ft_echo(char *str);
-char **get_path(t_env *env_lst);
-char **split_pipe(char *str);
+// char	*ft_search_key(t_env *env, char *search);
+void	ft_pwd();
+void	ft_echo(char *str);
+char	**get_path(t_env *env_lst);
+void	pipe_commands(char *str, t_commands **command);
 
 #endif
