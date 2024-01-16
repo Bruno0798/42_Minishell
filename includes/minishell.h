@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/16 12:08:08 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/16 16:40:10 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
-# define SPACE 32
+// # define SPACE 32
 
 typedef enum s_type
 {
@@ -43,7 +43,6 @@ typedef struct s_token
 {
 	char *content;
 	t_type type;
-	struct s_token *prev;
 	struct s_token *next;
 }		t_token;
 
@@ -61,14 +60,22 @@ typedef struct s_variables
 	char	**paths;
 }				t_variables;
 
+typedef struct s_commands
+{
+	t_env	*env;
+	t_token	*token;
+	int		index;
+	struct	s_commands;	
+}		t_command;
+
 typedef struct s_shell
 {
-	char 		**envp;
 	char		**paths;
 	char		**input_split;
-	t_env		*env;
+	//! t_env		*env;
 	t_variables	*var;
-	t_token		*token_list;
+	//! t_token		*token_list;
+	t_command	*commands;
 	char		*input;
 }				t_shell;
 
@@ -81,5 +88,6 @@ char *ft_search_key(t_env *env, char *search);
 void ft_pwd();
 void ft_echo(char *str);
 char **get_path(t_env *env_lst);
+char **split_pipe(char *str);
 
 #endif
