@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/16 19:05:52 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/17 13:19:53 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	ft_print_token_list(t_token *head)
 {
 	t_token	*token = head;
 
-	while (token != NULL) {
+	while (token) {
 		printf("Token: '%s' \nType: '%d'\n\n", token->content, token->type);
 		token = token->next;
 	}
@@ -109,26 +109,47 @@ t_token *ft_new_token(char *str)
 	return (token);
 }
 
-void	pipe_commands(char *str, t_commands **command)
+t_commands *ft_new_commands(char *str, t_env *env)
 {
-	char	**words;
-	int		count;
-	int		i;
+	t_commands	*command;
+	t_token		*head;
+	t_token		*current;
+	char		**words;
+	int			i;
 
 	i = 0;
-	count = count_pipes(str);
-	if (!count)
+	command = malloc(sizeof(t_commands));
+	command->env = env;
+	words = ft_split(str, ' ');
+	head = ft_new_token(words[0]);
+	current = head;
+	while(words[++i])
 	{
-		t_token *temp;
-		words = ft_split(str, ' '); //! Refacture: Function to not split spaces in quotes
-		temp = ft_new_token(words[0]);
-		(*command)->token = temp;  
-		while (words[++i])
-		{
-			temp->next = ft_new_token(words[i]);
-			temp = temp->next;
-		}
+		current->next = ft_new_token(words[i]);
+		current =  current->next;
 	}
+	command->token = head;
+	return command;
+}
+
+t_commands	*pipe_commands(char *str, t_env *env)
+{
+	t_commands	*head;
+	t_commands	*current;
+	char		**splitted_words;
+	int			i;
+
+	i = 0;
+	splitted_words = ft_split(str, '|');
+	// words = ft_split(splitted_words[0], ' '); //! Refacture: Function to not split spaces in quotes
+	head = ft_new_commands(splitted_words[0], env);
+	current = head;
+	while(splitted_words[++i])
+	{
+		current->next = ft_new_commands(splitted_words[i], env);
+		current = current->next;
+	}
+	return (head);
 	// else
 	// {
 		

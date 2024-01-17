@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/16 18:36:23 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/17 13:19:43 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,12 @@ int main(int argc, char **argv, char **envp)
 		ft_printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
 		return (0);
 	}
-	command = malloc(sizeof(command));
 	init_env(&env, envp);
 	while (1)
 	{
 		input = readline("Minishell$>");
-		pipe_commands(input, &command);
+		command = pipe_commands(input, env);
+		printf("\n\n\n\n\n\n\n\n");
 		ft_print_token_list(command->token);
 		// parser(shell);
 

@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/16 18:56:03 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/17 12:13:48 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,6 @@ void	ft_add_env_back(t_env **env_lst, t_env *new_env);
 void	ft_pwd();
 void	ft_echo(char *str);
 char	**get_path(t_env *env_lst);
-void	pipe_commands(char *str, t_commands **command);
+t_commands	*pipe_commands(char *str, t_env *env);
 
 #endif
