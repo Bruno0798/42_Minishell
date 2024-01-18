@@ -30,7 +30,7 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = #-Wall -Wextra -Werror
 INCLUDE = -I./include
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
@@ -51,8 +51,6 @@ LIBFT_LIB = $(LIBFT)/libft.a
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-_FILES  += main environment utils1
-FOLDERS += environment utils
 SRC = $(shell find $(SRC_DIR) -name '*.c' -type f)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 

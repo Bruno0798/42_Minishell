@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/17 13:19:53 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/18 18:35:21 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,42 @@ void	ft_print_token_list(t_token *head)
 	
 // }
 
+
+static bool check_echo_option(char *str)
+{
+	int i;
+
+	i = 0;
+
+	while(str[++i])
+	{
+		if (str[i] != 'n')
+			return false;
+	}
+	return true;
+}
+
+static bool check_redirection(char *str)
+{
+	int i;
+
+	i = -1;
+	while(str[++i] == '<')
+		if(i == 2)
+			return false;
+	i = -1;
+	while (str[++i] == '>')
+		if(i == 2)
+			return false;
+	i = 0;
+	while((str[i] == '>' && str[i + 1] == '<') ||
+		(str[i] == '<' && str[i + 1] == '>'))
+		return false;
+	return true;
+
+}
+
+// ! Dont forget to see -nnnnnnnnnnn
 t_type ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
@@ -64,13 +100,12 @@ t_type ft_token_type(char *word)
 		return redir_in2;
 	else if (!ft_strcmp(word, "<"))
 		return redir_in;
+	else if(!ft_strncmp(word, "-n", 2) && check_echo_option(word))
+		return option;
+	else if (!check_redirection(word) || !check_redirection(word))
+		return error; //! make funtion to check what to print and exit
 	return command;
 }
-
-// void create_token(t_token token, char *str)
-// {
-	
-// }
 
 int count_pipes(char *str)
 {
@@ -84,19 +119,6 @@ int count_pipes(char *str)
 			count++;
 	return (count);
 }
-
-// ft_fix_spaces(char **words)
-// {
-// 	int i;
-// 	int j;
-
-// 	i = -1;
-// 	j = -1;
-// 	while(words[++i])
-// 	{
-// 		ft_split(words[i], ' ');
-// 	}
-// }
 
 t_token *ft_new_token(char *str)
 {
@@ -120,7 +142,7 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	i = 0;
 	command = malloc(sizeof(t_commands));
 	command->env = env;
-	words = ft_split(str, ' ');
+	words = ft_split2(str, ' ');
 	head = ft_new_token(words[0]);
 	current = head;
 	while(words[++i])
@@ -140,7 +162,7 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	int			i;
 
 	i = 0;
-	splitted_words = ft_split(str, '|');
+	splitted_words = ft_split2(str, '|');
 	// words = ft_split(splitted_words[0], ' '); //! Refacture: Function to not split spaces in quotes
 	head = ft_new_commands(splitted_words[0], env);
 	current = head;

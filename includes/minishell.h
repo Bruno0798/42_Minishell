@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/17 12:13:48 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/18 17:37:13 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,19 @@
 
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
-// # define SPACE 32
+# define SPACE 32
 
 typedef enum s_type
 {
 	pipes,
 	command,
+	option,
 	files,
 	redir_in,
 	redir_in2,
 	redir_out,
-	redir_out2
+	redir_out2,
+	error
 } 		t_type;
 
 typedef struct s_token
@@ -60,16 +62,6 @@ typedef struct s_commands
 	struct	s_commands *next;	
 }		t_commands;
 
-// typedef struct s_shell
-// {
-// 	//! char		**paths;
-// 	//! char		**input_split;
-// 	//! t_env		*env;
-// 	//! t_token		*token_list;
-// 	t_command	*commands;
-// 	//! char		*input;
-// }				t_shell;
-
 
 void	init_env(t_env **env,char **envp);
 t_env	*ft_new_env(char *key, char *value);
@@ -77,8 +69,9 @@ void	ft_print_token_list(t_token *head);
 void	ft_add_env_back(t_env **env_lst, t_env *new_env);
 // char	*ft_search_key(t_env *env, char *search);
 void	ft_pwd();
-void	ft_echo(char *str);
+void ft_echo(t_token *token);
 char	**get_path(t_env *env_lst);
 t_commands	*pipe_commands(char *str, t_env *env);
+char	**ft_split2(char const *s, char c);
 
 #endif
