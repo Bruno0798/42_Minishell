@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/18 18:35:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/18 19:49:21 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	i = 0;
 	command = malloc(sizeof(t_commands));
 	command->env = env;
-	words = ft_split2(str, ' ');
+	words = ft_split2(str, SPACE);
 	head = ft_new_token(words[0]);
 	current = head;
 	while(words[++i])
