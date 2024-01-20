@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/18 17:37:13 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/20 11:43:57 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@
 # include <signal.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+#include <readline/readline.h>
+#include <readline/history.h>
+
+
 
 # define RED	"\033[1m\033[31m"
 # define GREEN	"\033[1m\033[32m"
@@ -26,7 +28,6 @@
 
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
-# define SPACE 32
 
 typedef enum s_type
 {

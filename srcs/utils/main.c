@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/18 18:35:55 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/20 14:29:45 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,20 @@
 
 static int count_quotes(char *str);
 
-static void parser(t_commands *command)
+static bool syntax_checker(t_commands *command)
 {
-	if(count_quotes(command->token->content)) // ! need to cycle list
-		exit(1);
-	if(!(strcmp(command->token->content, "pwd")))
+	t_token *token;
+
+	
+	
+}
+
+static void parser(t_commands *command)
+{	
+	
+	if(!(ft_strcmp(command->token->content, "pwd")))
 		ft_pwd();
-	if(!(strncmp(command->token->content, "echo", 4)))
+	if(!(ft_strncmp(command->token->content, "echo", 4)))
 		ft_echo(command->token->next);
 }
 
@@ -44,12 +51,32 @@ static int count_quotes(char *str)
 	return 0; 
 }
 
+static bool is_everything_space(char *str)
+{
+	int i;
+
+	i = -1;
+	while (str[++i])
+		if (str[i] != ' ')
+			return false;
+	return true;
+}
+
+static bool check_input(char *input)
+{
+	if (count_quotes(input))
+		return false;
+	if (is_everything_space(input))
+		return false;
+	return true;
+}
+
 int main(int argc, char **argv, char **envp)
 {
-	(void)	argv;
+	(void)		argv;
 	t_commands	*command;
-	t_env *env;
-	char	*input;
+	t_env		*env;
+	char		*input;
 
 	if (argc != 1)
 	{
@@ -60,9 +87,13 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = readline("Minishell$>");
+		if (!check_input(input))
+		{
+			ft_printf(RED"Error: Invalid Input\n"ENDC); // ! Error example
+			continue ;
+		}
 		command = pipe_commands(input, env);
 		parser(command);
-
 	}
 	return 0;
 }

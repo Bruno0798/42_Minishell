@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/18 19:49:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/19 12:33:03 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ static bool check_redirection(char *str)
 
 }
 
-// ! Dont forget to see -nnnnnnnnnnn
 t_type ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
@@ -126,7 +125,7 @@ t_token *ft_new_token(char *str)
 
 	token = malloc(sizeof(t_token));
 	token->content = str;
-	token->type = ft_token_type(str);	
+	token->type = ft_token_type(str);
 	token->next = NULL;
 	return (token);
 }
@@ -156,31 +155,21 @@ t_commands *ft_new_commands(char *str, t_env *env)
 
 t_commands	*pipe_commands(char *str, t_env *env)
 {
-	t_commands	*head;
+	t_commands	*commands;
 	t_commands	*current;
-	char		**splitted_words;
+	char		**splitted_command;
 	int			i;
 
 	i = 0;
-	splitted_words = ft_split2(str, '|');
-	// words = ft_split(splitted_words[0], ' '); //! Refacture: Function to not split spaces in quotes
-	head = ft_new_commands(splitted_words[0], env);
-	current = head;
-	while(splitted_words[++i])
+	splitted_command = ft_split2(str, '|');
+	commands = ft_new_commands(splitted_command[0], env);
+	current = commands;
+	while(splitted_command[++i])
 	{
-		current->next = ft_new_commands(splitted_words[i], env);
+		current->next = ft_new_commands(splitted_command[i], env);
 		current = current->next;
 	}
-	return (head);
-	// else
-	// {
-		
-	// 	token->next = ft_new_token();
-	// }
-					
-	// words = ft_split(str, '|');
-	// ft_fix_spaces(words);
-	// return (words ? words : 0);
+	return (commands);
 }
 
 

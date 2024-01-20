@@ -30,8 +30,9 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = #-Wall -Wextra -Werror
-INCLUDE = -I./include
+CFLAGS  = -Wall -Wextra -Werror
+INCLUDE = -I./includes
+INCLUDE += -I/opt/homebrew/opt/readline/include
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 #·                                                                                           ·#
@@ -43,6 +44,8 @@ SRC_DIR = srcs
 OBJ_DIR = obj
 LIBFT   = libft
 LIBFT_LIB = $(LIBFT)/libft.a
+LIBS = -ltermcap -lncurses -lreadline
+LIBS_MAC = -ltermcap -lncurses -L/opt/homebrew/opt/readline/lib -lreadline
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 #·                                                                                           ·#
@@ -60,12 +63,26 @@ OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 #·                                         RULES                                             ·#
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+OS := $(shell uname)
+
+ifeq ($(OS), Darwin)
+	LIBS_USED = $(LIBS_MAC)
+else
+	LIBS_USED = $(LIBS)
+endif
 
 all: $(NAME)
+	clear
+	@printf "\n"
+	@echo $(G)"       _     _     _       _ _ "$(X)
+	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)
+	@echo $(G)"|     | |   | |_ -|   | -_| | |"$(X)
+	@echo $(G)"|_|_|_|_|_|_|_|___|_|_|___|_|_|"$(X)
+	@printf "\n\n"
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT) --no-print-directory
-	@$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) -lreadline -o $@
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) $(LIBS_USED) -o $@
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
@@ -83,6 +100,11 @@ fclean: clean
 	@echo "$(RED)$(NAME)$(RESET) Deleted"
 
 re: fclean all
+
+run: re
+	@sleep 0.5
+	@clear
+	@./$(NAME)
 
 .PHONY: all clean fclean re
 .SILENT:

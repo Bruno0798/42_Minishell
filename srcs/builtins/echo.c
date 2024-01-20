@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/18 16:00:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/19 11:50:59 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 /*
 	todo:
-	Options | Spaces in the middle | Checking start of text to print
-		
+	Options | Spaces in the middle | Checking start of text to print	
 */ 
 void ft_echo(t_token *token)
 {
