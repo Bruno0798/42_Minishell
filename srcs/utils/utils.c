@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/20 19:02:11 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:07:04 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool is_beetwenn_quotes(char *str)
+bool is_between_quotes(char *str)
 {
 	int s_quote;
 	int d_quote;
@@ -49,5 +49,9 @@ bool	is_space(char c)
 	if (c == 32)
 		return true;
 	return false;
+}
+
+void	ft_history(void){
+	
 }
 

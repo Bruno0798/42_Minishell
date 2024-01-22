@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/20 19:29:52 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:04:52 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void ft_echo(t_token *token);
 char	**get_path(t_env *env_lst);
 t_commands	*pipe_commands(char *str, t_env *env);
 char	**ft_split2(char const *s, char c);
-bool is_beetwenn_quotes(char *str);
+bool is_between_quotes(char *str);
 void ft_expander(t_commands *command);
 
 /**

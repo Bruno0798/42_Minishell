@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 15:04:38 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:10:29 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void parser(t_commands *command)
 
 static bool check_input(char *input)
 {
-	if (is_beetwenn_quotes(input))
+	if (is_between_quotes(input))
 		return false;
 	if (is_everything_space(input))
 		return false;
@@ -51,9 +51,9 @@ int main(int argc, char **argv, char **envp)
 			ft_printf(RED"Error: Invalid Input\n"ENDC); // ! Error example
 			continue ;
 		}
+		add_history(input);	
 		command = pipe_commands(input, env);
 		parser(command);
-		
 	}
 	return 0;
 }

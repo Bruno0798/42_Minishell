@@ -105,8 +105,6 @@ fclean: clean
 re: fclean all
 
 run: re
-	@sleep 0.5
-	@clear
 	@./$(NAME)
 
 .PHONY: all clean fclean re

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 15:09:08 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 18:00:41 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@ void ft_expander(t_commands *command)
 {
 	t_token *token;
 	char *value;
+	char	*str;
 
 	token = command->token;
-	
 	while(token)
 	{
-		if (token->content[0] == '$')
+		str = ft_strtrim(token->content, "\"");
+		if (str[0] == '$')
 		{
-			value = ft_get_value(command->env, token->content + 1);
+			value = ft_get_value(command->env, str + 1);
 			free(token->content);
 			token->content = ft_calloc(ft_strlen(value) + 1, sizeof(char));
 			ft_strlcpy(token->content, value, ft_strlen(value) + 1);
