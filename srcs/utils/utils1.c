@@ -6,15 +6,15 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/19 12:33:03 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/20 19:13:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_print_token_list(t_token *head) 
+void ft_print_token_list(t_token *head) 
 {
-	t_token	*token = head;
+	t_token *token = head;
 
 	while (token) {
 		printf("Token: '%s' \nType: '%d'\n\n", token->content, token->type);
@@ -22,35 +22,6 @@ void	ft_print_token_list(t_token *head)
 	}
 }
 
-// char	*ft_search_key(t_env *env, char *search)
-// {
-// 	t_env	*current = env;
-
-// 	while (current != NULL)
-// 	{
-// 		if (!ft_strcmp(current->key, search))
-// 			return (current->value);
-// 		current = current->next;
-// 	}
-// 	return (NULL);
-// } 
-
-// bool	is_space(char c)
-// {
-// 	if (c == 32)
-// 		return true;
-// 	return false;
-// }
-
-// int	find_next_space(char *str)
-// {
-// 	int	i = 0;
-
-// 	while (str[i] && str[i] != 0)
-// 		i++;
-// 	return i;
-	
-// }
 
 
 static bool check_echo_option(char *str)

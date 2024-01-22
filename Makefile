@@ -30,9 +30,10 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = -Wall -Wextra -Werror
+CFLAGS  = -Wall -Wextra -Werror -g
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
+
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 #·                                                                                           ·#
@@ -70,6 +71,8 @@ ifeq ($(OS), Darwin)
 else
 	LIBS_USED = $(LIBS)
 endif
+
+
 
 all: $(NAME)
 	clear
