@@ -50,8 +50,3 @@ bool	is_space(char c)
 		return true;
 	return false;
 }
-
-void	ft_history(void){
-	
-}
-
