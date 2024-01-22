@@ -21,7 +21,8 @@ static void parser(t_commands *command)
 		ft_pwd();
 	if(!(ft_strncmp(command->token->content, "echo", 4)))
 		ft_echo(command->token->next);
-		
+	if(!(ft_strcmp(command->token->content, "clear")))
+		system("clear");	
 }
 
 
