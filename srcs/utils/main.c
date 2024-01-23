@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 17:27:09 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 17:38:13 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void parser(t_commands *command)
 		ft_env(command);
 	else if(!(ft_strcmp(command->token->content, "unset")))
 		ft_unset(command);
+	else if(!(ft_strcmp(command->token->content, "export")))
+		ft_export(command);
 	else
 		ft_execution(command);
 		
