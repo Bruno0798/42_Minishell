@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 16:31:17 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 17:24:14 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ void ft_echo(t_token *token);
  */
 t_commands	*pipe_commands(char *str, t_env *env);
 void		ft_expander(t_commands *command);
+void		ft_update_env(t_env *env_lst, char *key, char *replace);
 bool 		is_between_quotes(char *str);
 char		**get_path(t_env *env_lst);
 char		**ft_split2(char const *s, char c);
@@ -154,5 +155,11 @@ int			env_size(t_env *env);
  * @return true if the string consists only of spaces, false otherwise.
  */
 bool	is_everything_space(char *str);
+
+void ft_cd(t_commands *command);
+bool can_execute(t_commands *command);
+void ft_env(t_commands *command);
+void ft_unset(t_commands *command);
+void ft_export(t_commands *command);
 
 #endif

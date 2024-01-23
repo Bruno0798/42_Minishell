@@ -1,21 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/23 17:26:35 by brunolopes       ###   ########.fr       */
+/*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/01/23 17:06:30 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_pwd()
-{
-	char pwd[4096];
 
-	getcwd(pwd, sizeof(pwd));
-	ft_printf("%s\n", pwd);
-}

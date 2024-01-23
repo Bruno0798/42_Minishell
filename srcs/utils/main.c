@@ -6,12 +6,11 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 16:23:11 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 17:27:09 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
 static void parser(t_commands *command)
 {	
 	ft_expander(command);
@@ -19,8 +18,15 @@ static void parser(t_commands *command)
 		ft_pwd();
 	else if(!(ft_strncmp(command->token->content, "echo", 4)))
 		ft_echo(command->token->next);
+	else if(!(ft_strcmp(command->token->content, "cd")))
+		ft_cd(command);
+	else if(!(ft_strcmp(command->token->content, "env")))
+		ft_env(command);
+	else if(!(ft_strcmp(command->token->content, "unset")))
+		ft_unset(command);
 	else
 		ft_execution(command);
+		
 }
 
 
@@ -50,7 +56,7 @@ int main(int argc, char **argv, char **envp)
 			ft_printf(RED"Error: Invalid Input\n"ENDC); // ! Error example
 			continue ;
 		}
-		add_history(input);	
+		add_history(input);
 		command = pipe_commands(input, env);
 		parser(command);
 	}
