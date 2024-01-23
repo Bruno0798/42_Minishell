@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 15:16:59 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 17:09:47 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ bool	is_space(char c)
 		return true;
 	return false;
 }
-
