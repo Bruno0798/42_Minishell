@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/20 19:13:18 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:21:25 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ void ft_print_token_list(t_token *head)
 		token = token->next;
 	}
 }
-
-
 
 static bool check_echo_option(char *str)
 {

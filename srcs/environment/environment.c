@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 15:08:25 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/22 20:10:35 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,22 @@ char **get_path(t_env *env_lst)
     }
     free(paths);
     return (NULL);
+}
+
+void ft_update_env(t_env *env_lst, char *key, char *replace)
+{
+	t_env *curr;
+
+	curr = env_lst;
+
+	while(curr)
+	{
+		if (ft_strcmp(curr->key, key) == 0)
+		{
+			free(curr->value);
+			curr->value = ft_strdup(replace);
+			return ;
+		}
+		curr = curr->next;
+	}
 }

@@ -1,21 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pwd.c                                              :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/23 12:08:11 by bsousa-d         ###   ########.fr       */
+/*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/01/23 12:41:52 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_pwd()
+void ft_unset(t_commands *command)
 {
-	char pwd[4096];
+	t_env *current;
+	t_env *previous;
 
-	getcwd(pwd, sizeof(pwd));
-	ft_printf("%s\n", pwd);
+	current = command->env;
+	previous = NULL;
+	while(current)
+	{
+		if (!ft_strcmp(current->key, command->token->next->content))
+		{
+			if (previous)
+				previous->next = current->next;
+			else
+				command->env = current->next;
+			free(current->key);
+			free(current->value);
+			free(current);
+			return ;
+		}
+		previous = current;
+		current = current->next;
+	}
 }
