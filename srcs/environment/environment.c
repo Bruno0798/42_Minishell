@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 15:08:25 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 15:00:46 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,4 +86,39 @@ char **get_path(t_env *env_lst)
     }
     free(paths);
     return (NULL);
+}
+
+char	**ft_env_to_arr(t_env *env)
+{
+	char	**arr;
+	char	*temp;
+	t_env	*tmp;
+	int		i;
+
+	arr = malloc(sizeof(char *) * env_size(env));
+	tmp = env;
+	i = -1;
+	while (tmp)
+	{
+		temp = ft_strjoin(tmp->key, "=");
+		arr[++i] = ft_strjoin(temp, tmp->value);
+		tmp = tmp->next;
+	}
+	arr[i] =  NULL;
+	return (arr);
+}
+
+int	env_size(t_env *env)
+{
+	int		i;
+	t_env	*tmp;
+
+	i = 0;
+	tmp = env;
+	while(tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (++i);
 }

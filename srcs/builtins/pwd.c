@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/20 18:58:37 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 16:22:24 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,4 @@ void ft_pwd()
 
 	getcwd(pwd, sizeof(pwd));
 	ft_printf("%s\n", pwd);
-	exit(1);
 }

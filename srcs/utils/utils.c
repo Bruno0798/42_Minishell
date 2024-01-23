@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 18:07:04 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 14:52:13 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,29 @@ bool	is_space(char c)
 	if (c == 32)
 		return true;
 	return false;
+}
+
+char **ft_lst_to_arr(t_token *token)
+{
+	int	i;
+	char	**arr;
+	t_token	*tmp;
+
+	i = 1;
+	tmp = token;
+	while(tmp)
+	{	
+		i++;	
+		tmp = tmp->next;
+	}
+	arr = malloc(sizeof(char *) * i);
+	tmp = token;
+	i = 0;
+	while(tmp)
+	{
+		arr[i++] = tmp->content;
+		tmp = tmp->next;
+	}
+	arr[i] = NULL;
+	return arr;
 }

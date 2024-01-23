@@ -6,23 +6,21 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 18:10:29 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 16:23:11 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-
 
 static void parser(t_commands *command)
 {	
 	ft_expander(command);
 	if(!(ft_strcmp(command->token->content, "pwd")))
 		ft_pwd();
-	if(!(ft_strncmp(command->token->content, "echo", 4)))
+	else if(!(ft_strncmp(command->token->content, "echo", 4)))
 		ft_echo(command->token->next);
-	if(!(ft_strcmp(command->token->content, "clear")))
-		system("clear");	
+	else
+		ft_execution(command);
 }
 
 
