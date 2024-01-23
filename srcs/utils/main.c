@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 17:38:13 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 18:18:04 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int main(int argc, char **argv, char **envp)
 		input = readline("Minishell$>");
 		if (!check_input(input))
 		{
-			ft_printf(RED"Error: Invalid Input\n"ENDC); // ! Error example
+			printf(RED"Error: Invalid Input\n"ENDC); // ! Error example
 			continue ;
 		}
 		add_history(input);
@@ -70,7 +70,7 @@ void check_args(int argc, int valid_argc)
 {
 	if (argc != valid_argc)
 	{
-		ft_printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
+		printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
 		exit(0);
 	}
 }

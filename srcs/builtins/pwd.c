@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/23 17:26:35 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 18:17:58 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,5 @@ void ft_pwd()
 	char pwd[4096];
 
 	getcwd(pwd, sizeof(pwd));
-	ft_printf("%s\n", pwd);
+	printf("%s\n", pwd);
 }

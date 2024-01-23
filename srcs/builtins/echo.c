@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/20 18:59:58 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:17:57 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ void ft_echo(t_token *token)
 			else if(token->content[i] == SPACE && !d_quote && !s_quote)
 				continue;
 			else 
-				ft_printf("%c", token->content[i]);
+				printf("%c", token->content[i]);
 		}
 		if(token->next)
-			ft_printf(" ");
+			printf(" ");
 		token = token->next;
 	}
 	if (!flag)
-		ft_printf("\n");
+		printf("\n");
 }

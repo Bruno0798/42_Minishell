@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 17:24:14 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/01/23 18:17:53 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	*ft_get_value(t_env *env, char *search);
  * Prints the current working directory.
  * 
  * This function retrieves the current working directory using the `getcwd` function
- * and prints it using the `ft_printf` function.
+ * and prints it using the `printf` function.
  * 
  * @note The maximum length of the current working directory is limited to 4096 characters.
  * 

@@ -107,5 +107,11 @@ re: fclean all
 run: re
 	@./$(NAME)
 
+valgrind: re
+	@clear
+	@echo "[$(RED)looking for valgrind leaks$(RESET)] $(GREEN)$(RESET)"
+	@sleep 1
+	@valgrind -s --leak-check=full --show-leak-kinds=all ./minishell
+
 .PHONY: all clean fclean re
 .SILENT:

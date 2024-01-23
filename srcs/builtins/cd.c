@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 19:25:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 12:24:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/01/23 18:17:56 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void ft_cd(t_commands *command)
 	getcwd(dir, sizeof(dir));
 	if (!can_execute(command))
 	{
-		ft_printf("cd: no such file or directory: %s\n", command->token->next->content);
+		printf("cd: no such file or directory: %s\n", command->token->next->content);
 		return ;
 	}
 	ft_update_env(command->env, "OLDPWD", dir);
@@ -36,7 +36,7 @@ bool can_execute(t_commands *command)
 	{
 		if (ft_strlen(command->token->next->content) == 1 && command->token->next->content[0] == '-')
 		{
-			ft_printf("%s\n", old_pwd);
+			printf("%s\n", old_pwd);
 			return (!chdir(old_pwd));
 		}
 		else if (command->token->next->content[0] == '-' && command->token->next->content[1] == '-')
