@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/21 17:31:06 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/02/22 16:20:30 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   environment.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
@@ -72,7 +84,7 @@ char **get_path(t_env *env_lst)
 {
     t_env *env;
     char **paths;
-    
+
     env = env_lst;
 	paths = NULL;
     while(env)
@@ -121,7 +133,6 @@ int	env_size(t_env *env)
 		tmp = tmp->next;
 	}
 	return (++i);
-
 }
 
 void ft_update_env(t_env *env_lst, char *key, char *replace)

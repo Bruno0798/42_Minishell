@@ -30,7 +30,7 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = -Wall -Wextra -Werror -g
+#CFLAGS  = -Wall -Wextra -Werror -g
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
 

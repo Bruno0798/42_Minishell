@@ -27,7 +27,6 @@ static bool check_echo_option(char *str)
 	int i;
 
 	i = 0;
-
 	while(str[++i])
 	{
 		if (str[i] != 'n')
@@ -53,7 +52,6 @@ static bool check_redirection(char *str)
 		(str[i] == '<' && str[i + 1] == '>'))
 		return false;
 	return true;
-
 }
 
 t_type ft_token_type(char *word)
@@ -70,8 +68,8 @@ t_type ft_token_type(char *word)
 		return redir_in;
 	else if(!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return option;
-	else if (!check_redirection(word) || !check_redirection(word))
-		return error; //! make funtion to check what to print and exit
+	else if (!check_redirection(word))
+		return error; //! make function to check what to print and exit
 	return command;
 }
 

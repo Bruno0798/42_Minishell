@@ -12,6 +12,7 @@
 
 #include "../../includes/minishell.h"
 
+
 void ft_export(t_commands *command)
 {
     t_env *current;
@@ -23,7 +24,6 @@ void ft_export(t_commands *command)
     while (command->token && command->token->next)
     {
         current = head; // Start from the head on each iteration
-
         while (current)
         {
             if (!ft_strcmp(current->key, command->token->next->content))
@@ -31,12 +31,9 @@ void ft_export(t_commands *command)
                 free(current->value);
                 current->value = strdup(command->token->next->next->content);
             }
-
             current = current->next;
         }
-
         command->token = command->token->next;
     }
-
     command->env = head; // Restore the original head after modifications
 }
