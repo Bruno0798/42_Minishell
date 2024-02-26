@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/21 17:31:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:42:35 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/02/26 18:48:53 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,7 +152,7 @@ void ft_update_env(t_env *env_lst, char *key, char *replace)
 		curr = curr->next;
 	}
 }
-int	ft_fnd_env(t_env *env, char *search)
+t_env	*ft_fnd_env(t_env *env, char *search)
 {
 	t_env	*current;
 
@@ -160,8 +160,8 @@ int	ft_fnd_env(t_env *env, char *search)
 	while (current)
 	{
 		if (!ft_strcmp(current->key, search))
-			return (1);
+			return (current);
 		current = current->next;
 	}
-	return (0);
+	return (NULL);
 }

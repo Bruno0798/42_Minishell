@@ -3,33 +3,55 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/22 16:20:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/02/26 19:02:45 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+char	*ft_expand_join(char *s1, char *s2, t_env *env);
+
 void ft_expander(t_commands *command)
 {
-	t_token *token;
-	char *value;
-	char	*str;
-	token = command->token;
-	while(token)
+	t_token *c_token = command->token;
+	char *new_content;
+	char *key;
+
+	while (c_token)
 	{
-		str = ft_strtrim(token->content, "\"");
-		if (str[0] == '$')
+		while (ft_strchr(c_token->content, '$'))
 		{
-			value = ft_get_value(command->env, str + 1);
-			free(token->content);
-			token->content = ft_calloc(ft_strlen(value) + 1, sizeof(char));
-			ft_strlcpy(token->content, value, ft_strlen(value) + 1);
+			*ft_strchr(c_token->content, '$') = 0;
+			c_token->content = ft_expand_join(c_token->content, ft_strchr(c_token->content, 0) + 1, command->env);
 		}
-			token = token->next;
+		printf("key: %s\n", c_token->content);
+		c_token = c_token->next;
 	}
+}
+
+char	*ft_expand_join(char *s1, char *s2, t_env *env)
+{
+	char	*var;
+	t_env	*tmp;
+	int 	len;
+
+	len = ft_strchr(s2, ' ') - s2;
+	if(!ft_strchr(s2, ' '))
+		len = ft_strchr(s2, DOUBLE_QUOTE) - s2;
+	var = ft_substr(s2, 0, len);
+	printf("var: %s\n", var);
+	tmp = ft_fnd_env(env, var);
+	free(var);
+	if (tmp)
+		var = ft_strdup(tmp->value);
+	else
+		var = ft_strdup("");
+	var = ft_strjoin(var, s2 + len);
+	var = ft_strjoin(s1, var);
+	return var;
 }
 
 char *ft_get_value(t_env *env, char *key)

@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 17:24:15 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/02/26 18:49:01 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,6 @@ void ft_env(t_commands *command);
 void ft_unset(t_commands *command);
 void ft_export(t_commands *command);
 
-int	ft_fnd_env(t_env *env, char *search);
+t_env	*ft_fnd_env(t_env *env, char *search);
 
 #endif
