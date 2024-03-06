@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 19:02:45 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/05 15:27:50 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void ft_expander(t_commands *command)
 			*ft_strchr(c_token->content, '$') = 0;
 			c_token->content = ft_expand_join(c_token->content, ft_strchr(c_token->content, 0) + 1, command->env);
 		}
-		printf("key: %s\n", c_token->content);
 		c_token = c_token->next;
 	}
 }
@@ -42,7 +41,6 @@ char	*ft_expand_join(char *s1, char *s2, t_env *env)
 	if(!ft_strchr(s2, ' '))
 		len = ft_strchr(s2, DOUBLE_QUOTE) - s2;
 	var = ft_substr(s2, 0, len);
-	printf("var: %s\n", var);
 	tmp = ft_fnd_env(env, var);
 	free(var);
 	if (tmp)
