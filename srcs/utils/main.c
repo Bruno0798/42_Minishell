@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/03/07 12:47:45 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
@@ -19,6 +31,9 @@ void ft_remove_quotes(t_commands *commands);
 int ft_parser(char *input, t_commands **commands, t_env *env);
 void check_args(int argc, int valid_argc);
 void ft_execute(t_commands *command);
+bool is_valid_input(char *input);
+bool syntax_checker(char *input);
+void	print_error(char *msg, char *key, int exit_code);
 
 /* Global variables */
 int EXIT_STATUS;
@@ -47,7 +62,7 @@ int main(int argc, char **argv, char **envp)
 		ft_special_handler(input);
 
 		/* Skip if input is empty */
-		if (!is_everything_space(input))
+		if (syntax_checker(input))
 		{
 			/* Parse and execute command */
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
@@ -136,3 +151,49 @@ void check_args(int argc, int valid_argc)
 	}
 }
 
+bool is_valid_input(char *input)
+{
+	if (!syntax_checker(input))
+		return false;
+	return true;
+}
+
+bool syntax_checker(char *input)
+{
+	int end;
+
+	input = ft_strtrim(input, " \t");
+	if (!input[0] || input[0] == '|')
+	{
+		if (input[0] == '|')
+			print_error(ERROR_PIPE, NULL, 1);
+		free(input);
+		return (false);
+	}
+	end = ft_strlen(input) - 1;
+	if (input[end] == '|' || input[end] == '>' || input[end] == '<')
+	{
+		if (input[end] == '|')
+			print_error(ERROR_PROMPT, NULL, 2);
+		else if (input[end] == '>' || input[end] == '<')
+			print_error(ERROR_REDIR, NULL, 2);
+		free(input);
+		return (false);
+	}
+	free(input);
+	return (true);
+}
+
+void	print_error(char *msg, char *key, int exit_code)
+{
+	if (key)
+	{
+		if (msg)
+			printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+		else
+			printf("%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
+	}
+	else
+		printf("%s: %s\n", ERROR_TITLE, msg);
+	EXIT_STATUS = exit_code;
+}

@@ -56,8 +56,6 @@ void print_env(t_env *env)
 
 void ft_export(t_commands *command)
 {
-    t_env   *current;
-    t_env   *head;
     char    *word;
 
     if(!command->token->next) /* If there is no token to export, print the environment variables */

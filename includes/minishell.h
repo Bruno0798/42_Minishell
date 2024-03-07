@@ -29,6 +29,24 @@
 # define DOUBLE_QUOTE 34
 # define SINGLE_QUOTE 39
 
+# define ERROR_TITLE "minishell"
+# define ERROR_FORK "fork error"
+# define ERROR_QUOTE "unclosed quotes"
+# define ERROR_PIPE "syntax error near unexpected token `|'"
+# define ERROR_PROMPT "no support for pipe prompt"
+# define ERROR_DIR "No such file or directory"
+# define ERROR_CMD "command not found"
+# define ERROR_EXP "not a valid identifier"
+# define ERROR_HOME "HOME not set"
+# define ERROR_PID "pipe error"
+# define ERROR_NUM "numeric argument required"
+# define ERROR_ARG "too many arguments"
+# define ERROR_SUPPORT "Arguments and options aren't supported"
+# define ERROR_OPTIONS "options aren't supported"
+# define ERROR_REDIR "syntax error near unexpected token `\\n'"
+# define ERROR_SYNTAX "syntax error near unexpected token"
+# define EXPORT_NOTE "too few argumnts"
+
 extern int	g_exit_code;
 
 typedef enum s_type
