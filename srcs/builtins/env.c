@@ -3,18 +3,6 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/21 17:31:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/22 16:24:50 by bsousa-d         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   env.c                                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:30:52 by bsousa-d          #+#    #+#             */
@@ -24,14 +12,14 @@
 
 #include "../../includes/minishell.h"
 
-void ft_env(t_commands *command)
+void ft_print_env(t_commands *command)
 {
 	t_env *current;
 
 	current = command->env;
 	while(current)
 	{
-		printf("%s=%s\n", current->key, current->value);
+		printf("%s=%s\n", current->key, current->value); /* Print the environment variable */
 		current = current->next;
 	}
 }

@@ -21,12 +21,12 @@ void ft_unset(t_commands *command)
 	previous = NULL;
 	while(current)
 	{
-		if (!ft_strcmp(current->key, command->token->next->content))
+		if (!ft_strcmp(current->key, command->token->next->content)) /* If the key is found, remove the environment variable */
 		{
 			if (previous)
-				previous->next = current->next;
+				previous->next = current->next; /* If the previous node exists, set the next node to the current's next node */
 			else
-				command->env = current->next;
+				command->env = current->next; /* If the previous node does not exist, set the next node to the current's next node */
 			free(current->key);
 			free(current->value);
 			free(current);

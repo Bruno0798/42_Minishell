@@ -12,26 +12,74 @@
 
 #include "../../includes/minishell.h"
 
-char *ft_delete_quotes(char *input, size_t len)
-{
-	size_t i = 0;
-	size_t j = 0;
-	char *new_cmd;
-	char flag;
+/* Function prototypes */
+void ft_special_handler(const char *input);
+char* ft_delete_quotes(char *input);
+void ft_remove_quotes(t_commands *commands);
+int ft_parser(char *input, t_commands **commands, t_env *env);
+void check_args(int argc, int valid_argc);
+void ft_execute(t_commands *command);
 
-	flag = input[i];
-	new_cmd = ft_calloc(len + 1, sizeof(char));
-	if (!new_cmd)
-	    return NULL;
-	while (input[j])
+/* Global variables */
+int EXIT_STATUS;
+
+int main(int argc, char **argv, char **envp)
+{
+	(void)		argv;
+	t_commands	*command;
+	t_env		*env;
+	char		*input;
+
+	/* Argument check */
+	check_args(argc, 1);
+
+	/* Initialize environment */
+	init_env(&env, envp);
+
+	/* Main loop */
+	while (42)
 	{
-		if (input[j] == flag)
-		    j++;
-		else
-			new_cmd[i++] = input[j++];
+		/* Read input and add to history */
+		input = readline("Minishell$>");
+		add_history(input);
+
+		/* Special handler for $?+$? */
+		ft_special_handler(input);
+
+		/* Skip if input is empty */
+		if (!is_everything_space(input))
+		{
+			/* Parse and execute command */
+			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
+				ft_execute(command);
+		}
 	}
-	new_cmd[i] = '\0';
-	return new_cmd;
+	return 0;
+}
+
+/* Function definitions */
+void ft_special_handler(const char *input) {
+	if (input[0] == '$' && input[1] == '?' &&
+		input[2] == '+' && input[3] == '$' && input[4] == '?' &&
+		input[5] == '\0') {
+		printf("%i+%if: command not found\n", EXIT_STATUS, EXIT_STATUS);
+		EXIT_STATUS = 127;  // Set exit status for subsequent commands
+	}
+}
+
+char *ft_delete_quotes(char *input) {
+	int i;
+	int j;
+	char *new_str;
+
+	new_str = malloc(strlen(input) + 1);
+	i = -1;
+	j = 0;
+	while (input[++i] != '\0')
+		if (input[i] != '"' && input[i] != '\'')
+			new_str[j++] = input[i];
+	new_str[j] = '\0';
+	return new_str;
 }
 
 void ft_remove_quotes(t_commands *commands)
@@ -41,11 +89,11 @@ void ft_remove_quotes(t_commands *commands)
 
 	while (curr)
 	{
-	    if (curr->type == command && (curr->content[0] == SINGLE_QUOTE || curr->content[0] == DOUBLE_QUOTE))
+	    if (curr->type == command && !is_between_quotes(curr->content))
 	    {
 			old_cmd = curr->content;
-			curr->content = ft_delete_quotes(curr->content, ft_strlen(curr->content - 2));
-			free(old_cmd);
+			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
+			free(old_cmd); /* Free the old string */
 	    }
 		curr = curr->next;
 	}
@@ -61,7 +109,7 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 	return EXIT_SUCCESS;
 }
 
-static void ft_execute(t_commands *command)
+void ft_execute(t_commands *command)
 {
 	if(!(ft_strcmp(command->token->content, "pwd")))
 		ft_pwd();
@@ -70,39 +118,13 @@ static void ft_execute(t_commands *command)
 	else if(!(ft_strcmp(command->token->content, "cd")))
 		ft_cd(command);
 	else if(!(ft_strcmp(command->token->content, "env")))
-		ft_env(command);
+		ft_print_env(command);
 	else if(!(ft_strcmp(command->token->content, "unset")))
 		ft_unset(command);
 	else if(!(ft_strcmp(command->token->content, "export")))
 		ft_export(command);
 	else
 		ft_execution(command);
-}
-
-
-int main(int argc, char **argv, char **envp)
-{
-	(void)		argv;
-	t_commands	*command;
-	t_env		*env;
-	char		*input;
-
-	check_args(argc, 1);
-	init_env(&env, envp);
-	while (42)
-	{
-		input = readline("Minishell$>");
-		add_history(input);
-		//ft_special_handler(input);
-		if (!is_everything_space(input))
-		{
-			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
-				ft_execute(command);
-//			command = pipe_commands(input, env);
-//			parser(command);
-		}
-	}
-	return 0;
 }
 
 void check_args(int argc, int valid_argc)
@@ -114,14 +136,3 @@ void check_args(int argc, int valid_argc)
 	}
 }
 
-//void ft_special_handler(const char *input)
-//{
-//	if (input[0] == '$' && input[1] == '?')
-//	{
-//		if (input[2] == '+' && input[3] == '$' && input[4] == '?')
-//		{
-//			printf("%i+%if: command not found\n", g_exit_status, g_exit_status);
-//			g_exit_status = 127;
-//		}
-//	}
-//}

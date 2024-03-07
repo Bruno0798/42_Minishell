@@ -14,23 +14,23 @@
 
 bool is_between_quotes(char *str)
 {
-	int s_quote;
-	int d_quote;
-	int i;
+	int s_quote;  /* Counter for single quotes */
+	int d_quote;  /* Counter for double quotes */
+	int i;  /* Index for iterating over the string */
 
 	i =-1;
 	s_quote = 0;
 	d_quote = 0;
-	while (str[++i])
+	while (str[++i])  /* Iterate over each character in the string */
 	{
-		if (str[i] == DOUBLE_QUOTE && !s_quote)
-			d_quote = !d_quote;
-		else if (str[i] == SINGLE_QUOTE && !d_quote)
-			s_quote = !s_quote;
+		if (str[i] == DOUBLE_QUOTE && !s_quote)  /* If the character is a double quote and the single quote counter is 0 */
+			d_quote = !d_quote;  /* Toggle the double quote counter */
+		else if (str[i] == SINGLE_QUOTE && !d_quote)  /* If the character is a single quote and the double quote counter is 0 */
+			s_quote = !s_quote;  /* Toggle the single quote counter */
 	}
-	if (s_quote != 0 || d_quote != 0)
-		return true;
-	return false;
+	if (s_quote != 0 || d_quote != 0)  /* If either the single quote or double quote counter is not 0 */
+		return true;  /* Return true */
+	return false;  /* Otherwise, return false */
 }
 
 bool is_everything_space(char *str)
@@ -53,25 +53,25 @@ bool	is_space(char c)
 
 char **ft_lst_to_arr(t_token *token)
 {
-	int	i;
-	char	**arr;
-	t_token	*tmp;
+	int	i;  /* Counter for the number of tokens and the current index in the array */
+	char	**arr;  /* Array of strings representing the content of each token */
+	t_token	*tmp;  /* Temporary pointer to the current token */
 
 	i = 1;
 	tmp = token;
-	while(tmp)
-	{	
-		i++;	
+	while(tmp)  /* Iterate over each token in the linked list */
+	{
+		i++;
 		tmp = tmp->next;
 	}
-	arr = malloc(sizeof(char *) * i);
+	arr = malloc(sizeof(char *) * i);  /* Allocate memory for the array of strings */
 	tmp = token;
 	i = 0;
-	while(tmp)
+	while(tmp)  /* Iterate over each token in the linked list again */
 	{
-		arr[i++] = tmp->content;
+		arr[i++] = tmp->content;  /* Assign the content of the current token to the corresponding element in the array */
 		tmp = tmp->next;
 	}
-	arr[i] = NULL;
-	return arr;
+	arr[i] = NULL;  /* Set the last element of the array to NULL */
+	return arr;  /* Return the array of strings */
 }

@@ -160,7 +160,7 @@ bool	is_everything_space(char *str);
 
 void ft_cd(t_commands *command);
 bool can_execute(t_commands *command);
-void ft_env(t_commands *command);
+void ft_print_env(t_commands *command);
 void ft_unset(t_commands *command);
 void ft_export(t_commands *command);
 

@@ -16,37 +16,37 @@
 	todo: Options | Spaces in the middle | Checking start of text to print
 */
 
+/* Function Prototypes */
 static t_token *while_option(t_token *token);
 
 void ft_echo(t_token *token)
 {
 	int	i;
-	int flag;
-	
-	flag = 0;
-	if (!token) 
+	int flag = 0;
+
+	if (!token) /* If there is no token to print, return */
 		return ;
-	if (token->type == option)
+	if (token->type == option) /* If the first token is an option, skip it */
 	{
-		token = while_option(token);
-		flag = 1;
+		token = while_option(token); /* Skip while token is equal to -n */
+		flag = 1; /* Set flag to 1 */
 	}
 	while(token)
 	{
 		i = -1; 
 		while(token->content[++i])
-				printf("%c", token->content[i]);
+				printf("%c", token->content[i]); /* Print the token content */
 		if(token->next)
-			printf(" ");
+			printf(" "); /* Print a space if the token is not the last one */
 		token = token->next;
 	}
-	if (!flag)
+	if (!flag) /* If the flag is not set, print a new line */
 		printf("\n");
 }
 
 t_token *while_option(t_token *token)
 {
-	while(token && token->type == option)
+	while(token && token->type == option) /* While token is equal to -n */
 		token = token->next;
 	return (token);
 }

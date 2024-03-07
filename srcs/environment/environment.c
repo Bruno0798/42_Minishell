@@ -32,14 +32,14 @@ void init_env(t_env **env,char **envp)
 	char *equal_sign;
 
 	i = 0;
-	ft_bzero(env, sizeof(t_env));
+	ft_bzero(env, sizeof(t_env)); /* Set the environment to 0 */
 	while(envp[i])
 	{
-		equal_sign = ft_strchr(envp[i], '=');
-		key = ft_substr(envp[i], 0, equal_sign - envp[i]);
-		value = equal_sign + 1;
-		ft_add_env_back(env, ft_new_env(key, value));
-		free(key);
+		equal_sign = ft_strchr(envp[i], '='); /* Get the equal sign */
+		key = ft_substr(envp[i], 0, equal_sign - envp[i]); /* Get the key */
+		value = equal_sign + 1; /* Get the value */
+		ft_add_env_back(env, ft_new_env(key, value)); /* Add the environment variable */
+		free(key); /* Free the key */
 		i++;
 	}
 }
@@ -48,30 +48,30 @@ void	ft_add_env_back(t_env **env_lst, t_env *new_env)
 {
 	t_env	*current;
 
-	if (!*env_lst)
+	if (!*env_lst) /* If the environment list is empty, set the new environment */
 	{
 		*env_lst = new_env;
 		return ;
 	}
 	current = *env_lst;
-	while (current && current->next)
+	while (current && current->next) /* Go to the last node */
 		current = current->next;
-	current->next = new_env;
+	current->next = new_env; /* Set the next node to the new environment */
 }
 
 t_env	*ft_new_env(char *key, char *value)
 {
 	t_env	*new_node;
 
-	new_node = ft_calloc(1, sizeof(t_env));
-	if (!new_node)
+	new_node = ft_calloc(1, sizeof(t_env)); /* Allocate memory for the new environment */
+	if (!new_node) /* If the new environment is null, return null */
 		return (NULL);
-	new_node->key = ft_strdup(key);
+	new_node->key = ft_strdup(key); /* Set the key */
 	if (value)
-		new_node->value = ft_strdup(value);
+		new_node->value = ft_strdup(value); /* Set the value */
 	else
 		new_node->value = NULL;
-	if (!new_node->key)
+	if (!new_node->key) /* If the key is null, free the new environment and return null */
 	{
 		free(new_node);
 		return (NULL);
@@ -87,16 +87,15 @@ char **get_path(t_env *env_lst)
 
     env = env_lst;
 	paths = NULL;
-    while(env)
+    while(env) /* Loop through the environment list */
     {
-        if(strcmp(env->key, "PATH") == 0)
+        if(strcmp(env->key, "PATH") == 0) /* If the key is PATH, split the value and return the paths */
         {
-            paths = ft_split(env->value, ':');
+            paths = ft_split(env->value, ':'); /* Split the value */
             return (paths);
         }
         env = env->next;
     }
-    free(paths);
     return (NULL);
 }
 
