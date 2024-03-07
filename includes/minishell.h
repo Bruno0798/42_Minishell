@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 18:49:01 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/07 12:49:34 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,5 +165,7 @@ void ft_unset(t_commands *command);
 void ft_export(t_commands *command);
 
 t_env	*ft_fnd_env(t_env *env, char *search);
+bool	ft_hasSpecialChar(char *str);
+
 
 #endif

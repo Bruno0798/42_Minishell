@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 17:11:09 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/07 12:54:06 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,4 +140,16 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	return (commands);  /* Return the head of the list of commands */
 }
 
+bool	ft_hasSpecialChar(char *str)
+{
+	int i;
 
+	i = -1;
+	while(str[++i])
+	{
+		if (!(ft_isalnum(str[i]) || str[i] == '_')){
+			return true;
+		}
+	}
+	return false;
+}

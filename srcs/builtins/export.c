@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/06 20:29:52 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/07 12:53:50 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void print_env(t_env *env)
 
 void ft_export(t_commands *command)
 {
-    t_env   *current;
-    t_env   *head;
     char    *word;
 
     if(!command->token->next) /* If there is no token to export, print the environment variables */
@@ -81,6 +79,10 @@ void ft_export(t_commands *command)
     {
         word = ft_strchr(command->token->next->content, '=') + 1;
         *ft_strchr(command->token->next->content, '=') = 0;
+        if (ft_isdigit(command->token->next->content[0]) || ft_hasSpecialChar(command->token->next->content)){
+            printf("Error\n");
+            return ;
+        }
         if(!*(command->token->next->content))
         {
             printf("Error\n");
