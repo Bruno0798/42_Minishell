@@ -6,7 +6,7 @@
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 19:02:45 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/05 15:27:50 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,15 @@ void ft_expander(t_commands *command) {
 
 
 	t_token *c_token = command->token;
-	while (c_token) {
-		int i = 0, quote = 0;
-		while (c_token->content[i]) {
-			if ((c_token->content[i] == '"' || c_token->content[i] == '\'') && !quote) {
-				quote = c_token->content[i];
-			} else if (c_token->content[i] == '$' &&
-					   (quote != '\'' || c_token->content[i - 1] != '\\')) {
-				int len = strcspn(c_token->content + i + 1, " \t\'\"");
-				char *var = ft_substr(c_token->content + i + 1, 0, len);
-				t_env *tmp = ft_fnd_env(command->env, var);
-				free(var);
-				var = tmp ? ft_strdup(tmp->value) : ft_strdup("");
-				char *new_content = ft_strjoin(ft_substr(c_token->content, 0, i), var);
-				new_content = ft_strjoin(new_content, ft_substr(c_token->content, i + 1 + len,
-																strlen(c_token->content) - i - 1 - len));
-				free(c_token->content);
-				c_token->content = new_content;
-			}
-			if (c_token->content[i] == quote) {
-				quote = 0;
-			}
-			i++;
+	char *new_content;
+	char *key;
+
+	while (c_token)
+	{
+		while (ft_strchr(c_token->content, '$'))
+		{
+			*ft_strchr(c_token->content, '$') = 0;
+			c_token->content = ft_expand_join(c_token->content, ft_strchr(c_token->content, 0) + 1, command->env);
 		}
 		c_token = c_token->next;
 	}
