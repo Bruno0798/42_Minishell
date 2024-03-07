@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 12:47:45 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/07 14:32:17 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int main(int argc, char **argv, char **envp)
 		ft_special_handler(input);
 
 		/* Skip if input is empty */
-		if (syntax_checker(input))
+		if (is_valid_input(input))
 		{
 			/* Parse and execute command */
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
@@ -153,36 +153,36 @@ void check_args(int argc, int valid_argc)
 
 bool is_valid_input(char *input)
 {
-	if (!syntax_checker(input))
+	if (is_everything_space(input) || !syntax_checker(input))
 		return false;
 	return true;
 }
 
 bool syntax_checker(char *input)
 {
-	int end;
-
 	input = ft_strtrim(input, " \t");
-	if (!input[0] || input[0] == '|')
+	if (!input || ft_strchr("|<>", *input) || ft_strchr("|<>", input[ft_strlen(input) - 1]))
 	{
-		if (input[0] == '|')
-			print_error(ERROR_PIPE, NULL, 1);
+		if (input) {
+			if (*input == '|') {
+				if (input[1] == '|')
+					print_error(ERROR_PIPE_2, NULL, 1);
+				else
+					print_error(ERROR_PIPE, NULL, 1);
+			} else if (strchr("|<>", input[ft_strlen(input) - 1])) {
+				if (input[ft_strlen(input) - 1] == '|')
+					print_error(ERROR_PROMPT, NULL, 2);
+				else
+					print_error(ERROR_REDIR, NULL, 2);
+			}
+		}
 		free(input);
-		return (false);
-	}
-	end = ft_strlen(input) - 1;
-	if (input[end] == '|' || input[end] == '>' || input[end] == '<')
-	{
-		if (input[end] == '|')
-			print_error(ERROR_PROMPT, NULL, 2);
-		else if (input[end] == '>' || input[end] == '<')
-			print_error(ERROR_REDIR, NULL, 2);
-		free(input);
-		return (false);
+		return false;
 	}
 	free(input);
-	return (true);
+	return true;
 }
+
 
 void	print_error(char *msg, char *key, int exit_code)
 {

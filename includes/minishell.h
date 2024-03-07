@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/03/07 14:08:39 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
@@ -33,6 +45,7 @@
 # define ERROR_FORK "fork error"
 # define ERROR_QUOTE "unclosed quotes"
 # define ERROR_PIPE "syntax error near unexpected token `|'"
+# define ERROR_PIPE_2 "syntax error near unexpected token '||'"
 # define ERROR_PROMPT "no support for pipe prompt"
 # define ERROR_DIR "No such file or directory"
 # define ERROR_CMD "command not found"
