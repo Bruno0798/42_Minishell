@@ -6,19 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 14:32:17 by bsousa-d         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 11:35:39 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/02/26 15:03:10 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/07 15:13:00 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,12 +92,12 @@ void ft_remove_quotes(t_commands *commands)
 
 	while (curr)
 	{
-	    if (curr->type == command && !is_between_quotes(curr->content))
-	    {
+		if (curr->type == command && !is_between_quotes(curr->content))
+		{
 			old_cmd = curr->content;
 			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
 			free(old_cmd); /* Free the old string */
-	    }
+		}
 		curr = curr->next;
 	}
 }
@@ -161,16 +149,19 @@ bool is_valid_input(char *input)
 bool syntax_checker(char *input)
 {
 	input = ft_strtrim(input, " \t");
-	if (!input || ft_strchr("|<>", *input) || ft_strchr("|<>", input[ft_strlen(input) - 1]))
+	if (!input || strchr("|<>", *input) || strchr("|<>", input[strlen(input) - 1]))
 	{
-		if (input) {
-			if (*input == '|') {
+		if (input)
+		{
+			if (*input == '|')
+			{
 				if (input[1] == '|')
 					print_error(ERROR_PIPE_2, NULL, 1);
 				else
 					print_error(ERROR_PIPE, NULL, 1);
-			} else if (strchr("|<>", input[ft_strlen(input) - 1])) {
-				if (input[ft_strlen(input) - 1] == '|')
+			} else if (strchr("|<>", input[strlen(input) - 1]))
+			{
+				if (input[strlen(input) - 1] == '|')
 					print_error(ERROR_PROMPT, NULL, 2);
 				else
 					print_error(ERROR_REDIR, NULL, 2);
