@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/03/17 14:49:50 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
@@ -12,47 +24,131 @@
 
 #include "../../includes/minishell.h"
 
-char	*ft_expand_join(char *s1, char *s2, t_env *env);
+char *ft_expand_join(char *s1, t_env *env);
+char* trim_right(const char *input_string);
+char *replace_substr(const char *original, const char *substr, const char *replacement);
 
-void ft_expander(t_commands *command) {
+bool needs_expansion(const char *input, char c) {
+	bool single_quotes;
+	bool double_quotes;
+
+	single_quotes = false;
+	double_quotes = false;
+
+	while (*input) {
+		if (*input == '\'' && !double_quotes)
+			single_quotes = !single_quotes;
+		else if (*input == '"' && !single_quotes)
+			double_quotes = !double_quotes;
+		else if (*input == c && (!single_quotes || double_quotes))
+			return true;
+		input++;
+	}
+	return false;
+}
 
 
+void ft_expander(t_commands *command)
+{
+	t_token *token;
+	int i;
 
-	t_token *c_token = command->token;
-	char *new_content;
-	char *key;
-
-	while (c_token)
+	token = command->token;
+	i=0;
+	while (token->next)
 	{
-		while (ft_strchr(c_token->content, '$'))
+		i++;
+		while(ft_strchr(token->next->content, '$'))
 		{
-			*ft_strchr(c_token->content, '$') = 0;
-			c_token->content = ft_expand_join(c_token->content, ft_strchr(c_token->content, 0) + 1, command->env);
+			if (needs_expansion(token->next->content, '$'))
+				token->next->content = ft_expand_join(token->next->content, command->env);
+			else
+				break;
 		}
-		c_token = c_token->next;
+		token = token->next;
 	}
 }
 
-char	*ft_expand_join(char *s1, char *s2, t_env *env)
+char *ft_expand_join(char *s1, t_env *env)
 {
-	char	*var;  /* Variable to be expanded */
-	t_env	*tmp;  /* Temporary pointer to an environment variable */
-	int 	len;  /* Length of the variable */
+	char *value;
+	char *key;
 
-	len = ft_strchr(s2, ' ') - s2;  /* Find the length of the variable */
-	if(!ft_strchr(s2, ' ')) /* If the variable is not followed by a space */
-		len = ft_strchr(s2, SINGLE_QUOTE) - s2; /* Find the length of the variable */
-	var = ft_substr(s2, 0, len);  /* Create a substring representing the variable */
-	tmp = ft_fnd_env(env, var);  /* Find the value of the variable in the environment */
-	free(var);
-	if (tmp)
-		var = ft_strdup(tmp->value);  /* If the variable is found, duplicate its value */
+	key = trim_right(ft_strchr(s1, '$'));
+	value = ft_get_value(env, key + 1);
+	if (value)
+		s1 = replace_substr(s1, key, value);
 	else
-		var = ft_strdup("");  /* If the variable is not found, duplicate an empty string */
-	var = ft_strjoin(var, s2 + len);  /* Join the value of the variable with the rest of the second string */
-	var = ft_strjoin(s1, var);  /* Join this with the first string */
-	return var;  /* Return the resulting string */
+		s1 = replace_substr(s1, key, "");
+	return (s1);
 }
+
+char *replace_substr(const char *original, const char *substr, const char *replacement) {
+	if (!original || !substr || !replacement)
+		return NULL;
+
+	size_t original_len = strlen(original);
+	size_t substr_len = strlen(substr);
+	size_t replacement_len = strlen(replacement);
+
+	// Find the position of the substring in the original string
+	const char *substr_pos = strstr(original, substr);
+	if (!substr_pos)
+		return NULL; // Substring not found
+
+	// Calculate the length of the resulting string
+	size_t result_len = original_len - substr_len + replacement_len;
+
+	// Allocate memory for the resulting string
+	char *result = malloc(result_len + 1);
+	if (!result)
+		return NULL;
+
+	// Copy the part of the original string before the substring
+	strncpy(result, original, substr_pos - original);
+	result[substr_pos - original] = '\0';
+
+	// Concatenate the replacement string
+	strcat(result, replacement);
+
+	// Concatenate the part of the original string after the substring
+	strcat(result, substr_pos + substr_len);
+
+	return result;
+}
+
+char* trim_right(const char *input_string)
+{
+	const char *ptr = input_string;
+	char *result;
+	int length = 0;
+
+	// Skip initial spaces
+	while (*ptr && isspace(*ptr)) {
+		ptr++;
+	}
+
+	// Find the end of the first word
+	while (*ptr && !isspace(*ptr) && *ptr != SINGLE_QUOTE && *ptr != DOUBLE_QUOTE) {
+		ptr++;
+		length++;
+	}
+
+	// Allocate memory for the result string
+	result = (char*)malloc((length + 1) * sizeof(char));
+	if (result == NULL) {
+		printf("Memory allocation failed\n");
+		exit(1);
+	}
+
+	// Copy the first word to the result string
+	strncpy(result, input_string, length);
+	result[length] = '\0';  // Null-terminate the result string
+
+	return result;
+}
+
+
 
 char *ft_get_value(t_env *env, char *key)
 {

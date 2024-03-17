@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 15:13:00 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:30:44 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void ft_special_handler(const char *input);
 char* ft_delete_quotes(char *input);
 void ft_remove_quotes(t_commands *commands);
 int ft_parser(char *input, t_commands **commands, t_env *env);
-void check_args(int argc, int valid_argc);
 void ft_execute(t_commands *command);
 bool is_valid_input(char *input);
 bool syntax_checker(char *input);
@@ -74,16 +73,26 @@ char *ft_delete_quotes(char *input) {
 	int i;
 	int j;
 	char *new_str;
+	char quote;
 
 	new_str = malloc(strlen(input) + 1);
 	i = -1;
 	j = 0;
-	while (input[++i] != '\0')
+	while (input[++i])
+	{
 		if (input[i] != '"' && input[i] != '\'')
 			new_str[j++] = input[i];
+		else if (input[i] == '"' || input[i] == '\'')
+		{
+			quote = input[i++];
+			while(input[i] != quote)
+				new_str[j++] = input[i++];
+		}
+	}
 	new_str[j] = '\0';
 	return new_str;
 }
+
 
 void ft_remove_quotes(t_commands *commands)
 {
@@ -102,12 +111,36 @@ void ft_remove_quotes(t_commands *commands)
 	}
 }
 
+void ft_expand_others(t_commands *commands)
+{
+	int i;
+	t_token *curr = commands->token;
+	
+	i = -1;
+	while(curr)
+	{
+		i = -1;
+		while (curr->content[++i])
+		{
+			if ((curr->content[i] == '~') && (i == 0) && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] ==
+			'\0') || (curr->content[i + 1] == '/')))
+				curr->content = ft_strjoin(ft_get_value(commands->env, "HOME"), curr->content + 1);
+			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '+'))
+				curr->content = ft_strjoin(ft_get_value(commands->env, "PWD"), curr->content + 2);
+			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '-'))
+				curr->content = ft_strjoin(ft_get_value(commands->env, "OLDPWD"), curr->content + 2);
+		}
+		curr = curr->next;
+	}
+}
+
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	if (is_between_quotes(input))
 		return (EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
 	ft_expander(*commands);
+	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
 	return EXIT_SUCCESS;
 }
