@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/17 17:30:44 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:29:23 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,16 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 
 void ft_execute(t_commands *command)
 {
+	int fd;
+	int or_fd;
+	t_token *test;
+
+	or_fd = dup(1);
+	test = ft_has_redirection(command->token);
+	if(test){
+		fd = open(test->next->content, O_CREAT | O_RDWR, 0666 );
+		dup2(fd, 1);
+	}
 	if(!(ft_strcmp(command->token->content, "pwd")))
 		ft_pwd();
 	else if(!(ft_strncmp(command->token->content, "echo", 4)))
@@ -161,6 +171,8 @@ void ft_execute(t_commands *command)
 		ft_export(command);
 	else
 		ft_execution(command);
+	dup2(or_fd, 1);
+	close(fd);
 }
 
 void check_args(int argc, int valid_argc)

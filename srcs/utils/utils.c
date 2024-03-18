@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/23 17:27:23 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/18 17:01:04 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ char **ft_lst_to_arr(t_token *token)
 	tmp = token;
 	while(tmp)  /* Iterate over each token in the linked list */
 	{
+		if(tmp->type == redir_out)
+			break;	
 		i++;
 		tmp = tmp->next;
 	}
@@ -69,6 +71,8 @@ char **ft_lst_to_arr(t_token *token)
 	i = 0;
 	while(tmp)  /* Iterate over each token in the linked list again */
 	{
+		if(tmp->type == redir_out)
+			break;	
 		arr[i++] = tmp->content;  /* Assign the content of the current token to the corresponding element in the array */
 		tmp = tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 14:08:39 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/18 15:56:18 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,5 +198,7 @@ void ft_export(t_commands *command);
 t_env	*ft_fnd_env(t_env *env, char *search);
 bool	ft_hasSpecialChar(char *str);
 
+void ft_create_file(char *filename);
+t_token *ft_has_redirection(t_token *token);
 
 #endif

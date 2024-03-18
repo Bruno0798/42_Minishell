@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 12:54:06 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/18 15:56:10 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,4 +152,15 @@ bool	ft_hasSpecialChar(char *str)
 		}
 	}
 	return false;
+}
+
+t_token *ft_has_redirection(t_token *token)
+{
+	while(token)
+	{
+		if (token->type == redir_out)
+			return token;
+		token = token->next;
+	}
+	return NULL;
 }
