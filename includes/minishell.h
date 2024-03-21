@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/18 15:56:18 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:13:22 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ typedef struct s_env
 
 typedef struct s_commands
 {
+	int	redir_fd;
 	t_env	*env;
 	t_token	*token;
 	struct	s_commands *next;	
@@ -199,6 +200,10 @@ t_env	*ft_fnd_env(t_env *env, char *search);
 bool	ft_hasSpecialChar(char *str);
 
 void ft_create_file(char *filename);
-t_token *ft_has_redirection(t_token *token);
+
+void *ft_redirect(t_commands *command);
+
+
+void	ft_handle_redirect(t_commands *command);
 
 #endif

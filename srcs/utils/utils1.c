@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/18 15:56:10 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:15:55 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,13 +154,39 @@ bool	ft_hasSpecialChar(char *str)
 	return false;
 }
 
-t_token *ft_has_redirection(t_token *token)
+// t_token *ft_has_redirection(t_token *token)
+// {
+// 	while(token)
+// 	{
+// 		if (token->type == redir_out)
+// 			return token;
+// 		if (token->type == redir_out)
+// 			return token;
+// 		token = token->next;
+// 	}
+// 	return NULL;
+// }
+
+void *ft_redirect(t_commands *command)
 {
-	while(token)
+	t_token *temp;
+
+	temp = command->token;
+	while(temp)
 	{
-		if (token->type == redir_out)
-			return token;
-		token = token->next;
+		if(temp->type == redir_out2 || temp->type == redir_out)
+		{
+			command->redir_fd = open(temp->next->content, O_CREAT | O_RDWR, 0666);
+			return (1);
+		}
+		// if(temp->type == redir_in2 || temp->type == redir_in)
+
+		if(command->redir_fd == -1)
+		{
+			perror("Invalid file redirection");
+			return (0);
+		}
+		temp = temp->next;
 	}
-	return NULL;
+	return (0);
 }

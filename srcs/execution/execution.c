@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:23:17 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/01/23 16:34:20 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/20 16:12:13 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,17 @@ int ft_execution(t_commands *command)
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
 		}
+		
 	}
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 	return (1);  /* Return 1 indicating successful execution */
 }
+
+void ft_handle_redirect(t_commands *command)
+{
+	ft_redirect(command);
+	if(!command->redir_fd)
+		return;
+	dup2(command->redir_fd, 1);
+}
+
