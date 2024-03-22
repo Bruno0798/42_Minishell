@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/20 16:13:22 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:54:34 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,9 +201,14 @@ bool	ft_hasSpecialChar(char *str);
 
 void ft_create_file(char *filename);
 
-void *ft_redirect(t_commands *command);
+int ft_redirect(t_commands *command);
 
 
-void	ft_handle_redirect(t_commands *command);
+void ft_handle_redirect(int fd, t_commands *command);
+int ft_check_redirect(t_commands *command);
+int ft_count_redirects(t_commands *commands);
+void ft_execute(t_commands *command);
+
+
 
 #endif

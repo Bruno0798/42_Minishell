@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/20 16:11:29 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:40:10 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,17 @@ void ft_expand_others(t_commands *commands)
 
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
+	int fd;
 	if (is_between_quotes(input))
 		return (EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
 	ft_expander(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
+	if(ft_count_redirects(*commands)){
+		fd = ft_check_redirect(*commands);
+		ft_handle_redirect(fd, *commands);
+	}
 	return EXIT_SUCCESS;
 }
 
@@ -153,7 +158,7 @@ void ft_execute(t_commands *command)
 	t_token *test;
 
 	old_fd = dup(1);
-	ft_handle_redirect(command);
+	// ft_handle_redirect(command);
 	if(!(ft_strcmp(command->token->content, "pwd")))
 		ft_pwd();
 	else if(!(ft_strncmp(command->token->content, "echo", 4)))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/20 16:15:55 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/22 15:54:36 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ bool	ft_hasSpecialChar(char *str)
 // 	return NULL;
 // }
 
-void *ft_redirect(t_commands *command)
+int ft_redirect(t_commands *command)
 {
 	t_token *temp;
 

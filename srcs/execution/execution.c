@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:23:17 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/03/20 16:12:13 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/22 16:43:13 by brunolopes       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,74 @@ int ft_execution(t_commands *command)
 	return (1);  /* Return 1 indicating successful execution */
 }
 
-void ft_handle_redirect(t_commands *command)
+// void ft_handles_redirect(t_commands *command)
+// {
+// 	ft_redirect(command);
+// 	if(!command->redir_fd)
+// 		return;
+// 	dup2(command->redir_fd, 1);
+// }
+
+void ft_handle_redirect(int fd, t_commands *command)
 {
-	ft_redirect(command);
-	if(!command->redir_fd)
-		return;
-	dup2(command->redir_fd, 1);
+	t_token *temp;
+	int		old_fd;
+
+	if(!fd)
+		return ;
+	old_fd = dup(1);
+	dup2(fd, 1);
+	temp = command->token;
+	while(temp)
+	{
+		if(temp->next && temp->next->type == redir_out)
+			// printf("ola\n");
+			temp->next = NULL;
+		temp = temp->next;
+	}
+	ft_execute(command);
+	dup2(old_fd, 1);
+}
+
+int ft_check_redirect(t_commands *command)
+{
+	t_token *temp;
+	int count;
+	int	fd;
+
+	fd = 0;
+	count = ft_count_redirects(command);
+	if (!count)
+		return 0;
+	temp = command->token;
+	while(count)
+	{
+		if(temp->type == redir_out){
+			count--;
+			if(count == 0)
+				fd = open(temp->next->content, O_CREAT | O_RDWR, 0666);
+			else 
+				open(temp->next->content, O_CREAT | O_WRONLY, 0644);
+		}
+		temp = temp->next;
+	}
+	return (fd);
+}
+
+int ft_count_redirects(t_commands *commands)
+{
+	int count;
+	t_token *temp;
+
+	count = 0;
+	temp = commands->token;
+	while(temp)
+	{
+		if(temp->type == redir_out )
+			count++;
+		temp = temp->next;
+	}
+
+	return count;
 }
 
