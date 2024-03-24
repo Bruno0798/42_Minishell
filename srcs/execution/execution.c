@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:23:17 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/03/22 16:43:13 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/24 17:48:40 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,7 @@ void ft_handle_redirect(int fd, t_commands *command)
 	temp = command->token;
 	while(temp)
 	{
-		if(temp->next && temp->next->type == redir_out)
-			// printf("ola\n");
+		if(temp->next && (temp->next->type == redir_out || temp->next->type == redir_out2))
 			temp->next = NULL;
 		temp = temp->next;
 	}
@@ -82,10 +81,12 @@ int ft_check_redirect(t_commands *command)
 	temp = command->token;
 	while(count)
 	{
-		if(temp->type == redir_out){
+		if(temp->type == redir_out || temp->type == redir_out2){
 			count--;
-			if(count == 0)
-				fd = open(temp->next->content, O_CREAT | O_RDWR, 0666);
+			if(count == 0 && temp->type == redir_out)
+				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
+			else if (count == 0 && temp->type == redir_out2)
+				fd = open(temp->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
 			else 
 				open(temp->next->content, O_CREAT | O_WRONLY, 0644);
 		}
@@ -103,7 +104,7 @@ int ft_count_redirects(t_commands *commands)
 	temp = commands->token;
 	while(temp)
 	{
-		if(temp->type == redir_out )
+		if(temp->type == redir_out || temp->type == redir_out2)
 			count++;
 		temp = temp->next;
 	}
