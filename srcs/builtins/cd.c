@@ -41,8 +41,6 @@ bool can_execute(t_commands *command)
 		}
 		else if (command->token->next->content[0] == '-' && command->token->next->content[1] == '-') /* Check if the argument is '--' */
 			return (!chdir(ft_get_value(command->env, "HOME"))); /* Change the working directory to the home directory */
-		else if (ft_strlen(command->token->next->content) == 1 && command->token->next->content[0] == '~') /* Check if the argument is '~' */
-			return (!chdir((ft_get_value(command->env, "HOME")))); /* Change the working directory to the home directory */
 		else
 			return (!chdir(command->token->next->content)); /* Change the working directory to the argument */
 	}

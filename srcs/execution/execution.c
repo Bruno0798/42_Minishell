@@ -34,6 +34,7 @@ int ft_execution(t_commands *command)
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
 		}
+		print_error("command not found", command->token->content, 127);
 	}
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 	return (1);  /* Return 1 indicating successful execution */

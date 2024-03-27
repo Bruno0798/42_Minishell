@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/17 14:49:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/25 19:22:44 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,66 +24,63 @@
 
 #include "../../includes/minishell.h"
 
-char *ft_expand_join(char *s1, t_env *env);
-char* trim_right(const char *input_string);
-char *replace_substr(const char *original, const char *substr, const char *replacement);
+char *expand_variable(char *input, int index, t_commands *command) {
+	char *key;
+	char *value;
 
-bool needs_expansion(const char *input, char c) {
-	bool single_quotes;
-	bool double_quotes;
+	key = trim_right(ft_strchr(&input[index], '$'));
+	value = ft_get_value(command->env, key + 1);
+	if (value)
+		input = replace_substr(input, key, value, index);
+	else
+		input = replace_substr(input, key, "", index);
 
-	single_quotes = false;
-	double_quotes = false;
-
-	while (*input) {
-		if (*input == '\'' && !double_quotes)
-			single_quotes = !single_quotes;
-		else if (*input == '"' && !single_quotes)
-			double_quotes = !double_quotes;
-		else if (*input == c && (!single_quotes || double_quotes))
-			return true;
-		input++;
-	}
-	return false;
+	return input;
 }
 
+char *needs_expansion(char *input, char c, t_commands *command)
+{
+	bool single_quotes;
+	bool double_quotes;
+	int i;
+	int length;
+
+	i = 0;
+	single_quotes= false;
+	double_quotes= false;
+	while (input[i]) {
+		if (input[i] == '\'' && !double_quotes)
+			single_quotes = !single_quotes;
+		else if (input[i] == '"' && !single_quotes)
+			double_quotes = !double_quotes;
+		else if (input[i] == c && (!single_quotes))
+		{
+			length = strlen(input);
+			input = expand_variable(input, i, command);
+			i += strlen(input) - length;
+		}
+		i++;
+	}
+	return input;
+}
 
 void ft_expander(t_commands *command)
 {
 	t_token *token;
-	int i;
 
 	token = command->token;
-	i=0;
 	while (token->next)
 	{
-		i++;
-		while(ft_strchr(token->next->content, '$'))
+		if(ft_strchr(token->next->content, '$'))
 		{
-			if (needs_expansion(token->next->content, '$'))
-				token->next->content = ft_expand_join(token->next->content, command->env);
-			else
-				break;
+			token->next->content = needs_expansion(token->next->content, '$', command);
 		}
 		token = token->next;
 	}
 }
 
-char *ft_expand_join(char *s1, t_env *env)
-{
-	char *value;
-	char *key;
-
-	key = trim_right(ft_strchr(s1, '$'));
-	value = ft_get_value(env, key + 1);
-	if (value)
-		s1 = replace_substr(s1, key, value);
-	else
-		s1 = replace_substr(s1, key, "");
-	return (s1);
-}
-
-char *replace_substr(const char *original, const char *substr, const char *replacement) {
+char *replace_substr(const char *original, const char *substr, const char
+*replacement, int i) {
 	if (!original || !substr || !replacement)
 		return NULL;
 
@@ -92,7 +89,7 @@ char *replace_substr(const char *original, const char *substr, const char *repla
 	size_t replacement_len = strlen(replacement);
 
 	// Find the position of the substring in the original string
-	const char *substr_pos = strstr(original, substr);
+	const char *substr_pos = strstr(original + i, substr);
 	if (!substr_pos)
 		return NULL; // Substring not found
 

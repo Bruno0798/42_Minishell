@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 16:54:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/01/22 18:00:39 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/19 15:07:43 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,3 +90,5 @@ char	**ft_split2(char const *s, char c)
 	arr[j] = NULL;  /* Set the last element of the array to NULL */
 	return (arr);  /* Return the array of words */
 }
+
+

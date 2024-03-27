@@ -12,10 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-/*
-	todo: Options | Spaces in the middle | Checking start of text to print
-*/
-
 /* Function Prototypes */
 static t_token *while_option(t_token *token);
 

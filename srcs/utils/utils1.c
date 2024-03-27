@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/03/25 15:20:18 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:29:46 by bsousa-d          #+#    #+#             */
@@ -140,16 +152,3 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	return (commands);  /* Return the head of the list of commands */
 }
 
-bool	ft_hasSpecialChar(char *str)
-{
-	int i;
-
-	i = -1;
-	while(str[++i])
-	{
-		if (!(ft_isalnum(str[i]) || str[i] == '_')){
-			return true;
-		}
-	}
-	return false;
-}
