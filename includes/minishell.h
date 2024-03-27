@@ -94,6 +94,7 @@ typedef struct s_env
 
 typedef struct s_commands
 {
+	//int	redir_fd;
 	t_env	*env;
 	t_token	*token;
 	struct	s_commands *next;	
@@ -302,6 +303,19 @@ void ft_cd(t_commands *command);
 bool can_execute(t_commands *command);
 t_env	*ft_fnd_env(t_env *env, char *search);
 bool	ft_hasSpecialChar(char *str);
+
+void ft_create_file(char *filename);
+
+int ft_redirect(t_commands *command);
+
+
+void ft_handle_redirect(int fd, t_commands *command);
+int ft_check_redirect(t_commands *command);
+int ft_count_redirects(t_commands *commands);
+void ft_execute(t_commands *command);
+
+
+
 void check_fork(t_commands *command);
 void handle_signals(void);
 void open_pipes(t_commands *command);

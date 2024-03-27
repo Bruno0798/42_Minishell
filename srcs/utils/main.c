@@ -242,6 +242,7 @@ void ft_expand_others(t_commands *commands)
 	int i;
 	t_token *curr = commands->token;
 	
+	i = -1;
 	while(curr)
 	{
 		i = -1;
@@ -260,9 +261,9 @@ void ft_expand_others(t_commands *commands)
 	free (curr);
 }
 
-
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
+	int fd;
 	if (!is_between_quotes(input))
 		return (printf("minishell: syntax error: unexpected end of file\n") && EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
@@ -270,6 +271,10 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 		ft_expander(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
+	if(ft_count_redirects(*commands)){
+		fd = ft_check_redirect(*commands);
+		ft_handle_redirect(fd, *commands);
+	}
 	return EXIT_SUCCESS;
 }
 
@@ -417,7 +422,7 @@ int ft_mult_cmds(t_commands *command)
 	{
 		//SIGNAL AGAIN??
 		// HAS HEREDOC?
-		
+
 	}
 	return 0;
 }
@@ -464,7 +469,6 @@ bool is_valid_input(char *input)
 		return false;
 	return true;
 }
-
 
 bool syntax_checker(char *input)
 {

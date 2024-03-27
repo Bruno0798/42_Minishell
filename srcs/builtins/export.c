@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 12:53:50 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/03/24 17:51:44 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void ft_export(t_commands *command)
         print_env(command->env);
         return ;
     }
-    if(!(*(ft_strchr(command->token->next->content, '=') + 1)))
+    if(!ft_strchr(command->token->next->content, '=') || !(*(ft_strchr(command->token->next->content, '=') + 1)))
     {
         printf("Error\n");
         return ;
