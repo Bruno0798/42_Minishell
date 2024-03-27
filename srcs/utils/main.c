@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/26 18:26:00 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:19:41 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+int	EXIT_STATUS;
 
 int init_and_set_fd(int argc, char **envp, t_env **env)
 {

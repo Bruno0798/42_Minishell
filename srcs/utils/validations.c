@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/23 22:04:03 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:19:47 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,4 @@ bool is_between_quotes(char *str)
 	if (s_quote != 0 || d_quote != 0)
 		return true;
 	return EXIT_FAILURE;
-}
-
-bool	ft_hasSpecialChar(char *str)
-{
-	int i;
-
-	i = -1;
-	while(str[++i])
-	{
-		if (!(ft_isalnum(str[i]) || str[i] == '_')){
-			return true;
-		}
-	}
-	return false;
 }

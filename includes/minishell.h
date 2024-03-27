@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/25 17:04:42 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:20:20 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@
 # define EXPORT_NOTE "too few argumnts"
 
 /* Global variable for the exit status */
-int	EXIT_STATUS;
+extern int	EXIT_STATUS;
 /* Enum for different token types */
 typedef enum s_type
 {
@@ -94,7 +94,7 @@ typedef struct s_env
 
 typedef struct s_commands
 {
-	//int	redir_fd;
+	int	redir_fd;
 	t_env	*env;
 	t_token	*token;
 	struct	s_commands *next;	

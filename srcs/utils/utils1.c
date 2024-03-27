@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/25 15:20:18 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:20:07 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,6 +130,7 @@ t_commands *ft_new_commands(char *str, t_env *env)
 		current =  current->next;  /* Move to the next token in the list */
 	}
 	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
+	command->next = NULL;
 	return command;  /* Return the new t_commands structure */
 }
 
