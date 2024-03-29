@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/27 16:19:47 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:44:58 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,48 @@ bool is_between_quotes(char *str)
 	if (s_quote != 0 || d_quote != 0)
 		return true;
 	return EXIT_FAILURE;
+}
+
+bool syntax_checker(char *input)
+{
+	input = ft_strtrim(input, " \t");
+	if (!input || ft_strchr("|<>", *input) || ft_strchr("|<>", input[ft_strlen(input)- 1]))
+	{
+		if (input)
+		{
+			if (*input == '|')
+			{
+				if (input[1] == '|')
+					print_error(ERROR_PIPE_2, NULL, 1);
+				else
+					print_error(ERROR_PIPE, NULL, 1);
+			} else if (ft_strchr("|<>", input[ft_strlen(input) - 1]))
+			{
+				if (input[ft_strlen(input) - 1] == '|')
+					print_error(ERROR_PROMPT, NULL, 2);
+				else
+					print_error(ERROR_REDIR, NULL, 2);
+			}
+		}
+		free(input);
+		return false;
+	}
+	free(input);
+	return true;
+}
+
+void check_args(int argc, int valid_argc)
+{
+	if (argc != valid_argc)
+	{
+		printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
+		exit(0);
+	}
+}
+
+bool is_valid_input(char *input)
+{
+	if (is_everything_space(input) || !syntax_checker(input))
+		return false;
+	return true;
 }

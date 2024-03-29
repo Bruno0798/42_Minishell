@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/27 16:20:07 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/29 15:44:06 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,41 +165,4 @@ bool	ft_hasSpecialChar(char *str)
 		}
 	}
 	return false;
-}
-
-// t_token *ft_has_redirection(t_token *token)
-// {
-// 	while(token)
-// 	{
-// 		if (token->type == redir_out)
-// 			return token;
-// 		if (token->type == redir_out)
-// 			return token;
-// 		token = token->next;
-// 	}
-// 	return NULL;
-// }
-
-int ft_redirect(t_commands *command)
-{
-	t_token *temp;
-
-	temp = command->token;
-	while(temp)
-	{
-		if(temp->type == redir_out2 || temp->type == redir_out)
-		{
-			command->redir_fd = open(temp->next->content, O_CREAT | O_RDWR, 0666);
-			return (1);
-		}
-		// if(temp->type == redir_in2 || temp->type == redir_in)
-
-		if(command->redir_fd == -1)
-		{
-			perror("Invalid file redirection");
-			return (0);
-		}
-		temp = temp->next;
-	}
-	return (0);
 }

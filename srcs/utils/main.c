@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/27 16:19:41 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:54:50 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@ int main(int argc, char **argv, char **envp)
 	t_commands	*command; // NEEDS TO BE REMOVED FROM HERE AND PASS TO PARER
 	t_env		*env;
 	char		*input;
-	int fd;
+	int			fd;
+	int			fd1;
 
 	fd = init_and_set_fd(argc, envp, &env);
+	fd1 = dup(1);
 	while (42)
 	{
 		dup2(fd, STDIN_FILENO);
+		dup2(fd1, STDOUT_FILENO);
 		input = readline("Minishell$>");
 		add_history(input);
 		if (is_valid_input(input))
@@ -230,8 +233,10 @@ void ft_remove_quotes(t_commands *commands)
 	{
 		if (curr->type == command && !is_between_quotes(curr->content))
 		{
+			printf("Teste\n");
 			old_cmd = curr->content;
 			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
+			printf("curr->content: %s\n", curr->content);
 			free(old_cmd); /* Free the old string */
 		}
 		curr = curr->next;
@@ -273,10 +278,8 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 		ft_expander(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
-	if(ft_count_redirects(*commands)){
-		fd = ft_check_redirect(*commands);
-		ft_handle_redirect(fd, *commands);
-	}
+	if(ft_check_redirect(*commands))
+		ft_handle_redirect(*commands);
 	return EXIT_SUCCESS;
 }
 
@@ -297,7 +300,7 @@ bool is_forkable(t_commands *command)
 {
 	if (!ft_strcmp(command->token->content, "cd") || !ft_strcmp
 	(command->token->content, "export") || !ft_strcmp
-	(command->token->content, "unsett") || !ft_strcmp
+	(command->token->content, "unset") || !ft_strcmp
 	(command->token->content, "exit"))
 	{
 		// HEREDOC ATTENTION
@@ -434,72 +437,6 @@ void ft_exit(t_commands *command)
 	free_all(command);
 	exit(EXIT_STATUS);
 }
-
-
-void ft_execute(t_commands *command)
-{
-	if(!(ft_strcmp(command->token->content, "pwd")))
-		ft_pwd();
-	else if(!(ft_strcmp(command->token->content, "echo")))
-		ft_echo(command->token->next);
-	else if(!(ft_strcmp(command->token->content, "cd")))
-		ft_cd(command);
-	else if(!(ft_strcmp(command->token->content, "env")))
-		ft_print_env(command);
-	else if(!(ft_strcmp(command->token->content, "unset")))
-		ft_unset(command);
-	else if(!(ft_strcmp(command->token->content, "export")))
-		ft_export(command);
-	else if(!(ft_strcmp(command->token->content, "exit")))
-		ft_exit(command);
-	else
-		ft_execution(command);
-}
-
-void check_args(int argc, int valid_argc)
-{
-	if (argc != valid_argc)
-	{
-		printf(RED"Wrong Arguments\nUse './minishell' to start!\n"ENDC);
-		exit(0);
-	}
-}
-
-bool is_valid_input(char *input)
-{
-	if (is_everything_space(input) || !syntax_checker(input))
-		return false;
-	return true;
-}
-
-bool syntax_checker(char *input)
-{
-	input = ft_strtrim(input, " \t");
-	if (!input || ft_strchr("|<>", *input) || ft_strchr("|<>", input[ft_strlen(input)- 1]))
-	{
-		if (input)
-		{
-			if (*input == '|')
-			{
-				if (input[1] == '|')
-					print_error(ERROR_PIPE_2, NULL, 1);
-				else
-					print_error(ERROR_PIPE, NULL, 1);
-			} else if (ft_strchr("|<>", input[ft_strlen(input) - 1]))
-			{
-				if (input[ft_strlen(input) - 1] == '|')
-					print_error(ERROR_PROMPT, NULL, 2);
-				else
-					print_error(ERROR_REDIR, NULL, 2);
-			}
-		}
-		free(input);
-		return false;
-	}
-	free(input);
-	return true;
-}
-
 
 void	print_error(char *msg, char *key, int exit_code)
 {
