@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/29 15:44:58 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:27:17 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,27 @@ bool is_between_quotes(char *str)
 	if (s_quote != 0 || d_quote != 0)
 		return true;
 	return EXIT_FAILURE;
+}
+
+bool check_quotes(char *str)
+{
+	int s_quote;
+	int d_quote;
+	int i;
+
+	i =-1;
+	s_quote = 0;
+	d_quote = 0;
+	while (str[++i])
+	{
+		if (str[i] == DOUBLE_QUOTE && !s_quote)
+			d_quote = !d_quote;
+		else if (str[i] == SINGLE_QUOTE && !d_quote)
+			s_quote = !s_quote;
+	}
+	if (s_quote != 0 || d_quote != 0)
+		return true;
+	return false;
 }
 
 bool syntax_checker(char *input)
@@ -83,7 +104,8 @@ void check_args(int argc, int valid_argc)
 
 bool is_valid_input(char *input)
 {
-	if (is_everything_space(input) || !syntax_checker(input))
+	if (is_everything_space(input) || !syntax_checker(input) ||
+			check_quotes(input))
 		return false;
 	return true;
 }

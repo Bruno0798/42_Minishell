@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/25 19:22:44 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:49:37 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,11 @@ void ft_expander(t_commands *command)
 	t_token *token;
 
 	token = command->token;
-	while (token->next)
+	while (token != NULL)
 	{
-		if(ft_strchr(token->next->content, '$'))
+		if(ft_strchr(token->content, '$'))
 		{
-			token->next->content = needs_expansion(token->next->content, '$', command);
+			token->content = needs_expansion(token->content, '$', command);
 		}
 		token = token->next;
 	}

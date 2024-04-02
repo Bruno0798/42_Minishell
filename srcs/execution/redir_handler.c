@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/03/29 17:05:31 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/31 12:10:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ int ft_check_redirect(t_commands *command)
 				dup2(fd, STDOUT_FILENO);
 			}
 			else if (temp->type == redir_in){
-				fd = open(temp->next->content, O_CREAT | O_RDWR, 0644);
+				fd = open(temp->next->content, O_RDWR, 0644);
 				dup2(fd, STDIN_FILENO);
+				close(fd);
 			}
 		}
 		temp = temp->next;
@@ -56,5 +57,5 @@ void ft_handle_redirect(t_commands *command)
 			temp->next = NULL;
 		temp = temp->next;
 	}
-	ft_execute(command);
+	//ft_execute(command); // I think it doesn't need to be here, its working so far
 }

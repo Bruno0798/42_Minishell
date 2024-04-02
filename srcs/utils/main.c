@@ -6,11 +6,23 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/29 16:54:50 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/03/31 11:36:32 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+/* CD com varios argumentos está a fazer o execve
+ * por exeplo cd a b
+ * env cant receive options
+ * mensagem de erro não mostra com pipes
+ * ao fazer env -n | ls vai para o execve
+ * pwd não pode receber options
+ * this redirection < need to check if the file exists
+ * export is rearranging original env
+ * correr export -u no bash e ver o que deve dar print
+*/
+
 
 int	EXIT_STATUS;
 
@@ -231,12 +243,10 @@ void ft_remove_quotes(t_commands *commands)
 
 	while (curr)
 	{
-		if (curr->type == command && !is_between_quotes(curr->content))
+		if (curr->type == command && is_between_quotes(curr->content))
 		{
-			printf("Teste\n");
 			old_cmd = curr->content;
 			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
-			printf("curr->content: %s\n", curr->content);
 			free(old_cmd); /* Free the old string */
 		}
 		curr = curr->next;
@@ -270,7 +280,6 @@ void ft_expand_others(t_commands *commands)
 
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
-	int fd;
 	if (!is_between_quotes(input))
 		return (printf("minishell: syntax error: unexpected end of file\n") && EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
