@@ -15,7 +15,7 @@
 void ft_cd(t_commands *command)
 {
 	char dir[200]; /* 200 is the maximum size of a path in linux */
-	
+
 	getcwd(dir, sizeof(dir)); /* Get the current working directory */
 	if (!can_execute(command)) /* Check if the command can be executed */
 	{

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/24 17:51:44 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:53:21 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,7 @@ void ft_export(t_commands *command)
         print_env(command->env);
         return ;
     }
-    if(!ft_strchr(command->token->next->content, '=') || !(*(ft_strchr(command->token->next->content, '=') + 1)))
-    {
-        printf("Error\n");
-        return ;
-    }
+	
     if (ft_fnd_env(command->env, *ft_split(command->token->next->content, '='))) /* If the key already exists, update the value */
     {
         word = ft_strchr(command->token->next->content, '=') + 1; /* Get the value */
@@ -89,5 +85,9 @@ void ft_export(t_commands *command)
             return ;
         }
         ft_add_env_back(&command->env, ft_new_env(command->token->next->content, word));
-    }
+    } else
+	{
+		ft_add_env_back(&command->env,ft_new_env(command->token->next->content, ""));
+		return ;
+	}
 }

@@ -250,7 +250,7 @@ void ft_unset(t_commands *command);
  *
  * @return void
  */
-void	ft_pwd();
+void	ft_pwd(t_commands *command);
 
 /**
  * Prints the content of the given token list.

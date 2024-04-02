@@ -13,14 +13,11 @@
 #include "../../includes/minishell.h"
 
 /* CD com varios argumentos está a fazer o execve
- * por exeplo cd a b
+ * por exemplo cd a b
  * env cant receive options
  * mensagem de erro não mostra com pipes
- * ao fazer env -n | ls vai para o execve
- * pwd não pode receber options
  * this redirection < need to check if the file exists
  * export is rearranging original env
- * correr export -u no bash e ver o que deve dar print
 */
 
 
@@ -379,7 +376,7 @@ void child_process(t_commands *command, int fd_in, int command_count)
 			close(pipes[0]);
 			close(pipes[1]);
 			close(fd_in);
-			ft_execution(command);
+			ft_execute(command);
 			exit(EXIT_STATUS);
 		}
 		dup2(pipes[0], fd_in);

@@ -3,6 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+/*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/04/02 15:13:17 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execution.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 14:23:17 by brunolopes        #+#    #+#             */
@@ -18,7 +30,7 @@ void ft_exec_command(t_commands *command);
 void ft_execute(t_commands *command)
 {
 	if(!(ft_strcmp(command->token->content, "pwd")))
-		ft_pwd();
+		ft_pwd(command);
 	else if(!(ft_strcmp(command->token->content, "echo")))
 		ft_echo(command->token->next);
 	else if(!(ft_strcmp(command->token->content, "cd")))
@@ -89,6 +101,7 @@ void ft_exec_command(t_commands *command)
 			}
 		}
 		print_error("command not found", command->token->content, 127);
+		exit(EXIT_STATUS);
 	}
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
