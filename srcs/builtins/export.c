@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/02 15:53:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:10:45 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,35 +59,25 @@ void ft_export(t_commands *command)
     char    *word;
 
     if(!command->token->next) /* If there is no token to export, print the environment variables */
-    {
         print_env(command->env);
-        return ;
-    }
-	
-    if (ft_fnd_env(command->env, *ft_split(command->token->next->content, '='))) /* If the key already exists, update the value */
+    else if (ft_fnd_env(command->env, *ft_split(command->token->next->content, '='))) /* If the key already exists, update the value */
     {
         word = ft_strchr(command->token->next->content, '=') + 1; /* Get the value */
         *ft_strchr(command->token->next->content, '=') = 0; /* Set the equal sign to 0 */
         ft_update_env(command->env, command->token->next->content, word); /* Update the environment variable */
-        return ;
     }
-    if(ft_strchr(command->token->next->content, '=')) /* If the token has an equal sign, add the environment variable */
+    else if(ft_strchr(command->token->next->content, '=')) /* If the token has an equal sign, add the environment variable */
     {
+        if (ft_isdigit(command->token->next->content[0]) || ft_hasSpecialChar(*ft_split(command->token->next->content, '=')))
+        {
+            printf("export: not valid in this context: %s\n", command->token->next->content);
+            return ;
+        }
         word = ft_strchr(command->token->next->content, '=') + 1;
         *ft_strchr(command->token->next->content, '=') = 0;
-        if (ft_isdigit(command->token->next->content[0]) || ft_hasSpecialChar(command->token->next->content)){
-            printf("Error\n");
-            return ;
-        }
         if(!*(command->token->next->content))
-        {
             printf("Error\n");
-            return ;
-        }
         ft_add_env_back(&command->env, ft_new_env(command->token->next->content, word));
     } else
-	{
 		ft_add_env_back(&command->env,ft_new_env(command->token->next->content, ""));
-		return ;
-	}
 }
