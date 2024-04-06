@@ -14,7 +14,6 @@
 
 /* CD com varios argumentos está a fazer o execve
  * por exemplo cd a b
- * env cant receive options
  * mensagem de erro não mostra com pipes
  * this redirection < need to check if the file exists
  * export is rearranging original env
