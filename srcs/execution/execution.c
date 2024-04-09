@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/02 15:13:17 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 17:20:59 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,26 @@ void ft_exec_command(t_commands *command);
 
 void ft_execute(t_commands *command)
 {
-	if(!(ft_strcmp(command->token->content, "pwd")))
-		ft_pwd(command);
-	else if(!(ft_strcmp(command->token->content, "echo")))
-		ft_echo(command->token->next);
-	else if(!(ft_strcmp(command->token->content, "cd")))
-		ft_cd(command);
-	else if(!(ft_strcmp(command->token->content, "env")))
-		ft_print_env(command);
-	else if(!(ft_strcmp(command->token->content, "unset")))
-		ft_unset(command);
-	else if(!(ft_strcmp(command->token->content, "export")))
-		ft_export(command);
-	else if(!(ft_strcmp(command->token->content, "exit")))
-		ft_exit(command);
-	else
-		ft_execution(command);
+	if(ft_check_redirect(command))
+	{
+		ft_handle_redirect(command);
+		if (!(ft_strcmp(command->token->content,"pwd")))
+			ft_pwd(command);
+		else if (!(ft_strcmp(command->token->content,"echo")))
+			ft_echo(command->token->next);
+		else if (!(ft_strcmp(command->token->content,"cd")))
+			ft_cd(command);
+		else if (!(ft_strcmp(command->token->content,"env")))
+			ft_print_env(command);
+		else if (!(ft_strcmp(command->token->content,"unset")))
+			ft_unset(command);
+		else if (!(ft_strcmp(command->token->content,"export")))
+			ft_export(command);
+		else if (!(ft_strcmp(command->token->content,"exit")))
+			ft_exit(command);
+		else
+			ft_execution(command);
+	}
 }
 
 int ft_execution(t_commands *command)
@@ -86,6 +90,12 @@ void ft_exec_command(t_commands *command)
 	int		i;  /* Loop counter */
 
 	arr = get_path(command->env);  /* Retrieve the system's PATH environment variable */
+	if (!arr)
+	{
+		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem
+		return ;
+	}
+	
 	arr_command = ft_lst_to_arr(command->token);  /* Convert the command's tokens into an array */
 	arr_env = ft_env_to_arr(command->env);  /* Convert the command's environment variables into an array */
 	i = -1;
@@ -100,6 +110,7 @@ void ft_exec_command(t_commands *command)
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
 			}
 		}
+		dup2(STDERR_FILENO, STDOUT_FILENO);
 		print_error("command not found", command->token->content, 127);
 		exit(EXIT_STATUS);
 	}

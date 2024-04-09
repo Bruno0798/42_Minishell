@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/02 15:30:08 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 15:53:25 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,14 @@ void ft_print_env(t_commands *command)
 
 	if (command->token->next != NULL)
 	{
-		dup2(STDERR_FILENO, STDOUT_FILENO);
-		printf("env: invalid option -- '%s'\n", command->token->next->content);
+		if (ft_strchr(command->token->next->content,'-') != NULL)
+		{
+			dup2(STDERR_FILENO,STDOUT_FILENO);
+			printf("env: invalid option -- '%s'\n", command->token->next->content);
+			return;
+		}
+		dup2(STDERR_FILENO,STDOUT_FILENO);
+		printf("env '%s': no such file or directory\n", command->token->next->content);
 		return ;
 	}
 	while(current)

@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/17 16:27:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 14:40:32 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ void ft_echo(t_token *token)
 	int flag = 0;
 
 	if (!token) /* If there is no token to print, return */
+	{
+		printf("\n");
 		return ;
+	}
 	if (token->type == option) /* If the first token is an option, skip it */
 	{
 		token = while_option(token); /* Skip while token is equal to -n */

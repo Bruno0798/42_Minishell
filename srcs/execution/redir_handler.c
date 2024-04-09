@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/03/31 12:10:18 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 18:10:59 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 int ft_check_redirect(t_commands *command)
 {
 	t_token *temp;
-	int count;
 	int	fd;
-
-	fd = 0;
 	temp = command->token;
+
 	while(temp)
 	{
-		if(temp->type == redir_out || temp->type == redir_out2 || temp->type == redir_in){
-			count--;
+		if(temp->type == redir_out || temp->type == redir_out2 || temp->type == redir_in)
+		{
 			if(temp->type == redir_out){
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
 				dup2(fd, STDOUT_FILENO);
+				printf("Entrou no redir out\n");
 			}
 			else if (temp->type == redir_out2){
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
@@ -34,14 +33,16 @@ int ft_check_redirect(t_commands *command)
 			}
 			else if (temp->type == redir_in){
 				fd = open(temp->next->content, O_RDWR, 0644);
+				if(!fd || fd == -1)
+				{
+					return 0;
+				}
 				dup2(fd, STDIN_FILENO);
 				close(fd);
 			}
 		}
 		temp = temp->next;
 	}
-    if(!fd)
-        return (0);
 	return (1);
 }
 

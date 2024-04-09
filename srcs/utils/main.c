@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/31 11:36:32 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:14:31 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
  * mensagem de erro não mostra com pipes
  * this redirection < need to check if the file exists
  * export is rearranging original env
+ * change every dup2 on error to ft_putstr_fd
+ * mudar if das options para apenas ver se comeca com - e nao conter
+ * erro de quotes closed
 */
 
 
@@ -119,7 +122,6 @@ void check_heredoc(t_commands *command)
 	{
 		if (token->type == redir_in2 && token->next)
 		{
-			printf("delimiter: %s\n", token->next->content);
 			ft_heredoc(token->next->content);
 			dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
 		}
@@ -283,8 +285,6 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 		ft_expander(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
-	if(ft_check_redirect(*commands))
-		ft_handle_redirect(*commands);
 	return EXIT_SUCCESS;
 }
 

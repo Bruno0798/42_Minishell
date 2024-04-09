@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:14:28 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/02 15:14:28 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:27:09 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,15 @@
 void ft_pwd(t_commands *command)
 {
 	char pwd[4096]; /* Create a buffer to store the current working directory */
-	
 	if (command->token->next != NULL)
 	{
-		printf("bash: pwd %s: invalid option\n",command->token->next->content);
-		return ;
+		if (command->token->next->content[0] ==
+			'-')
+		{
+			printf("bash: pwd %s: invalid option\n",
+				   command->token->next->content);
+			return;
+		}
 	}
 	getcwd(pwd, sizeof(pwd)); /* Get the current working directory */
 	printf("%s\n", pwd); /* Print the current working directory */
