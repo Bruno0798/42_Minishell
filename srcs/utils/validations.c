@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/31 12:27:17 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:59:41 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ bool check_quotes(char *str)
 			s_quote = !s_quote;
 	}
 	if (s_quote != 0 || d_quote != 0)
+	{
+		print_error(ERROR_QUOTE, NULL, 1);
 		return true;
+	}
 	return false;
 }
 

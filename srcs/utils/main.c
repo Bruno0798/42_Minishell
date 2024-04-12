@@ -6,22 +6,11 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 16:14:31 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/10 17:51:04 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-/* CD com varios argumentos está a fazer o execve
- * por exemplo cd a b
- * mensagem de erro não mostra com pipes
- * this redirection < need to check if the file exists
- * export is rearranging original env
- * change every dup2 on error to ft_putstr_fd
- * mudar if das options para apenas ver se comeca com - e nao conter
- * erro de quotes closed
-*/
-
 
 int	EXIT_STATUS;
 
@@ -95,7 +84,7 @@ bool files_exist(t_token *token)
 			if (fd < 0)
 			{
 				exist = false;
-				printf("minishell: %s: No such file or directory\n", curr->next->content);
+				print_error(ERROR_DIR, curr->next->content, 1); //TODO: exit code
 			}
 		}
 		curr = curr->next;
@@ -279,7 +268,7 @@ void ft_expand_others(t_commands *commands)
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	if (!is_between_quotes(input))
-		return (printf("minishell: syntax error: unexpected end of file\n") && EXIT_FAILURE);
+		return (EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
 	if (!has_here_doc(*commands))
 		ft_expander(*commands);

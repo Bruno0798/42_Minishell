@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 17:40:14 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:29:33 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,17 @@ void ft_unset(t_commands *command)
 	current = command->env;
 	previous = NULL;
 
+if (command->token->next != NULL)
+{
+    
 
-	if (command->token->next->content[0] == '-' ||
-			!check_unset(command->token))
+	if (command->token->next->content[0] == '-' || !check_unset(command->token))
 	{
 		dup2(STDERR_FILENO,STDOUT_FILENO);
 		printf("minishell: unset: %s: invalid option\n", command->token->next->content);
 	    return ;
 	}
+}
 	while(current)
 	{
 		if (command->token->next != NULL && !ft_strcmp(current->key, command->token->next->content)) /* If the key is found, remove the environment variable */

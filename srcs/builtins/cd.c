@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:11:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 14:23:29 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:05:47 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void ft_cd(t_commands *commands)
 	{
 		if(commands->token->next->type == command)
 		{
-			printf("too many arguments\n");
+			print_error(ERROR_ARG, NULL, 1);
 			return ;
 		}
 	}

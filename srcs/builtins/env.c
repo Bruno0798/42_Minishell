@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 15:53:25 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/10 18:08:02 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void ft_print_env(t_commands *command)
 		if (ft_strchr(command->token->next->content,'-') != NULL)
 		{
 			dup2(STDERR_FILENO,STDOUT_FILENO);
-			printf("env: invalid option -- '%s'\n", command->token->next->content);
+			print_error(ERROR_OPTIONS, command->token->next->content, 1);
 			return;
 		}
 		dup2(STDERR_FILENO,STDOUT_FILENO);

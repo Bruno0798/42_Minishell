@@ -80,7 +80,7 @@ void ft_export(t_commands *command)
 	else if(command->token->next->content[0] == '-')
 	{
 		dup2(STDERR_FILENO,STDOUT_FILENO);
-		printf("minishell: %s: invalid option\n", command->token->next->content);
+		print_error(ERROR_OPTIONS, command->token->next->content, 1);
 	}
 	else if (ft_fnd_env(command->env, *ft_split(command->token->next->content, '='))) /* If the key already exists, update the value */
 	{
