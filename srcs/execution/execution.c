@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 17:20:59 by bsousa-d         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/23 14:23:17 by brunolopes        #+#    #+#             */
-/*   Updated: 2024/03/29 17:06:12 by brpereir         ###   ########.fr       */
+/*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/04/19 15:45:10 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +96,7 @@ void ft_exec_command(t_commands *command)
 			arr[i] = ft_strjoin(arr[i], command->token->content);  /* Append the command's content to the element */
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */{
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
+				exit(127);
 			}
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);

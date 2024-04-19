@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/09 15:28:14 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:37:11 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,6 +144,8 @@ t_env	*ft_fnd_env(t_env *env, char *search)
 	t_env	*current;
 
 	current = env;
+	if(!search)
+		return NULL;
 	while (current)
 	{
 		if (!ft_strcmp(current->key, search))

@@ -3,22 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/31 12:49:37 by bsousa-d         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   expander.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/20 18:04:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/05 15:27:50 by brunolopes       ###   ########.fr       */
+/*   Updated: 2024/04/19 15:45:23 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +114,7 @@ char* trim_right(const char *input_string)
 	}
 
 	// Find the end of the first word
-	while (*ptr && !isspace(*ptr) && *ptr != SINGLE_QUOTE && *ptr != DOUBLE_QUOTE) {
+	while (*ptr && !isspace(*ptr) && *ptr != SINGLE_QUOTE && *ptr != DOUBLE_QUOTE && *ptr != '=') {
 		ptr++;
 		length++;
 	}
