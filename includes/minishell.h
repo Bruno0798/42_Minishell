@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 01:57:52 by bruno            ###   ########.fr       */
+/*   Updated: 2024/04/20 02:08:17 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct s_env
 {
 	char	*key;
 	char	*value;
+	int		visible;
 	struct s_env	*next;
 }				t_env;
 
@@ -120,7 +121,7 @@ void	init_env(t_env **env,char **envp);
  *
  * @return The new environment variable node.
  */
-t_env	*ft_new_env(char *key, char *value);
+t_env	*ft_new_env(char *key, char *value, int visible);
 
 /**
  * Adds a new environment variable node to the end of the environment list.
@@ -146,7 +147,7 @@ char	*ft_get_value(t_env *env, char *search);
  * @param key     The key of the environment variable to update.
  * @param replace The new value to assign to the environment variable.
  */
-void		ft_update_env(t_env *env_lst, char *key, char *replace);
+void		ft_update_env(t_env *env_lst, char *key, char *replace, int visible);
 
 void free_env(t_env *env);
 

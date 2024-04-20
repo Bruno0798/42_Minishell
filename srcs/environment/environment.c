@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 13:37:11 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/20 02:07:52 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void init_env(t_env **env,char **envp)
 		equal_sign = ft_strchr(envp[i], '='); /* Get the equal sign */
 		key = ft_substr(envp[i], 0, equal_sign - envp[i]); /* Get the key */
 		value = equal_sign + 1; /* Get the value */
-		ft_add_env_back(env, ft_new_env(key, value)); /* Add the environment variable */
+		ft_add_env_back(env, ft_new_env(key, value, 1)); /* Add the environment variable */
 		free(key); /* Free the key */
 		i++;
 	}
@@ -47,7 +47,7 @@ void	ft_add_env_back(t_env **env_lst, t_env *new_env)
 	current->next = new_env; /* Set the next node to the new environment */
 }
 
-t_env	*ft_new_env(char *key, char *value)
+t_env	*ft_new_env(char *key, char *value, int visible)
 {
 	t_env	*new_node;
 
@@ -59,6 +59,7 @@ t_env	*ft_new_env(char *key, char *value)
 		new_node->value = ft_strdup(value); /* Set the value */
 	else
 		new_node->value = NULL;
+	new_node->visible = visible;
 	if (!new_node->key) /* If the key is null, free the new environment and return null */
 	{
 		free(new_node);
@@ -122,7 +123,7 @@ int	env_size(t_env *env)
 	return (++i);
 }
 
-void ft_update_env(t_env *env_lst, char *key, char *replace)
+void ft_update_env(t_env *env_lst, char *key, char *replace, int visible)
 {
 	t_env *curr;
 
@@ -134,6 +135,7 @@ void ft_update_env(t_env *env_lst, char *key, char *replace)
 		{
 			free(curr->value);
 			curr->value = ft_strdup(replace);
+			curr->visible = visible;
 			return ;
 		}
 		curr = curr->next;

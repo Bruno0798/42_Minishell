@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 02:01:01 by bruno            ###   ########.fr       */
+/*   Updated: 2024/04/20 02:22:10 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -415,7 +415,7 @@ int ft_mult_cmds(t_commands *command)
 	t_token *token;
 
 	status = 0;
-	// SIGNAL HANDLER
+	handle_signals();
 	pid = fork();
 	if (pid < 0)
 		print_error(ERROR_FORK, NULL, 1);

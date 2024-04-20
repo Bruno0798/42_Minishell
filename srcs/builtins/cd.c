@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:11:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 15:44:44 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/20 02:09:10 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void ft_cd(t_commands *commands)
 		printf("cd: no such file or directory: %s\n", commands->token->next->content); /* Print error message */
 		return ;
 	}
-	ft_update_env(commands->env, "OLDPWD", dir); /* Update the OLDPWD environment variable */
+	ft_update_env(commands->env, "OLDPWD", dir, 1); /* Update the OLDPWD environment variable */
 	getcwd(dir, sizeof(dir)); /* Get the current working directory */
-	ft_update_env(commands->env, "PWD", dir); /* Update the PWD environment variable */
+	ft_update_env(commands->env, "PWD", dir, 1); /* Update the PWD environment variable */
 }
 
 bool can_execute(t_commands *command)

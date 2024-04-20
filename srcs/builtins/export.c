@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 13:45:51 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/20 02:08:45 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void ft_export(t_commands *command)
 					continue;
 				word = ft_strchr(token->content, '=') + 1; /* Get the value */
 				*ft_strchr(token->content, '=') = 0; /* Set the equal sign to 0 */
-				ft_update_env(command->env, token->content, word); /* Update the environment variable */
+				ft_update_env(command->env, token->content, word, 1); /* Update the environment variable */
 			}
 			else if(ft_strchr(token->content, '=')) /* If the token has an equal sign, add the environment variable */
 			{
@@ -109,7 +109,7 @@ void ft_export(t_commands *command)
 				*ft_strchr(token->content, '=') = 0;
 				if(!*(token->content))
 					printf("Error\n");
-				ft_add_env_back(&command->env, ft_new_env(token->content, word));
+				ft_add_env_back(&command->env, ft_new_env(token->content, word, 1));
 			} else
 			{
 				if (!ft_strcmp(token->content, "") || !ft_strcmp(token->content, "=") || ft_isdigit(token->content[0]) || ft_hasSpecialChar(*ft_split(token->content, '=')) )
@@ -118,7 +118,7 @@ void ft_export(t_commands *command)
 					continue ;
 				}
 				if(!ft_fnd_env(command->env, token->content))
-					ft_add_env_back(&command->env,ft_new_env(token->content, ""));
+					ft_add_env_back(&command->env,ft_new_env(token->content, "", 0));
 			}
 		}
 }

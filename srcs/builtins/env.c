@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 15:44:53 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/20 02:02:27 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void ft_print_env(t_commands *command)
 	}
 	while(current)
 	{
-		printf("%s=%s\n", current->key, current->value); /* Print the environment variable */
+		if(current->visible)
+			printf("%s=%s\n", current->key, current->value); /* Print the environment variable */
 		current = current->next;
 	}
 }
