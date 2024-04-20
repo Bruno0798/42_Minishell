@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/10 17:51:04 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/04/20 02:01:01 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,12 @@ int main(int argc, char **argv, char **envp)
 	fd1 = dup(1);
 	while (42)
 	{
+		handle_signals();
 		dup2(fd, STDIN_FILENO);
 		dup2(fd1, STDOUT_FILENO);
 		input = readline("Minishell$>");
+		if(!input)
+			exit(0);
 		add_history(input);
 		if (is_valid_input(input))
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
@@ -48,7 +51,6 @@ int main(int argc, char **argv, char **envp)
 				remake_commands(command);
 				open_pipes(command);
 			}
-		handle_signals();
 		if (!input)
 			free_env(env);
 		ft_special_handler(input); // NEEDS TO BE REMOVED FROM HERE

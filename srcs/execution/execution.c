@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 15:45:10 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/04/20 01:57:01 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void ft_execute(t_commands *command)
 
 int ft_execution(t_commands *command)
 {
-	if (command->token->content[0] == '/')
+	if (command->token->content[0] == '/' || !ft_strncmp(command->token->content, "./", 2))
         ft_exec_abs(command);
 	else 
 		ft_exec_command(command);
@@ -59,13 +59,9 @@ void ft_exec_abs(t_commands *command)
 	arr_env = ft_env_to_arr(command->env);  /* Convert the command's environment variables into an array */
 	pid = fork();  /* Create a child process */
 	if (pid == 0)  /* If in child process */
-	{
 		if (execve(command->token->content, arr_command, arr_env) == -1)
-		{
 			print_error("command not found", command->token->content, 127);
-			exit(127);  /* Exit with error code if execve fails */
-		}
-	}
+	EXIT_STATUS = 127;
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
 
@@ -94,14 +90,14 @@ void ft_exec_command(t_commands *command)
 		{
 			arr[i] = ft_strjoin(arr[i], "/");  /* Append a slash to the element */
 			arr[i] = ft_strjoin(arr[i], command->token->content);  /* Append the command's content to the element */
-			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */{
+			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
+			{
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
 				exit(127);
 			}
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		print_error("command not found", command->token->content, 127);
-		exit(EXIT_STATUS);
 	}
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
