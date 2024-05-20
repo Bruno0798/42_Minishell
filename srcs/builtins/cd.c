@@ -39,7 +39,7 @@ void ft_cd(t_commands *commands)
 	ft_update_env(commands->env, "PWD", dir, 1); /* Update the PWD environment variable */
 }
 
-int can_execute(t_commands *command)
+bool can_execute(t_commands *command)
 {
 	char *old_pwd; /* Variable to store the old working directory */
 	
