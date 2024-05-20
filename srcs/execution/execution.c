@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 01:57:01 by bruno            ###   ########.fr       */
+/*   Updated: 2024/05/20 15:16:45 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void ft_exec_abs(t_commands *command)
 	pid = fork();  /* Create a child process */
 	if (pid == 0)  /* If in child process */
 		if (execve(command->token->content, arr_command, arr_env) == -1)
+		{
 			print_error("command not found", command->token->content, 127);
+			exit(127);
+		}
 	EXIT_STATUS = 127;
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
@@ -98,6 +101,7 @@ void ft_exec_command(t_commands *command)
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		print_error("command not found", command->token->content, 127);
+	 	exit(127);
 	}
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }

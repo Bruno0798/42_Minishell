@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/10 18:29:33 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:58:12 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ void ft_unset(t_commands *command)
 
 if (command->token->next != NULL)
 {
-    
-
 	if (command->token->next->content[0] == '-' || !check_unset(command->token))
 	{
 		dup2(STDERR_FILENO,STDOUT_FILENO);
@@ -59,7 +57,7 @@ int check_unset(t_token *head)
 	{
 		char *cmd = current->content;
 		int i = 0;
-		if (ft_isdigit(cmd[i]) == 1)
+		if (ft_isdigit(cmd[i]) != 1)
 			return 1;
 		while (cmd[i])
 		{
