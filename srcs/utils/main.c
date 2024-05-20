@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 02:22:10 by bruno            ###   ########.fr       */
+/*   Updated: 2024/05/20 19:41:04 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,7 +254,7 @@ void ft_expand_others(t_commands *commands)
 		i = -1;
 		while (curr->content[++i])
 		{
-			if ((curr->content[i] == '~') && (i == 0) && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] ==
+			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] ==
 			'\0') || (curr->content[i + 1] == '/')))
 				curr->content = ft_strjoin(ft_get_value(commands->env, "HOME"), curr->content + 1);
 			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '+'))
