@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 02:08:17 by bruno            ###   ########.fr       */
+/*   Updated: 2024/05/21 13:56:14 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define SINGLE_QUOTE 39
 
 /* Error messages */
-# define ERROR_TITLE "minishell"
+# define ERROR_TITLE "Minishell"
 # define ERROR_FORK "fork error"
 # define ERROR_QUOTE "unclosed quotes"
 # define ERROR_PIPE "syntax error near unexpected token `|'"
@@ -273,12 +273,6 @@ void	ft_exit(t_commands *command);
 void	ft_free_token(t_token *token);
 void	ft_free_commands(t_commands *command);
 void	ft_free_env(t_env *env);
-
-
-
-
-
-
 t_commands	*pipe_commands(char *str, t_env *env);
 void		ft_expander(t_commands *command);
 char		**get_path(t_env *env_lst);
@@ -296,7 +290,7 @@ char* ft_delete_quotes(char *input);
 void ft_remove_quotes(t_commands *commands);
 int ft_parser(char *input, t_commands **commands, t_env *env);
 void ft_execute(t_commands *command);
-bool is_valid_input(char *input);
+bool is_valid_input(char *input, t_env *env);
 bool syntax_checker(char *input);
 void ft_cleans_special_chars(t_commands *commands);
 void ft_cd(t_commands *command);
@@ -313,9 +307,6 @@ void ft_handle_redirect(t_commands *command);
 int ft_check_redirect(t_commands *command);
 int ft_count_redirects(t_commands *commands);
 void ft_execute(t_commands *command);
-
-
-
 void check_fork(t_commands *command);
 void handle_signals(void);
 void open_pipes(t_commands *command);
@@ -329,4 +320,10 @@ bool has_here_doc(t_commands *commands);
 void remake_commands(t_commands *command);
 void	ft_signals_heredoc(void);
 bool files_exist(t_token *token);
+char *extract_home_path(const char *pwd);
+void heredoc_files(t_commands *command, int flag);
+void ft_expand_others(t_commands *commands);
+void parent_process(int fd_in, int count_pipes);
+void child_process(t_commands *command, int fd_in, int command_count);
+int count_commands(t_commands *command);
 #endif

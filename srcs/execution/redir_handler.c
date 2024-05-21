@@ -49,7 +49,6 @@ int ft_check_redirect(t_commands *command)
 void ft_handle_redirect(t_commands *command)
 {
 	t_token *temp;
-	int		old_fd;
 
 	temp = command->token;
 	while(temp)

@@ -62,9 +62,9 @@ void ft_exec_abs(t_commands *command)
 		if (execve(command->token->content, arr_command, arr_env) == -1)
 		{
 			print_error("command not found", command->token->content, 127);
+			EXIT_STATUS = 127;
 			exit(127);
 		}
-	EXIT_STATUS = 127;
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
 

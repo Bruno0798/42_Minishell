@@ -6,11 +6,31 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 02:07:52 by bruno            ###   ########.fr       */
+/*   Updated: 2024/05/21 11:38:50 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+char *extract_home_path(const char *pwd) {
+	char *home = NULL;
+	char *third_slash = strchr(pwd, '/');
+	if (third_slash) {
+		third_slash = strchr(third_slash + 1, '/');
+		if (third_slash) {
+			third_slash = strchr(third_slash + 1, '/');
+			if (third_slash) {
+				size_t length = third_slash - pwd;
+				home = malloc(length + 1);
+				if (home) {
+					strncpy(home, pwd, length);
+					home[length] = '\0';
+				}
+			}
+		}
+	}
+	return home;
+}
 
 void init_env(t_env **env,char **envp)
 {

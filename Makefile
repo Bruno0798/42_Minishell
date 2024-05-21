@@ -30,7 +30,7 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-#CFLAGS  = -Wall -Wextra -Werror -g
+CFLAGS  = -g
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
 
@@ -111,7 +111,7 @@ valgrind: re
 	@clear
 	@echo "[$(RED)looking for valgrind leaks$(RESET)] $(GREEN)$(RESET)"
 	@sleep 1
-	@valgrind -s --leak-check=full --show-leak-kinds=all ./minishell
+	@valgrind -s --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 .PHONY: all clean fclean re
 .SILENT:

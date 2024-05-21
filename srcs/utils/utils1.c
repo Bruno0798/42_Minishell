@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 15:44:26 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/05/21 16:28:31 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	}
 	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
 	command->next = NULL;
+	free(str);
+	free(words);
 	return command;  /* Return the new t_commands structure */
 }
 
@@ -137,7 +139,9 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	{
 		current->next = ft_new_commands(splitted_command[i], env);  /* Create a new t_commands structure for the current command and add it to the end of the list */
 		current = current->next;  /* Move to the next command in the list */
+		free(splitted_command[i]);
 	}
+	free(splitted_command);
 	return (commands);  /* Return the head of the list of commands */
 }
 
