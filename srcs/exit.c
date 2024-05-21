@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 14:38:43 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:24:29 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void ft_exit(t_commands *command)
 {
-	free_all(command);
+	free_all(command, 2);
 	exit(EXIT_STATUS);
 }
 

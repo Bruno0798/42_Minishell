@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 13:56:14 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:22:56 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -268,10 +268,10 @@ void	ft_handler_ctrl(int signum);
 
 /************************************* FREE ***********************************/
 
-void	free_all(t_commands *command);
+void	free_all(t_commands *command, int option);
 void	ft_exit(t_commands *command);
 void	ft_free_token(t_token *token);
-void	ft_free_commands(t_commands *command);
+void	ft_free_commands(t_commands *command, int option);
 void	ft_free_env(t_env *env);
 t_commands	*pipe_commands(char *str, t_env *env);
 void		ft_expander(t_commands *command);

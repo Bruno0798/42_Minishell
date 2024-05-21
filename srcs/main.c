@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 17:20:47 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/21 17:25:10 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int main(int argc, char **argv, char **envp)
 				open_pipes(command);
 			}
 		ft_special_handler(input); // NEEDS TO BE REMOVED FROM HERE
+		ft_free_commands(command, 1);
 	}
 	return 0;
 }
