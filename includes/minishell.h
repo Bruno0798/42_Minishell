@@ -326,4 +326,5 @@ void ft_expand_others(t_commands *commands);
 void parent_process(int fd_in, int count_pipes);
 void child_process(t_commands *command, int fd_in, int command_count);
 int count_commands(t_commands *command);
+void free_double_pointer_array(char **arr);
 #endif

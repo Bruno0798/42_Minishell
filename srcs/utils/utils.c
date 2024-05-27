@@ -36,7 +36,7 @@ char	**ft_lst_to_arr(t_token *token)
 		if (tmp->type == redir_out || tmp->type == redir_out2
 			|| tmp->type == redir_in)
 			break ;
-		arr[i++] = tmp->content;	/* Assign the content of the current token to the corresponding element in the array */
+		arr[i++] = ft_strdup(tmp->content);/* Assign the content of the current token to the corresponding element in the array */
 		tmp = tmp->next;
 	}
 	arr[i] = NULL;  /* Set the last element of the array to NULL */

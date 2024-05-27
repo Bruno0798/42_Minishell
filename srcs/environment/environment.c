@@ -122,6 +122,7 @@ char	**ft_env_to_arr(t_env *env)
 	{
 		temp = ft_strjoin(tmp->key, "=");
 		arr[++i] = ft_strjoin(temp, tmp->value);
+		free(temp); // TODO CHECK IF THIS FREE RESOLVES A MEMORY LEAK
 		tmp = tmp->next;
 	}
 	arr[i] =  NULL;
@@ -175,4 +176,20 @@ t_env	*ft_fnd_env(t_env *env, char *search)
 		current = current->next;
 	}
 	return (NULL);
+}
+
+void free_double_pointer_array(char **arr)
+{
+	int i;
+
+	if (!arr)
+		return;
+
+	i = 0;
+	while (arr[i])
+	{
+		free(arr[i]);
+		i++;
+	}
+	free(arr);
 }
