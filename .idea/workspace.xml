@@ -21,13 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/environment/environment.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/environment/environment.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/free.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/free.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/utils1.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils1.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,6 +97,8 @@
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "structure.view.defaults.are.configured": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -158,7 +154,8 @@
       <workItem from="1716727949023" duration="37000" />
       <workItem from="1716727991651" duration="5104000" />
       <workItem from="1716808391459" duration="8664000" />
-      <workItem from="1716818301816" duration="12520000" />
+      <workItem from="1716818301816" duration="13366000" />
+      <workItem from="1716833267405" duration="1469000" />
     </task>
     <servers />
   </component>

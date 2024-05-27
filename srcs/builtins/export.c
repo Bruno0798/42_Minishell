@@ -6,37 +6,50 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 02:08:45 by bruno            ###   ########.fr       */
+/*   Updated: 2024/05/27 19:27:15 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 t_env *dup_list(t_env *env)
 {
 	t_env   *dup;
 	t_env   *head;
 	t_env   *current;
-	head = malloc(sizeof(t_env));
+
+	head = NULL; // Initialize to NULL
 	current = env;
-	dup = head;
-	dup->key = ft_strdup(current->key);
-	dup->value = ft_strdup(current->value);
-	while(current->next)
+	while (current != NULL)
 	{
+		t_env *new_node = malloc(sizeof(t_env));
+		if (new_node == NULL)
+		{
+			// Handle memory allocation failure
+			// You may want to free allocated memory before returning NULL
+			return NULL;
+		}
+		new_node->key = ft_strdup(current->key);
+		new_node->value = ft_strdup(current->value);
+		new_node->visible = current->visible; // Copy the visibility flag
+		new_node->next = NULL;
+		if (head == NULL)
+			head = new_node;
+		else
+			dup->next = new_node;
 		current = current->next;
-		dup->next = malloc(sizeof(t_env));
-		dup = dup->next;
-		dup->key = ft_strdup(current->key);
-		dup->value = ft_strdup(current->value);
+		dup = new_node;
 	}
 	return head;
 }
+
 t_env *order_list(t_env *env)
 {
 	t_env *current;
 	t_env *tmp;
 	char *key;
 	char *value;
+
 	current = env;
 	while(current->next)
 	{
@@ -58,19 +71,22 @@ t_env *order_list(t_env *env)
 	}
 	return env;
 }
+
 void print_env(t_env *env)
 {
 	t_env *current;
 	t_env   *dup;
+
 	dup = dup_list(env);
 	current = order_list(dup);
-	while(current)
+	while (current)
 	{
-		printf("declare -x %s=\"%s\"\n", current->key, current->value);
+		printf("declare -x %s=\"%s\"\n",current->key, current->value);
 		current = current->next;
 	}
 	free_env(dup);
 }
+
 void ft_export(t_commands *command)
 {
 	char    *word;
@@ -85,7 +101,7 @@ void ft_export(t_commands *command)
 			token = token->next;
 			if(token->content[0] == '-')
 			{
-				dup2(STDERR_FILENO,STDOUT_FILENO);
+				//dup2(STDERR_FILENO,STDOUT_FILENO);
 				print_error(ERROR_OPTIONS, token->content, 1);
 			}
 			else if (!ft_strcmp(token->content, "") || !ft_strcmp(token->content, "="))
@@ -121,4 +137,5 @@ void ft_export(t_commands *command)
 					ft_add_env_back(&command->env,ft_new_env(token->content, "", 0));
 			}
 		}
+
 }
