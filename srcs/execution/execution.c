@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/26 15:54:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 14:22:26 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ void ft_exec_command(t_commands *command)
 	char    **arr_command;  /* Array to hold the command's tokens */
 	char    **arr_env;  /* Array to hold the command's environment variables */
 	int     i;  /* Loop counter */
+	char *temp_arr;
 
 	arr = get_path(command->env);  /* Retrieve the system's PATH environment variable */
 	if (!arr)
 	{
-		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem
+		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem=
 		return ;
 	}
 
@@ -91,16 +92,21 @@ void ft_exec_command(t_commands *command)
 	{
 		while(arr[++i])  /* Iterate over each element in the PATH array */
 		{
-			arr[i] = ft_strjoin(arr[i], "/");  /* Append a slash to the element */
-			arr[i] = ft_strjoin(arr[i], command->token->content);  /* Append the command's content to the element */
+
+			temp_arr = ft_strjoin(arr[i], "/");  /* Append a slash to the element */
+			free(arr[i]);
+			arr[i] = ft_strjoin(temp_arr, command->token->content); /* Append the command's content to the element */
+			free(temp_arr);
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
 			{
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
-				// If execve is successful, this line will not be reached
-				exit(127);
 			}
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
+		free_double_pointer_array(arr_env);
+		free_double_pointer_array(arr);
+		free_double_pointer_array(arr_command);
+		free_all(command, 2);
 		print_error("command not found", command->token->content, 127);
 		exit(127);
 	}

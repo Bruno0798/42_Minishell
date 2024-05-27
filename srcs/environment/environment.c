@@ -98,7 +98,7 @@ char **get_path(t_env *env_lst)
 	paths = NULL;
     while(env) /* Loop through the environment list */
     {
-        if(strcmp(env->key, "PATH") == 0) /* If the key is PATH, split the value and return the paths */
+        if(ft_strcmp(env->key, "PATH") == 0) /* If the key is PATH, split the value and return the paths */
         {
             paths = ft_split(env->value, ':'); /* Split the value */
             return (paths);
@@ -117,13 +117,15 @@ char	**ft_env_to_arr(t_env *env)
 
 	arr = malloc(sizeof(char *) * env_size(env));
 	tmp = env;
-	i = -1;
+	i = 0;
 	while (tmp)
 	{
 		temp = ft_strjoin(tmp->key, "=");
-		arr[++i] = ft_strjoin(temp, tmp->value);
+		free(arr[i]);
+		arr[i] = ft_strjoin(temp, tmp->value);
 		free(temp); // TODO CHECK IF THIS FREE RESOLVES A MEMORY LEAK
 		tmp = tmp->next;
+		i++;
 	}
 	arr[i] =  NULL;
 	return (arr);

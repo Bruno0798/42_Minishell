@@ -84,7 +84,6 @@ void ft_remove_quotes(t_commands *commands)
 			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
 		curr = curr->next;
 	}
-	free(curr);
 }
 
 int count_commands(t_commands *command)
