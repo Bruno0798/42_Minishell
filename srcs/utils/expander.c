@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 13:34:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:44:57 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,12 @@
 char *expand_variable(char *input, int index, t_commands *command) {
 	char *key;
 	char *value;
+	char *num;
 
 	if (input[index] == '$' && input[index + 1] == '?') {
-		input = replace_substr(input, "$?", ft_itoa(EXIT_STATUS), index);
+		num = ft_itoa(EXIT_STATUS);
+		input = replace_substr(input, "$?", num, index);
+		free(num);
 	} else {
 		key = trim_right(&input[index]);
 		value = ft_get_value(command->env, key + 1);
@@ -25,8 +28,8 @@ char *expand_variable(char *input, int index, t_commands *command) {
 			input = replace_substr(input, key, value, index);
 		else
 			input = replace_substr(input, key, "", index);
+		free(key);
 	}
-
 	return input;
 }
 
@@ -46,6 +49,8 @@ char *needs_expansion(char *input, char c, t_commands *command) {
 			input = expand_variable(input, i, command);
 			i += strlen(input) - length;
 		}
+		if (i > ft_strlen(input))
+			break ;
 		i++;
 	}
 	return input;
@@ -62,17 +67,17 @@ void ft_expander(t_commands *command) {
 	}
 }
 
-char *replace_substr(const char *original, const char *substr, const char *replacement, int i) {
+char *replace_substr(char *original, const char *substr, char *replacement, int i) {
 	if (!original || !substr || !replacement) {
 		return NULL;
 	}
-
-	size_t original_len = strlen(original);
-	size_t substr_len = strlen(substr);
-	size_t replacement_len = strlen(replacement);
+	size_t original_len = ft_strlen(original);
+	size_t substr_len = ft_strlen(substr);
+	size_t replacement_len = ft_strlen(replacement);
 
 	// Find the position of the substring in the original string
-	const char *substr_pos = strstr(original + i, substr);
+	const char *substr_pos = ft_strnstr(original + i, substr,
+										ft_strlen(original));
 	if (!substr_pos) {
 		return NULL; // Substring not found
 	}
@@ -95,6 +100,7 @@ char *replace_substr(const char *original, const char *substr, const char *repla
 
 	// Concatenate the part of the original string after the substring
 	strcat(result, substr_pos + substr_len);
+	free(original);
 
 	return result;
 }

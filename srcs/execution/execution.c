@@ -6,16 +6,16 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 14:22:26 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 18:44:07 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void ft_exec_abs(t_commands *command);
-void ft_exec_command(t_commands *command);
+void ft_exec_abs(t_commands *command, t_commands *head);
+void ft_exec_command(t_commands *command, t_commands *head);
 
-void ft_execute(t_commands *command)
+void ft_execute(t_commands *command, t_commands *head)
 {
 	if(ft_check_redirect(command))
 	{
@@ -35,20 +35,20 @@ void ft_execute(t_commands *command)
 		else if (!(ft_strcmp(command->token->content,"exit")))
 			ft_exit(command);
 		else
-			ft_execution(command);
+			ft_execution(command, head);
 	}
 }
 
-int ft_execution(t_commands *command)
+int ft_execution(t_commands *command, t_commands *head)
 {
 	if (command->token->content[0] == '/' || !ft_strncmp(command->token->content, "./", 2))
-        ft_exec_abs(command);
+        ft_exec_abs(command, head);
 	else 
-		ft_exec_command(command);
+		ft_exec_command(command, head);
 	return (1); 
 }
 
-void ft_exec_abs(t_commands *command)
+void ft_exec_abs(t_commands *command, t_commands *head)
 {
 	pid_t	pid;  /* Process ID */
 	char	**arr_command;  /* Array to hold the command's tokens */
@@ -63,12 +63,17 @@ void ft_exec_abs(t_commands *command)
 		{
 			print_error("command not found", command->token->content, 127);
 			EXIT_STATUS = 127;
+			free_double_pointer_array(arr_env);
+			free_double_pointer_array(arr_command);
+			free_all(head, 2);
 			exit(127);
 		}
+	free_double_pointer_array(arr_env);
+	free_double_pointer_array(arr_command);
 	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
 }
 
-void ft_exec_command(t_commands *command)
+void ft_exec_command(t_commands *command, t_commands *head)
 {
 	pid_t   pid;    /* Process ID */
 	char    **arr;  /* Array to hold the system's PATH environment variable */
@@ -98,15 +103,13 @@ void ft_exec_command(t_commands *command)
 			arr[i] = ft_strjoin(temp_arr, command->token->content); /* Append the command's content to the element */
 			free(temp_arr);
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
-			{
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
-			}
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
-		free_all(command, 2);
+		free_all(head, 2);
 		print_error("command not found", command->token->content, 127);
 		exit(127);
 	}

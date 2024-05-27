@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 11:38:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:27:01 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ char	**ft_env_to_arr(t_env *env)
 	while (tmp)
 	{
 		temp = ft_strjoin(tmp->key, "=");
-		free(arr[i]);
 		arr[i] = ft_strjoin(temp, tmp->value);
 		free(temp); // TODO CHECK IF THIS FREE RESOLVES A MEMORY LEAK
 		tmp = tmp->next;

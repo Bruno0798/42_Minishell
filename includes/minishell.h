@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 17:22:56 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 17:10:50 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -279,17 +279,17 @@ char		**get_path(t_env *env_lst);
 char		**ft_split2(char const *s, char c);
 char		**ft_lst_to_arr(t_token *token);
 char		**ft_env_to_arr(t_env *env);
-int			ft_execution(t_commands *command);
+int			ft_execution(t_commands *command, t_commands *head);
 int			env_size(t_env *env);
 char *ft_expand_join(char *s1, t_env *env);
 char* trim_right(const char *input_string);
-char *replace_substr(const char *original, const char *substr, const char
+char *replace_substr(char *original, const char *substr,char
 *replacement, int i);
 void ft_special_handler(const char *input);
 char* ft_delete_quotes(char *input);
 void ft_remove_quotes(t_commands *commands);
 int ft_parser(char *input, t_commands **commands, t_env *env);
-void ft_execute(t_commands *command);
+void ft_execute(t_commands *command, t_commands *head);
 bool is_valid_input(char *input, t_env *env);
 bool syntax_checker(char *input);
 void ft_cleans_special_chars(t_commands *commands);
@@ -306,7 +306,6 @@ int ft_redirect(t_commands *command);
 void ft_handle_redirect(t_commands *command);
 int ft_check_redirect(t_commands *command);
 int ft_count_redirects(t_commands *commands);
-void ft_execute(t_commands *command);
 void check_fork(t_commands *command);
 void handle_signals(void);
 void open_pipes(t_commands *command);

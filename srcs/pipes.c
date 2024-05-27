@@ -18,7 +18,6 @@ void open_pipes(t_commands *command)
 	int pipes_count;
 
 	pipes_count = count_commands(command);
-
 	if (pipes_count > 1)
 	{
 		fd_in = dup(STDIN_FILENO);
@@ -26,7 +25,7 @@ void open_pipes(t_commands *command)
 		parent_process(fd_in, pipes_count);
 	}
 	else
-		ft_execute(command);
+		ft_execute(command, command);
 }
 
 void parent_process(int fd_in, int count_pipes)
@@ -46,9 +45,11 @@ void child_process(t_commands *command, int fd_in, int command_count)
 {
 	int i;
 	int pipes[2];
+	t_commands *head;
 	pid_t  pid;
 
 	i = 0;
+	head = command;
 	while (i < command_count)
 	{
 		pipe(pipes);
@@ -62,8 +63,8 @@ void child_process(t_commands *command, int fd_in, int command_count)
 			close(pipes[0]);
 			close(pipes[1]);
 			close(fd_in);
-			ft_execute(command);
-			free_all(command, 1);
+			ft_execute(command, head);
+			free_all(head, 2);
 			exit(EXIT_STATUS);
 		}
 		dup2(pipes[0], fd_in);

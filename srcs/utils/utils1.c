@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 14:11:54 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:58:35 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	current = commands;  /* Assign the head of the list of commands to the current command */
 	while(splitted_command[++i])  /* Iterate over the rest of the commands in the array */
 	{
-		printf("Entrou\n");
 		current->next = ft_new_commands(splitted_command[i], env);  /* Create a new t_commands structure for the current command and add it to the end of the list */
 		current = current->next; /* Move to the next command in the list */
 	}
