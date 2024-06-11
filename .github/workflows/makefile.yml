@@ -29,6 +29,7 @@ jobs:
       run: |
         cd minishell_tester
         pip3 install -r requirements.txt
+        python3 -m pip install norminette
 
     - name: Run tests
       run: |
