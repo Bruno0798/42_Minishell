@@ -13,6 +13,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+    - name: Set up the TERM environment variable
+      run: echo "TERM=xterm" >> $GITHUB_ENV
+
     - name: Update submodules
       run: git submodule update --init --recursive
 
