@@ -23,9 +23,10 @@ jobs:
       run: make
 
     - name: Clone tester repository
-      run: git clone https://github.com/LucasKuhn/minishell_tester.git
+      run:  git clone https://github.com/kichkiro/minishell_tester.git
+            cd minishell_tester 
+            pip3 install -r requirements.txt 
 
     - name: Run tests
       run: |
-        cd minishell_tester
-        ./tester
+          python3 src/__main__.py .././minishell
