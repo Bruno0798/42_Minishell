@@ -14,6 +14,9 @@
 
 static int init_and_set_fd(int argc, char **envp, t_env **env);
 
+//TODO EXPAND NO HEREDOC ESTA MAL, NAO DA EXPAND NO EOF MAS TEM DE DAR DENTRO
+
+
 int	EXIT_STATUS;
 
 int main(int argc, char **argv, char **envp)

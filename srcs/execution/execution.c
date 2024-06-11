@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 18:44:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/11 16:58:42 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ void ft_exec_command(t_commands *command, t_commands *head)
 	{
 		while(arr[++i])  /* Iterate over each element in the PATH array */
 		{
-
 			temp_arr = ft_strjoin(arr[i], "/");  /* Append a slash to the element */
 			free(arr[i]);
 			arr[i] = ft_strjoin(temp_arr, command->token->content); /* Append the command's content to the element */
@@ -109,8 +108,8 @@ void ft_exec_command(t_commands *command, t_commands *head)
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
-		free_all(head, 2);
 		print_error("command not found", command->token->content, 127);
+		free_all(head, 2);
 		exit(127);
 	}
 	// Parent process
