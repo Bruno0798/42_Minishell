@@ -8,20 +8,21 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v4
-    - name: configure
-      run: https://github.com/Bruno0798/42_libft
-    - name: configure
-      run: 	make 
-    - name: configure
-      run: 	git clone https://github.com/LucasKuhn/minishell_tester.git
-    - name: configure
-      run: 	cd minishell_tester
-    - name: configure
-      run: ./tester
 
-  
+    - name: Update submodules
+      run: git submodule update --init --recursive
+
+    - name: Build project
+      run: make
+
+    - name: Clone tester repository
+      run: git clone https://github.com/LucasKuhn/minishell_tester.git
+
+    - name: Run tests
+      run: |
+        cd minishell_tester
+        ./tester
