@@ -13,9 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
-
     - name: configure
-      run: 	make
+      run: https://github.com/Bruno0798/42_libft
+    - name: configure
+      run: 	make 
     - name: configure
       run: 	git clone https://github.com/LucasKuhn/minishell_tester.git
     - name: configure
