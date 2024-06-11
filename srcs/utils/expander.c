@@ -60,7 +60,7 @@ void ft_expander(t_commands *command) {
 	t_token *token = command->token;
 
 	while (token != NULL) {
-		if (ft_strchr(token->content, '$')) {
+		if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0'){
 			token->content = needs_expansion(token->content, '$', command);
 		}
 		token = token->next;

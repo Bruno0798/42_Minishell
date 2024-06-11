@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 19:27:15 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/11 12:37:47 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,55 +87,84 @@ void print_env(t_env *env)
 	free_env(dup);
 }
 
-void ft_export(t_commands *command)
+bool is_invalid_token(char *str)
 {
-	char    *word;
-	t_token	*token;
+	int i;
 
-	token = command->token;
-	if(!command->token->next) /* If there is no token to export, print the environment variables */
-		print_env(command->env);
-	else
-		while(token->next)
+	i = 0;
+	if (!ft_isalpha(str[0]) && ft_isdigit(str[0]))
+		return false;
+
+	while(str[i])
+	{
+		if(!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' && str[i] != ' ')
 		{
-			token = token->next;
-			if(token->content[0] == '-')
-			{
-				//dup2(STDERR_FILENO,STDOUT_FILENO);
-				print_error(ERROR_OPTIONS, token->content, 1);
-			}
-			else if (!ft_strcmp(token->content, "") || !ft_strcmp(token->content, "="))
-				printf("export: not valid in this context: %s\n", token->content);
-			else if (ft_fnd_env(command->env, *ft_split(token->content, '='))) /* If the key already exists, update the value */
-			{
-				if(!ft_strchr(token->content, '='))
-					continue;
-				word = ft_strchr(token->content, '=') + 1; /* Get the value */
-				*ft_strchr(token->content, '=') = 0; /* Set the equal sign to 0 */
-				ft_update_env(command->env, token->content, word, 1); /* Update the environment variable */
-			}
-			else if(ft_strchr(token->content, '=')) /* If the token has an equal sign, add the environment variable */
-			{
-				if (ft_isdigit(token->content[0]) || ft_hasSpecialChar(*ft_split(token->content, '=')) || !ft_strcmp(token->content, "") || !ft_strcmp(token->content, "="))
-				{
-					printf("export: not valid in this context: %s\n", token->content);
-					continue;
-				}
-				word = ft_strchr(token->content, '=') + 1;
-				*ft_strchr(token->content, '=') = 0;
-				if(!*(token->content))
-					printf("Error\n");
-				ft_add_env_back(&command->env, ft_new_env(token->content, word, 1));
-			} else
-			{
-				if (!ft_strcmp(token->content, "") || !ft_strcmp(token->content, "=") || ft_isdigit(token->content[0]) || ft_hasSpecialChar(*ft_split(token->content, '=')) )
-				{
-					printf("export: not valid in this context: %s\n", token->content);
-					continue ;
-				}
-				if(!ft_fnd_env(command->env, token->content))
-					ft_add_env_back(&command->env,ft_new_env(token->content, "", 0));
-			}
+			return false;
 		}
+		i++;
+	}
+	return true;
+}
 
+void handle_invalid_token(const char *content) {
+	printf("export: not valid in this context: %s\n", content);  //TODO DELETE THIS FUNCTION TO REPLACE WITH PRINT ERROR
+}
+
+void update_or_add_env(t_commands *command, char *key, char *value) {
+	if (ft_fnd_env(command->env, key)) {
+		ft_update_env(command->env, key, value, 1);
+	} else {
+		ft_add_env_back(&command->env, ft_new_env(key, value, 1));
+	}
+}
+
+void handle_export_token(t_commands *command, t_token *token) {
+	if (token->content[0] == '-' || token->content[0] == '=') {
+		print_error(ERROR_OPTIONS, token->content, 1);
+		return;
+	}
+
+	char *equal_sign = ft_strchr(token->content, '=');
+	char *key = equal_sign ? token->content : ft_strdup(token->content);
+
+	if (equal_sign) {
+		*equal_sign = '\0';
+	}
+
+	if (!is_invalid_token(key))
+	{
+		if (equal_sign) {
+			*equal_sign = '='; // Restore the original string
+		}else
+			free(key);
+		handle_invalid_token(token->content); //TODO CHANGE TO PRINT ERROR
+		return;
+	}
+
+	if (equal_sign) {
+		char *value = equal_sign + 1;
+		update_or_add_env(command, key, value);
+		*equal_sign = '='; // Restore the original string
+	} else {
+		if (!ft_fnd_env(command->env, key)) {
+			ft_add_env_back(&command->env, ft_new_env(key, "", 0));
+		}
+	}
+
+	if (!equal_sign) {
+		free(key); // Free the copied key if no '=' was found
+	}
+}
+
+void ft_export(t_commands *command) {
+	t_token *token = command->token;
+
+	if (!token->next) {
+		print_env(command->env);
+		return;
+	}
+	while (token->next) {
+		token = token->next;
+		handle_export_token(command, token);
+	}
 }

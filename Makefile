@@ -104,6 +104,12 @@ fclean: clean
 
 re: fclean all
 
+BUILDID=$(shell date +%Y%m%d-%H:%M:%S)
+
+commit:
+	git add -A .
+	git commit -m 'Automatic commit of successful build $(BUILDID)'
+
 run: re
 	@./$(NAME)
 
