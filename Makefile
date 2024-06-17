@@ -109,7 +109,7 @@ BUILDID=$(shell date +%Y%m%d-%H:%M:%S)
 commit:fclean
 	git add -A .
 	git commit -m 'Automatic commit of successful build $(BUILDID)'
-	git push origin master
+	git push origin main
 
 run: re
 	@./$(NAME)
