@@ -22,8 +22,8 @@ int ft_check_redirect(t_commands *command)
 	{
 		if(temp->type == redir_out || temp->type == redir_out2 || temp->type == redir_in)
 		{
-			if(temp->type == redir_out){
-				printf("ENtrou\n");
+			if(temp->type == redir_out)
+			{
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
 				dup2(fd, STDOUT_FILENO);
 			}

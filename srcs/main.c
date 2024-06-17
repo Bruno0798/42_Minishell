@@ -26,13 +26,16 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 	char		*input;
 	int			fd;
+	int fd1;
 
 
 	fd = init_and_set_fd(argc, envp, &env);
+	fd1 = dup(1);
 	while (42)
 	{
 		handle_signals();
 		dup2(fd, STDIN_FILENO);
+		dup2(fd1, STDOUT_FILENO);
 		input = readline("Minishell$>");
 		if (is_valid_input(input, env))
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
