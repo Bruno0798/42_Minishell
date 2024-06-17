@@ -22,8 +22,7 @@
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell_tester/test_files/invalid_permission" beforeDir="false" afterPath="$PROJECT_DIR$/minishell_tester/test_files/invalid_permission" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/validations.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/validations.c" afterDir="false" />
     </list>
@@ -167,7 +166,8 @@
       <workItem from="1717594556671" duration="4027000" />
       <workItem from="1718103943774" duration="12560000" />
       <workItem from="1718627395425" duration="2678000" />
-      <workItem from="1718632240787" duration="10733000" />
+      <workItem from="1718632240787" duration="14245000" />
+      <workItem from="1718650845435" duration="831000" />
     </task>
     <servers />
   </component>

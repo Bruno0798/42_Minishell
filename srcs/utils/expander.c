@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 17:18:03 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 20:14:35 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ char *expand_variables(t_commands *commands, char *string);
 char *store_value(char *string);
 int value_length(char *string);
 char *expand_new_string(char *value, char*key, char *string);
+char *needs_expansion(char *input, t_commands *command);
+char *expand_variable(char *string, int i, t_commands *commands);
 
 void ft_expander(t_commands *commands)
 {
@@ -41,7 +43,7 @@ void ft_expander(t_commands *commands)
 			if(*(ft_strchr(token->content, '$') + 1) == '?')
 				token->content = expand_exit_code(token->content);
 			else
-				token->content = expand_variables(commands, token->content);
+				token->content = needs_expansion(token->content, commands);
 		}
 		token = token->next;
 	}
@@ -108,29 +110,27 @@ char *expand_variables(t_commands *commands, char *string)
 	char *key;
 	char *new_string;
 
-	while (ft_strchr(string, '$'))
+
+	value = store_value(string);
+	if (!value)
+		return NULL; // Handle allocation failure
+	key = ft_get_value(commands->env, value);
+	if (key)
+		new_string = expand_new_string(value, key, string);
+	else
+		new_string = expand_new_string(value, "", string);
+
+	free(value); // Free the allocated value
+
+	if (!new_string)
+		return NULL; // Handle allocation failure
+
+	// Replace the old string with the new one if different
+	if (new_string != string)
 	{
-		value = store_value(string);
-		if (!value)
-			return NULL; // Handle allocation failure
-		key = ft_get_value(commands->env, value);
-		if (key)
-			new_string = expand_new_string(value, key, string);
-		else
-			new_string = expand_new_string(value, "", string);
-
-		free(value); // Free the allocated value
-
-		if (!new_string)
-			return NULL; // Handle allocation failure
-
-		// Replace the old string with the new one if different
-		if (new_string != string) {
-			free(string);
-			string = new_string;
-		}
+		free(string);
+		string = new_string;
 	}
-
 	return string;
 }
 
@@ -171,29 +171,28 @@ char *expand_new_string(char *value, char* key, char *string)
 char *store_value(char *string)
 {
 	int i;
-	int j;
-	char *value;
+	int length;
+	char *key;
 
-	i = 0;
-	j = 0;
-	value = malloc(sizeof(char) * (value_length(string) + 1));
-	if (!value) // Check for malloc failure
-		return NULL;
+	i = 1;
+	length = 0;
 
-	while (string[i])
+
+	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0')
 	{
-		if (string[i] == '$')
-		{
-			i++;
-			while (string[i] != '$' && string[i] != ' ' && string[i] != '\0' && string[i] != SINGLE_QUOTE && string[i] != DOUBLE_QUOTE)
-				value[j++] = string[i++];
-			break; // Stop after capturing the value
-		}
 		i++;
+		length++;
 	}
-	value[j] = '\0'; // Null-terminate the value
-
-	return value;
+	key = malloc(sizeof(char) * length + 1);
+	i = 0;
+	++string;
+	while (i < length)
+	{
+		key[i] = string[i];
+	    i++;
+	}
+	string[i] = '\0';
+	return key;
 }
 
 int value_length(char *string) {
@@ -217,7 +216,6 @@ int value_length(char *string) {
 		length++;
 		i++;
 	}
-
 	return length;
 }
 
@@ -231,4 +229,43 @@ char *ft_get_value(t_env *env, char *key) {
 		current = current->next; // Move to the next environment variable
 	}
 	return NULL; // If no matching key is found, return NULL
+}
+
+
+char *needs_expansion(char *input, t_commands *command)
+{
+	bool single_quotes = false;
+	bool double_quotes = false;
+	int i = 0;
+	int length;
+
+	while (input[i]) {
+		if (input[i] == '\'' && !double_quotes) {
+			single_quotes = !single_quotes;
+		} else if (input[i] == '"' && !single_quotes) {
+			double_quotes = !double_quotes;
+		} else if (input[i] == '$' && !single_quotes) {
+			length = ft_strlen(input);
+			input = expand_variable(input, i, command);
+			i += ft_strlen(input) - length;
+		}
+		if (i > ft_strlen(input))
+			break ;
+		i++;
+	}
+	return input;
+}
+
+
+char *expand_variable(char *string, int i, t_commands *commands)
+{
+	char *value;
+	char *key;
+	char *new_string;
+
+	key = store_value(&string[i]);
+	value = ft_get_value(commands->env, key);
+
+
+	return value;
 }

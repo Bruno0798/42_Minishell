@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 15:17:27 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 19:25:06 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ bool is_between_quotes(char *str)
 		else if (str[i] == SINGLE_QUOTE && !d_quote)
 			s_quote = !s_quote;
 	}
-	if (s_quote != 0 || d_quote != 0)
-		return false;
-	return true;
+	if (s_quote != 0)
+		return true;
+	return false;
 }
 
 bool check_quotes(char *str)

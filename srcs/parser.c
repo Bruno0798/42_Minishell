@@ -15,8 +15,6 @@
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	add_history(input);
-	if (!is_between_quotes(input))
-		return (EXIT_FAILURE);
 	*commands = pipe_commands(input, env);
 	if (!has_here_doc(*commands))
 		ft_expander(*commands);
