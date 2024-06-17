@@ -40,8 +40,8 @@ bool is_between_quotes(char *str)
 			s_quote = !s_quote;
 	}
 	if (s_quote != 0 || d_quote != 0)
-		return true;
-	return EXIT_FAILURE;
+		return false;
+	return true;
 }
 
 bool check_quotes(char *str)

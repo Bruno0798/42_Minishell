@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 15:23:13 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 17:18:03 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,10 +168,6 @@ char *expand_new_string(char *value, char* key, char *string)
 }
 
 
-
-
-
-
 char *store_value(char *string)
 {
 	int i;
@@ -180,7 +176,6 @@ char *store_value(char *string)
 
 	i = 0;
 	j = 0;
-
 	value = malloc(sizeof(char) * (value_length(string) + 1));
 	if (!value) // Check for malloc failure
 		return NULL;
@@ -190,7 +185,7 @@ char *store_value(char *string)
 		if (string[i] == '$')
 		{
 			i++;
-			while (string[i] != '$' && string[i] != ' ' && string[i] != '\0')
+			while (string[i] != '$' && string[i] != ' ' && string[i] != '\0' && string[i] != SINGLE_QUOTE && string[i] != DOUBLE_QUOTE)
 				value[j++] = string[i++];
 			break; // Stop after capturing the value
 		}

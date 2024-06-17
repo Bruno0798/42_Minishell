@@ -68,4 +68,3 @@ void ft_special_handler(const char *input) {
 		EXIT_STATUS = 127;  // Set exit status for subsequent commands
 	}
 }
-
