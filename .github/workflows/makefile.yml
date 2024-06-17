@@ -27,27 +27,17 @@ jobs:
     - name: Build project
       run: |
         echo -e "\033[1;32mBuilding project:\033[0m"
-        make
-
-    - name: Show directory structure after build
-      run: |
-        echo -e "\033[1;34mListing directory structure after build:\033[0m"
-        ls -R
+          make
 
     - name: Clone tester repository
       run: |
         echo -e "\033[1;32mCloning tester repository:\033[0m"
-        git clone https://github.com/kichkiro/minishell_tester.git
+        git clone https://github.com/LucasKuhn/minishell_tester.git
 
     - name: Set up tester repository
       run: |
         cd minishell_tester
-        pip3 install -r requirements.txt
-        python3 -m pip install norminette
-        pip3 install termcolor  # Ensure termcolor is installed
 
     - name: Run tests
       run: |
-        echo -e "\033[1;32mRunning tests:\033[0m"
-        cd minishell_tester
-        python3 src/__main__.py ../
+        ./tester
