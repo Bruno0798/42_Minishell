@@ -3,10 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
+/*   Updated: 2024/06/17 15:23:13 by bsousa-d         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   expander.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: brperer <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 13:34:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 15:22:38 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,55 +102,45 @@ char *expand_exit_code(char *string) {
 	return new_string;
 }
 
-
 char *expand_variables(t_commands *commands, char *string)
 {
 	char *value;
 	char *key;
 	char *new_string;
-	char *temp;
 
-	value = store_value(string);
-	if (!value)
-		return NULL; // Handle allocation failure
-
-	key = ft_get_value(commands->env, value);
-
-	if (key)
-		new_string = expand_new_string(value, key, string);
-	else
-		new_string = expand_new_string(value, "", string);
-
-	free(value); // Free the allocated value
-
-	if (!new_string)
-		return NULL; // Handle allocation failure
-
-	// Free the original string if it is no longer needed
-	if (new_string != string)
-		free(string);
-
-	while (ft_strchr(new_string, '$'))
+	while (ft_strchr(string, '$'))
 	{
-		temp = new_string; // Store the old string
-		new_string = expand_variables(commands, new_string);
-		free(temp); // Free the old string
+		value = store_value(string);
+		if (!value)
+			return NULL; // Handle allocation failure
+		key = ft_get_value(commands->env, value);
+		if (key)
+			new_string = expand_new_string(value, key, string);
+		else
+			new_string = expand_new_string(value, "", string);
+
+		free(value); // Free the allocated value
+
+		if (!new_string)
+			return NULL; // Handle allocation failure
+
+		// Replace the old string with the new one if different
+		if (new_string != string) {
+			free(string);
+			string = new_string;
+		}
 	}
 
-	return new_string;
+	return string;
 }
 
 
 char *expand_new_string(char *value, char* key, char *string)
 {
-	int i;
-	int j;
-	int k;
+	int i = 0;
+	int j = 0;
+	int k = 0;
 	char *new_string;
-
-	i = 0;
-	j = 0;
-	k = 0;
 
 	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(value) + ft_strlen(key) + 1));
 	if (!new_string) // Check for malloc failure
@@ -151,6 +153,9 @@ char *expand_new_string(char *value, char* key, char *string)
 			while (key[k])
 				new_string[j++] = key[k++];
 			i += ft_strlen(value) + 1; // Skip the value part in the original string
+			while (string[i])
+				new_string[j++] = string[i++];
+			break;
 		}
 		else
 		{
@@ -163,6 +168,10 @@ char *expand_new_string(char *value, char* key, char *string)
 }
 
 
+
+
+
+
 char *store_value(char *string)
 {
 	int i;
@@ -172,7 +181,7 @@ char *store_value(char *string)
 	i = 0;
 	j = 0;
 
-	value = malloc(sizeof(char) * (value_length(string) + 1)); // +1 for null terminator
+	value = malloc(sizeof(char) * (value_length(string) + 1));
 	if (!value) // Check for malloc failure
 		return NULL;
 
@@ -192,7 +201,6 @@ char *store_value(char *string)
 	return value;
 }
 
-
 int value_length(char *string) {
 	int i;
 	int length;
@@ -200,19 +208,16 @@ int value_length(char *string) {
 	i = 0;
 	length = 0;
 
-	// Find the first '$' in the string
 	while (string[i] && string[i] != '$') {
 		i++;
 	}
 
-	// If no '$' found, return 0
 	if (string[i] == '\0') {
 		return 0;
 	}
 
-	i++; // Skip the '$'
+	i++;
 
-	// Calculate the length of the value name
 	while (string[i] && string[i] != ' ' && string[i] != '$') {
 		length++;
 		i++;
@@ -220,8 +225,6 @@ int value_length(char *string) {
 
 	return length;
 }
-
-
 
 char *ft_get_value(t_env *env, char *key) {
 	t_env *current = env; // Initialize the current environment variable
