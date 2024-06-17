@@ -6,13 +6,17 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/13 12:42:27 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:27:46 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
 char *expand_exit_code(char *string);
+char *expand_variables(t_commands *commands, char *string);
+char *store_value(char *string);
+int value_length(char *string);
+char *expand_new_string(char *value, char*key, char *string);
 
 void ft_expander(t_commands *commands)
 {
@@ -26,6 +30,8 @@ void ft_expander(t_commands *commands)
 		{
 			if(*(ft_strchr(token->content, '$') + 1) == '?')
 				token->content = expand_exit_code(token->content);
+			else
+				token->content = expand_variables(commands, token->content);
 		}
 		token = token->next;
 	}
@@ -85,6 +91,111 @@ char *expand_exit_code(char *string) {
 	free(num);
 	return new_string;
 }
+
+
+char *expand_variables(t_commands *commands, char *string)
+{
+	char *value;
+	char *key;
+	char *new_string;
+
+	value = store_value(string);
+	key = ft_get_value(commands->env, value);
+	if (key)
+		new_string = expand_new_string(value, key, string);
+	else
+		new_string = expand_new_string(value, "", string);
+
+	while(ft_strchr(new_string, '$'))
+		new_string = expand_variables(commands, new_string);
+
+	return (new_string);
+}
+
+char *expand_new_string(char *value, char*key, char *string)
+{
+	int i;
+	int j;
+	int k;
+	char *new_string;
+
+	i =0;
+	j = 0;
+	k=0;
+
+	new_string = malloc(sizeof(char) * ((ft_strlen(string) - ft_strlen(value) + ft_strlen(key))));
+
+	while (string[i])
+	{
+		if(string[i] == '$')
+		{
+			while (key[k])
+				new_string[j++] = key[k++];
+			while (string[++i] != '$' && string[i] != ' ' && string[i] != '\0')
+				continue;
+		}
+		new_string[j] = string[i];
+		i++;
+		j++;
+	}
+
+	return new_string;
+}
+
+char *store_value(char *string)
+{
+	int i;
+	int j;
+	char *value;
+
+	i = 0;
+	j = 0;
+
+	value = malloc(sizeof(char) * value_length(string));
+
+	while (string[i])
+	{
+	    if(string[i] == '$')
+		{
+			i++;
+			while (string[i] != '$' && string[i] != ' ' && string[i] != '\0')
+				value[j++] = string[i++];
+		}
+		i++;
+	}
+	return value;
+
+}
+
+int value_length(char *string) {
+	int i;
+	int length;
+
+	i = 0;
+	length = 0;
+
+	// Find the first '$' in the string
+	while (string[i] && string[i] != '$') {
+		i++;
+	}
+
+	// If no '$' found, return 0
+	if (string[i] == '\0') {
+		return 0;
+	}
+
+	i++; // Skip the '$'
+
+	// Calculate the length of the value name
+	while (string[i] && string[i] != ' ' && string[i] != '$') {
+		length++;
+		i++;
+	}
+
+	return length;
+}
+
+
 
 char *ft_get_value(t_env *env, char *key) {
 	t_env *current = env; // Initialize the current environment variable
