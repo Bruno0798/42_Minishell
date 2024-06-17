@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 13:27:46 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 13:34:30 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ char *expand_new_string(char *value, char*key, char *string);
 void ft_expander(t_commands *commands)
 {
 	t_token *token = commands->token;
-
-	EXIT_STATUS = 4000000;
 
 	while (token)
 	{
@@ -98,49 +96,72 @@ char *expand_variables(t_commands *commands, char *string)
 	char *value;
 	char *key;
 	char *new_string;
+	char *temp;
 
 	value = store_value(string);
+	if (!value)
+		return NULL; // Handle allocation failure
+
 	key = ft_get_value(commands->env, value);
+
 	if (key)
 		new_string = expand_new_string(value, key, string);
 	else
 		new_string = expand_new_string(value, "", string);
 
-	while(ft_strchr(new_string, '$'))
-		new_string = expand_variables(commands, new_string);
+	free(value); // Free the allocated value
 
-	return (new_string);
+	if (!new_string)
+		return NULL; // Handle allocation failure
+
+	// Free the original string if it is no longer needed
+	if (new_string != string)
+		free(string);
+
+	while (ft_strchr(new_string, '$'))
+	{
+		temp = new_string; // Store the old string
+		new_string = expand_variables(commands, new_string);
+		free(temp); // Free the old string
+	}
+
+	return new_string;
 }
 
-char *expand_new_string(char *value, char*key, char *string)
+
+char *expand_new_string(char *value, char* key, char *string)
 {
 	int i;
 	int j;
 	int k;
 	char *new_string;
 
-	i =0;
+	i = 0;
 	j = 0;
-	k=0;
+	k = 0;
 
-	new_string = malloc(sizeof(char) * ((ft_strlen(string) - ft_strlen(value) + ft_strlen(key))));
+	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(value) + ft_strlen(key) + 1));
+	if (!new_string) // Check for malloc failure
+		return NULL;
 
 	while (string[i])
 	{
-		if(string[i] == '$')
+		if (string[i] == '$' && ft_strncmp(&string[i + 1], value, ft_strlen(value)) == 0)
 		{
 			while (key[k])
 				new_string[j++] = key[k++];
-			while (string[++i] != '$' && string[i] != ' ' && string[i] != '\0')
-				continue;
+			i += ft_strlen(value) + 1; // Skip the value part in the original string
 		}
-		new_string[j] = string[i];
-		i++;
-		j++;
+		else
+		{
+			new_string[j++] = string[i++];
+		}
 	}
+	new_string[j] = '\0'; // Null-terminate the new string
 
 	return new_string;
 }
+
 
 char *store_value(char *string)
 {
@@ -151,21 +172,26 @@ char *store_value(char *string)
 	i = 0;
 	j = 0;
 
-	value = malloc(sizeof(char) * value_length(string));
+	value = malloc(sizeof(char) * (value_length(string) + 1)); // +1 for null terminator
+	if (!value) // Check for malloc failure
+		return NULL;
 
 	while (string[i])
 	{
-	    if(string[i] == '$')
+		if (string[i] == '$')
 		{
 			i++;
 			while (string[i] != '$' && string[i] != ' ' && string[i] != '\0')
 				value[j++] = string[i++];
+			break; // Stop after capturing the value
 		}
 		i++;
 	}
-	return value;
+	value[j] = '\0'; // Null-terminate the value
 
+	return value;
 }
+
 
 int value_length(char *string) {
 	int i;

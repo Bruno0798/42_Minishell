@@ -85,7 +85,6 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -93,12 +92,12 @@
     &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
     &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/bruno/Desktop/42_Minishell&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.sync&quot;,
     &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -154,18 +153,24 @@
       <workItem from="1715956027471" duration="3464000" />
       <workItem from="1716727949023" duration="37000" />
       <workItem from="1716727991651" duration="5104000" />
-      <workItem from="1716808391459" duration="7700000" />
-      <workItem from="1717445714055" duration="13000" />
-      <workItem from="1717502168018" duration="115000" />
-      <workItem from="1717590327677" duration="8834000" />
-      <workItem from="1718276214119" duration="4361000" />
-      <workItem from="1718462177003" duration="178000" />
-      <workItem from="1718622169595" duration="1965000" />
-      <workItem from="1718624144996" duration="3117000" />
+      <workItem from="1716808391459" duration="8664000" />
+      <workItem from="1716818301816" duration="13366000" />
+      <workItem from="1716833267405" duration="2323000" />
+      <workItem from="1716835597239" duration="461000" />
+      <workItem from="1716836064675" duration="1345000" />
+      <workItem from="1717587390431" duration="52000" />
+      <workItem from="1717587449107" duration="4562000" />
+      <workItem from="1717594556671" duration="4027000" />
+      <workItem from="1718103943774" duration="12560000" />
+      <workItem from="1718627395425" duration="1106000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>
