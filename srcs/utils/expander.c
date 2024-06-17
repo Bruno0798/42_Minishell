@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 20:14:35 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/17 22:17:11 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,13 +185,12 @@ char *store_value(char *string)
 	}
 	key = malloc(sizeof(char) * length + 1);
 	i = 0;
-	++string;
 	while (i < length)
 	{
-		key[i] = string[i];
-	    i++;
+		key[i] = string[i + 1];
+		i++;
 	}
-	string[i] = '\0';
+	key[i] = '\0';
 	return key;
 }
 
@@ -262,10 +261,36 @@ char *expand_variable(char *string, int i, t_commands *commands)
 	char *value;
 	char *key;
 	char *new_string;
+	int h;
+	int k;
+	int j;
 
 	key = store_value(&string[i]);
 	value = ft_get_value(commands->env, key);
+	if (!value)
+		value = "";
 
-
-	return value;
+	// Correct memory allocation size
+	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1));
+	if (!new_string)
+		return NULL; // Handle malloc failure
+	h=0;
+	k = 0;
+	j = 0;
+	while (string[h])
+	{
+		if (string[h] == '$' && ft_strncmp(&string[h+1], key, ft_strlen(key)) == 0 && i == h)
+		{
+			h += ft_strlen(key) + 1; // Skip the dollar sign and key
+			while (value[k])
+				new_string[j++] = value[k++];
+			while (string[h])
+				new_string[j++] = string[h++];
+			break;
+		}
+		else
+			new_string[j++] = string[h++];
+	}
+	new_string[j] = '\0'; // Null-terminate the new string
+	return new_string;
 }
