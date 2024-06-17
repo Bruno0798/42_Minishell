@@ -33,11 +33,16 @@ jobs:
       run: |
         echo -e "\033[1;32mCloning tester repository:\033[0m"
         git clone https://github.com/LucasKuhn/minishell_tester.git
+        ls -la minishell_tester  # List contents of minishell_tester directory
+        chmod +x minishell_tester/tester  # Ensure tester script has execute permissions
 
     - name: Set up tester repository
       run: |
         cd minishell_tester
-
+        ls -la  # List contents of the directory to verify tester's presence
+    
     - name: Run tests
       run: |
-        ./tester
+        cd minishell_tester
+        ./tester  # Execute the tester script or binary
+    
