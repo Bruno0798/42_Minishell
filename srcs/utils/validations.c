@@ -39,9 +39,9 @@ bool is_between_quotes(char *str)
 		else if (str[i] == SINGLE_QUOTE && !d_quote)
 			s_quote = !s_quote;
 	}
-	if (s_quote != 0)
-		return true;
-	return false;
+	if (s_quote != 0 || d_quote != 0)
+		return false;
+	return true;
 }
 
 bool check_quotes(char *str)
