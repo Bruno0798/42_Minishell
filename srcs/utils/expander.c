@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 22:17:11 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/18 19:46:22 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int value_length(char *string);
 char *expand_new_string(char *value, char*key, char *string);
 char *needs_expansion(char *input, t_commands *command);
 char *expand_variable(char *string, int i, t_commands *commands);
+bool is_dollar_outside_single_quotes(char *str);
+
 
 void ft_expander(t_commands *commands)
 {
@@ -38,12 +40,15 @@ void ft_expander(t_commands *commands)
 
 	while (token)
 	{
-		if(ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0')
+		if (is_dollar_outside_single_quotes(token->content))
 		{
-			if(*(ft_strchr(token->content, '$') + 1) == '?')
-				token->content = expand_exit_code(token->content);
-			else
-				token->content = needs_expansion(token->content, commands);
+			while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0')
+			{
+				if (*(ft_strchr(token->content, '$') + 1) == '?')
+					token->content = expand_exit_code(token->content);
+				else if (*(ft_strchr(token->content, '$') + 1) != ' ')
+					token->content = needs_expansion(token->content, commands);
+			}
 		}
 		token = token->next;
 	}
@@ -178,7 +183,7 @@ char *store_value(char *string)
 	length = 0;
 
 
-	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0')
+	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0' && string[i] != ' ')
 	{
 		i++;
 		length++;
@@ -267,8 +272,10 @@ char *expand_variable(char *string, int i, t_commands *commands)
 
 	key = store_value(&string[i]);
 	value = ft_get_value(commands->env, key);
+
 	if (!value)
 		value = "";
+
 
 	// Correct memory allocation size
 	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1));
@@ -293,4 +300,22 @@ char *expand_variable(char *string, int i, t_commands *commands)
 	}
 	new_string[j] = '\0'; // Null-terminate the new string
 	return new_string;
+}
+
+
+bool is_dollar_outside_single_quotes(char *str)
+{
+	bool s_quote;
+	int i;
+
+	i = -1;
+	s_quote = false;
+	while (str[++i])
+	{
+		if (str[i] == SINGLE_QUOTE)
+			s_quote = !s_quote;
+		else if (str[i] == '$' && !s_quote)
+			return true;
+	}
+	return false;
 }
