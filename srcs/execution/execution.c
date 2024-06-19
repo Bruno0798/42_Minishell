@@ -67,7 +67,7 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 			free_double_pointer_array(arr_env);
 			free_double_pointer_array(arr_command);
 			free_all(head, 2);
-			check_permissions(command, command->token->content);
+			// check_permissions(command, command->token->content);
 		}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
