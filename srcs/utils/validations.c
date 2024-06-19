@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/17 19:25:06 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:31:48 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,29 +71,22 @@ bool check_quotes(char *str)
 bool syntax_checker(char *input)
 {
 	input = ft_strtrim(input, " \t");
-	if (!input || ft_strchr("|<>", *input) || ft_strchr("|<>", input[ft_strlen(input)- 1]))
-	{
-		if (input)
+	if (input && !ft_strchr("|<>", input[ft_strlen(input) - 1]) && *input != '|') //doesnt end with "<>|" and doesnt start with "|"
+		if(ft_strcmp("<", input) && ft_strcmp(">", input)) //verification for "<" && ">"
 		{
-			if (*input == '|')
-			{
-				if (input[1] == '|')
-					print_error(ERROR_PIPE_2, NULL, 1);
-				else
-					print_error(ERROR_PIPE, NULL, 1);
-			} else if (ft_strchr("|<>", input[ft_strlen(input) - 1]))
-			{
-				if (input[ft_strlen(input) - 1] == '|')
-					print_error(ERROR_PROMPT, NULL, 2);
-				else
-					print_error(ERROR_REDIR, NULL, 2);
-			}
-		}
-		free(input);
-		return false;
-	}
+			free(input);
+			return true;
+		}	
+	if (*input == '|' && input[1] == '|')
+		print_error(ERROR_PIPE_2, NULL, 1);
+	else if (*input == '|')
+		print_error(ERROR_PIPE, NULL, 1);
+	else if (input[ft_strlen(input - 1)] == '|')
+		print_error(ERROR_PROMPT, NULL, 2);
+	else if (ft_strchr("<>", input[ft_strlen(input - 1)]))
+		print_error(ERROR_REDIR, NULL, 2);
 	free(input);
-	return true;
+	return false;
 }
 
 void check_args(int argc, int valid_argc)
@@ -115,7 +108,7 @@ bool is_valid_input(char *input, t_env *env)
 	}
 	if (is_everything_space(input) || !syntax_checker(input) ||
 			check_quotes(input))
-		return false;
+				return false;
 	return true;
 }
 

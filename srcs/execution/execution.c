@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/11 16:58:42 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/19 18:43:22 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void ft_execute(t_commands *command, t_commands *head)
 	if(ft_check_redirect(command))
 	{
 		ft_handle_redirect(command);
+		if (is_everything_space(command->token->content))
+			return ;
 		if (!(ft_strcmp(command->token->content,"pwd")))
 			ft_pwd(command);
 		else if (!(ft_strcmp(command->token->content,"echo")))
