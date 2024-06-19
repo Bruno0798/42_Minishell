@@ -118,7 +118,7 @@ void update_or_add_env(t_commands *command, char *key, char *value) {
 
 void handle_export_token(t_commands *command, t_token *token) {
 	if (token->content[0] == '=' || token->content[0] == '-') {
-		print_error(ERROR_OPTIONS, token->content, 1);
+		ft_fprintf(2, "not a valid identifier %s\n", token->content);
 		return;
 	}
 
