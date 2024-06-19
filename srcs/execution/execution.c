@@ -14,6 +14,7 @@
 
 void ft_exec_abs(t_commands *command, t_commands *head);
 void ft_exec_command(t_commands *command, t_commands *head);
+void	exec_exit_status(int status);
 
 void ft_execute(t_commands *command, t_commands *head)
 {
@@ -61,16 +62,17 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	if (pid == 0)  /* If in child process */
 		if (execve(command->token->content, arr_command, arr_env) == -1)
 		{
-			print_error("command not found", command->token->content, 127);
-			EXIT_STATUS = 127;
+			ft_fprintf(2, "command not found");
+			EXIT_STATUS = 126;
 			free_double_pointer_array(arr_env);
 			free_double_pointer_array(arr_command);
 			free_all(head, 2);
-			exit(127);
+			exit(EXIT_STATUS);
 		}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
-	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
+	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
+	exec_exit_status(EXIT_STATUS);
 }
 
 void ft_exec_command(t_commands *command, t_commands *head)
@@ -86,6 +88,7 @@ void ft_exec_command(t_commands *command, t_commands *head)
 	if (!arr)
 	{
 		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem=
+		EXIT_STATUS = 1;
 		return ;
 	}
 
@@ -110,12 +113,33 @@ void ft_exec_command(t_commands *command, t_commands *head)
 		free_double_pointer_array(arr_command);
 		print_error("command not found", command->token->content, 127);
 		free_all(head, 2);
-		exit(127);
+		exit(EXIT_STATUS);
 	}
 	// Parent process
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);
 	free_double_pointer_array(arr_command);
 	// Free arr_command after execve
-	waitpid(pid, NULL, 0);  /* Wait for the child process to terminate */
+	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
+	exec_exit_status(EXIT_STATUS);
+}
+
+void	exec_exit_status(int status)
+{
+	int	exit_status;
+
+	exit_status = 0;
+	if (WIFEXITED(status))
+	{
+		exit_status = WEXITSTATUS(status);
+		EXIT_STATUS = exit_status;
+	}
+	else if (WIFSIGNALED(status))
+	{
+		exit_status = WTERMSIG(status);
+		if (exit_status == 3)
+			printf("Quit (core dumped)");
+		printf("\n");
+		EXIT_STATUS = 128 + exit_status;
+	}
 }

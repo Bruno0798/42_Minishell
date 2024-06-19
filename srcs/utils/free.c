@@ -15,7 +15,7 @@
 void	free_all(t_commands *command, int option)
 {
 	ft_free_commands(command, option);
-	exit(0);
+	//exit(0); //TODO TAKE OF BECAUSE OF THE EXIT DONT KNOW IF WE NEED IT YET
 }
 
 void	free_env(t_env *env)

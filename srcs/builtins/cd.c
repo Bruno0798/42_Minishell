@@ -22,7 +22,8 @@ void ft_cd(t_commands *commands)
 	{
 		if(commands->token->next->type == command)
 		{
-			print_error(ERROR_ARG, NULL, 1);
+			ft_fprintf(2,ERROR_ARG, NULL, 1);
+			EXIT_STATUS = 1;
 			return ;
 		}
 	}
@@ -41,8 +42,8 @@ void ft_cd(t_commands *commands)
 			EXIT_STATUS = 1;
 			return ;
 		}
-		printf("cd: no such file or directory: %s\n", commands->token->next->content); /* Print error message */
-		EXIT_STATUS = 2;
+		ft_fprintf(2," No such file or directory"); /* Print error message */
+		EXIT_STATUS = 1;
 		return ;
 	}
 	ft_update_env(commands->env, "OLDPWD", dir, 1); /* Update the OLDPWD environment variable */

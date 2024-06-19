@@ -19,7 +19,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="" />
+    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/cd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/cd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/free.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/free.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -160,7 +170,7 @@
       <workItem from="1718622169595" duration="1965000" />
       <workItem from="1718624144996" duration="7527000" />
       <workItem from="1718733805755" duration="8150000" />
-      <workItem from="1718798195071" duration="1387000" />
+      <workItem from="1718798195071" duration="7276000" />
     </task>
     <servers />
   </component>
