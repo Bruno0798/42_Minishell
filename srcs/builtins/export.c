@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/11 12:37:47 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/18 23:01:47 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,7 @@ bool is_invalid_token(char *str)
 	while(str[i])
 	{
 		if(!ft_isalnum(str[i]) && str[i] != '_' && str[i] != '=' && str[i] != ' ')
-		{
 			return false;
-		}
 		i++;
 	}
 	return true;
@@ -119,7 +117,7 @@ void update_or_add_env(t_commands *command, char *key, char *value) {
 }
 
 void handle_export_token(t_commands *command, t_token *token) {
-	if (token->content[0] == '-' || token->content[0] == '=') {
+	if (token->content[0] == '=' || token->content[0] == '-') {
 		print_error(ERROR_OPTIONS, token->content, 1);
 		return;
 	}
