@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 17:10:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:01:54 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@
 # define ERROR_REDIR " syntax error near unexpected token `\\n'"
 # define ERROR_SYNTAX " syntax error near unexpected token"
 # define EXPORT_NOTE "too few argumnts"
+# define EXECUTION_PERMISSION "permission denied"
+# define DIRECTORY_EXISTS "permission denied"
 
 /* Global variable for the exit status */
 extern int	EXIT_STATUS;
@@ -269,7 +271,7 @@ void	ft_handler_ctrl(int signum);
 /************************************* FREE ***********************************/
 
 void	free_all(t_commands *command, int option);
-void	ft_exit(t_commands *command);
+void	ft_exit(t_commands *command, t_commands *exit);
 void	ft_free_token(t_token *token);
 void	ft_free_commands(t_commands *command, int option);
 void	ft_free_env(t_env *env);
@@ -327,4 +329,5 @@ void child_process(t_commands *command, int fd_in, int command_count);
 int count_commands(t_commands *command);
 void free_double_pointer_array(char **arr);
 bool is_between_single_quotes(char *str);
+void	check_permissions(t_commands *command, char *string);
 #endif

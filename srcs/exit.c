@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/19 19:00:39 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:01:35 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_isnum(char *s);
 
-void ft_exit(t_commands *command)
+void ft_exit(t_commands *command, t_commands *head)
 {
 	if (command->token->next)
 	{
@@ -36,7 +36,7 @@ void ft_exit(t_commands *command)
 			EXIT_STATUS = 2;
 		}
 	}
-	free_all(command, 2);
+	free_all(head, 2);
 	exit(EXIT_STATUS);
 }
 

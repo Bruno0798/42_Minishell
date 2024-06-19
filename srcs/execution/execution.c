@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/19 18:43:22 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:05:43 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void ft_execute(t_commands *command, t_commands *head)
 		else if (!(ft_strcmp(command->token->content,"export")))
 			ft_export(command);
 		else if (!(ft_strcmp(command->token->content,"exit")))
-			ft_exit(command);
+			ft_exit(command, head);
 		else
 			ft_execution(command, head);
 	}
@@ -64,12 +64,10 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	if (pid == 0)  /* If in child process */
 		if (execve(command->token->content, arr_command, arr_env) == -1)
 		{
-			ft_fprintf(2, "command not found");
-			EXIT_STATUS = 126;
 			free_double_pointer_array(arr_env);
 			free_double_pointer_array(arr_command);
 			free_all(head, 2);
-			exit(EXIT_STATUS);
+			check_permissions(command, command->token->content);
 		}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
@@ -107,7 +105,10 @@ void ft_exec_command(t_commands *command, t_commands *head)
 			arr[i] = ft_strjoin(temp_arr, command->token->content); /* Append the command's content to the element */
 			free(temp_arr);
 			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
+			{
 				execve(arr[i], arr_command, arr_env);  /* Execute the file */
+				// check_permissions(command, arr[i]);
+			}
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		free_double_pointer_array(arr_env);

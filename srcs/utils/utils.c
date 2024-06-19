@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/29 17:04:45 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/06/19 23:06:23 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,3 +42,26 @@ char	**ft_lst_to_arr(t_token *token)
 	arr[i] = NULL;  /* Set the last element of the array to NULL */
 	return (arr);  /* Return the array of strings */
 }
+
+// void	check_permissions(t_commands *command, char *string)
+// {
+// 	int	file;
+// 	int	execution;
+// 	int	write;
+
+// 	//return 0 on sucess. -1 on permission denied
+// 	file = access(string, F_OK); //check if file exists
+// 	execution = access(string, X_OK); //check for execution permission
+// 	write = access(string, W_OK); //check for writing permission
+// 	if (!file && execution)
+// 		print_error(string, EXECUTION_PERMISSION, 1);
+// 	else if (!file && !execution && string[0] != '.')
+// 		print_error(string, DIRECTORY_EXISTS, 1);
+// 	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
+// 		print_error(string, ERROR_DIR, 1);
+// 	else
+// 		print_error(string, ERROR_CMD, 1);
+// 	// free_all(command, 2);
+// 	printf("something123\n");
+// 	exit(EXIT_STATUS);
+// }

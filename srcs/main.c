@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/19 19:07:24 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 22:59:27 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int main(int argc, char **argv, char **envp)
 	t_env		*env;
 	char		*input;
 	int			fd;
-	int fd1;
+	int			fd1;
 
 
 	fd = init_and_set_fd(argc, envp, &env);
