@@ -105,7 +105,7 @@ bool is_invalid_token(char *str)
 }
 
 void handle_invalid_token(const char *content) {
-	printf("export: not valid in this context: %s\n", content);  //TODO DELETE THIS FUNCTION TO REPLACE WITH PRINT ERROR
+	ft_fprintf(2, "not a valid identifier %s\n", content);  //TODO DELETE THIS FUNCTION TO REPLACE WITH PRINT ERROR
 }
 
 void update_or_add_env(t_commands *command, char *key, char *value) {
