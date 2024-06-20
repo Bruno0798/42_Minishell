@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 05:07:29 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/20 11:48:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ void ft_exec_command(t_commands *command, t_commands *head)
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
-		// print_error("command not found", command->token->content, 127);
 		check_permissions(head, command->token->content);
+		// print_error("command not found", command->token->content, 127);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);

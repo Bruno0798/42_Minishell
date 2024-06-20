@@ -74,13 +74,19 @@ char *ft_delete_quotes(char *input) {
 
 void ft_remove_quotes(t_commands *commands)
 {
-	t_token *curr = commands->token;
+	t_token *curr;
+	t_commands *head = commands;
 
-	while (curr)
+	while (head != NULL)
 	{
-		if (curr->type == command && is_between_quotes(curr->content))
-			curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
-		curr = curr->next;
+		curr = head->token;
+		while (curr)
+		{
+			if (curr->type == command && is_between_quotes(curr->content))
+				curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
+			curr = curr->next;
+		}
+		head = head->next;
 	}
 }
 
