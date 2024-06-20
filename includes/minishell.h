@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 03:44:56 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:01:54 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 # define ERROR_PIPE_2 " syntax error near unexpected token '||'"
 # define ERROR_PROMPT " no support for pipe prompt"
 # define ERROR_DIR " No such file or directory"
-# define ERROR_CMD "command not found"
+# define ERROR_CMD " command not found"
 # define ERROR_EXP " not a valid identifier"
 # define ERROR_HOME " HOME not set"
 # define ERROR_PID " pipe error"
@@ -62,7 +62,7 @@
 # define ERROR_SYNTAX " syntax error near unexpected token"
 # define EXPORT_NOTE "too few argumnts"
 # define EXECUTION_PERMISSION "permission denied"
-# define DIRECTORY_EXISTS "is a directory"
+# define DIRECTORY_EXISTS "permission denied"
 
 /* Global variable for the exit status */
 extern int	EXIT_STATUS;

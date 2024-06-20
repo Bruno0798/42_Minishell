@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 04:25:16 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:06:23 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,25 @@ char	**ft_lst_to_arr(t_token *token)
 	return (arr);  /* Return the array of strings */
 }
 
-void	check_permissions(t_commands *command, char *string)
-{
-	int	file;
-	int	execution;
-	int	write;
+// void	check_permissions(t_commands *command, char *string)
+// {
+// 	int	file;
+// 	int	execution;
+// 	int	write;
 
-	//return 0 on sucess. -1 on permission denied
-	file = access(string, F_OK); //check if file exists
-	execution = access(string, X_OK); //check for execution permission
-	write = access(string, W_OK); //check for writing permission
-	if (!file && execution)
-		print_error(string, EXECUTION_PERMISSION, 1);
-	else if (!file && !execution && string[0] == '.')
-		print_error(string, DIRECTORY_EXISTS, 1);
-	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
-		print_error(string, ERROR_DIR, 1);
-	else
-		ft_fprintf(2, "command not found\n", 1);
-	// free_all(command, 2);
-	EXIT_STATUS = 127 - ((!file && execution) || !write);
-	free_all(command, 2);
-	exit(EXIT_STATUS);
-}
+// 	//return 0 on sucess. -1 on permission denied
+// 	file = access(string, F_OK); //check if file exists
+// 	execution = access(string, X_OK); //check for execution permission
+// 	write = access(string, W_OK); //check for writing permission
+// 	if (!file && execution)
+// 		print_error(string, EXECUTION_PERMISSION, 1);
+// 	else if (!file && !execution && string[0] != '.')
+// 		print_error(string, DIRECTORY_EXISTS, 1);
+// 	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
+// 		print_error(string, ERROR_DIR, 1);
+// 	else
+// 		print_error(string, ERROR_CMD, 1);
+// 	// free_all(command, 2);
+// 	printf("something123\n");
+// 	exit(EXIT_STATUS);
+// }

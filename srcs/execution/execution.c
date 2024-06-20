@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 04:05:59 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/19 23:05:43 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,6 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	arr_env = ft_env_to_arr(command->env);  /* Convert the command's environment variables into an array */
 	pid = fork();  /* Create a child process */
 	if (pid == 0)  /* If in child process */
-<<<<<<< HEAD
-	{
-		execve(command->token->content, arr_command, arr_env);
-		free_double_pointer_array(arr_env);
-		free_double_pointer_array(arr_command);
-		check_permissions(head, command->token->content);
-	}
-=======
 		if (execve(command->token->content, arr_command, arr_env) == -1)
 		{
 			free_double_pointer_array(arr_env);
@@ -77,7 +69,6 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 			free_all(head, 2);
 			// check_permissions(command, command->token->content);
 		}
->>>>>>> 80229ef07cfc90c1139426bd3c21b56f6b898c43
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
 	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
@@ -94,7 +85,7 @@ void ft_exec_command(t_commands *command, t_commands *head)
 	char *temp_arr;
 
 	arr = get_path(command->env);  /* Retrieve the system's PATH environment variable */
-	if (!arr) // Removable??
+	if (!arr)
 	{
 		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem=
 		EXIT_STATUS = 1;
@@ -113,18 +104,25 @@ void ft_exec_command(t_commands *command, t_commands *head)
 			free(arr[i]);
 			arr[i] = ft_strjoin(temp_arr, command->token->content); /* Append the command's content to the element */
 			free(temp_arr);
-			execve(arr[i], arr_command, arr_env);  /* Execute the file */
+			if(!access(arr[i], F_OK | X_OK))  /* If the resulting string corresponds to an executable file */
+			{
+				execve(arr[i], arr_command, arr_env);  /* Execute the file */
+				// check_permissions(command, arr[i]);
+			}
 		}
-		// dup2(STDERR_FILENO, STDOUT_FILENO);
+		dup2(STDERR_FILENO, STDOUT_FILENO);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
-		// print_error("command not found", command->token->content, 127);
-		check_permissions(head, command->token->content);
+		print_error("command not found", command->token->content, 127);
+		free_all(head, 2);
+		exit(EXIT_STATUS);
 	}
+	// Parent process
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);
 	free_double_pointer_array(arr_command);
+	// Free arr_command after execve
 	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
 	exec_exit_status(EXIT_STATUS);
 }
