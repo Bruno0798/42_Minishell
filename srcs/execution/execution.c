@@ -64,9 +64,9 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	if (pid == 0)  /* If in child process */
 	{
 		execve(command->token->content, arr_command, arr_env);
+		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr_command);
-		check_permissions(head, command->token->content);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
@@ -84,12 +84,6 @@ void ft_exec_command(t_commands *command, t_commands *head)
 	char *temp_arr;
 
 	arr = get_path(command->env);  /* Retrieve the system's PATH environment variable */
-	if (!arr) // Removable??
-	{
-		printf("no such file or directory\n"); //MUDAR FRASE e provavlemente o fd tambem=
-		EXIT_STATUS = 1;
-		return ;
-	}
 
 	arr_command = ft_lst_to_arr(command->token);  /* Convert the command's tokens into an array */
 	arr_env = ft_env_to_arr(command->env);  /* Convert the command's environment variables into an array */

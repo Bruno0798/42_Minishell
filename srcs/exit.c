@@ -18,7 +18,7 @@ void ft_exit(t_commands *command, t_commands *head)
 {
 	if (command->token->next)
 	{
-		if (command->token->next && command->token->next->next)
+		if (command->token->next->next)
 		{
 			ft_fprintf(2, " too many arguments");
 			EXIT_STATUS = 1;

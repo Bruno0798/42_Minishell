@@ -21,8 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/minishell_tester/builtins" beforeDir="false" afterPath="$PROJECT_DIR$/minishell_tester/builtins" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,11 +171,22 @@
       <workItem from="1718624144996" duration="7527000" />
       <workItem from="1718733805755" duration="8150000" />
       <workItem from="1718798195071" duration="9445000" />
-      <workItem from="1718880098293" duration="3446000" />
+      <workItem from="1718880098293" duration="11313000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

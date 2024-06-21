@@ -31,13 +31,28 @@ void open_pipes(t_commands *command)
 void parent_process(int fd_in, int count_pipes)
 {
 	int i;
+	int status;
 
-	i = 0;
-	close(fd_in);
-	while (i < count_pipes)
+	close(fd_in); // Close the input file descriptor
+
+	for (i = 0; i < count_pipes; i++)
 	{
-		wait(NULL);
-		i++;
+		wait(&status); // Wait for each child process
+
+		if (WIFEXITED(status)) // Check if the child terminated normally
+		{
+			int child_exit_status = WEXITSTATUS(status); // Get the exit status of the child
+			if (child_exit_status != 0) // If any child process exits with a non-zero status
+			{
+				EXIT_STATUS = child_exit_status; // Update the global exit status
+			}
+		}
+		else if (WIFSIGNALED(status)) // If the child was terminated by a signal
+		{
+			int signal_number = WTERMSIG(status);
+			fprintf(stderr, "Child process was terminated by signal %d\n", signal_number);
+			EXIT_STATUS = 128 + signal_number; // Commonly used convention for signal termination status
+		}
 	}
 }
 

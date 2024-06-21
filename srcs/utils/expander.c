@@ -240,7 +240,7 @@ char *needs_expansion(char *input, t_commands *command)
 {
 	bool single_quotes = false;
 	bool double_quotes = false;
-	int i = 0;
+	size_t i = 0;
 	int length;
 
 	while (input[i]) {

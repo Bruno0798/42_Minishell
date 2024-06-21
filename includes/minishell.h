@@ -63,6 +63,7 @@
 # define EXPORT_NOTE "too few argumnts"
 # define EXECUTION_PERMISSION "permission denied"
 # define DIRECTORY_EXISTS "is a directory"
+# define COMMAND_NOT_FOUND "command not found"
 
 /* Global variable for the exit status */
 extern int	EXIT_STATUS;

@@ -30,7 +30,7 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = -g
+CFLAGS  = -g #TODO DONT FORGET THE FLAGS
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
 
