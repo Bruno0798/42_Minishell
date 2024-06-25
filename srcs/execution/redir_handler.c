@@ -25,16 +25,29 @@ int ft_check_redirect(t_commands *command)
 			if(temp->type == redir_out)
 			{
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
+				if(fd == -1)
+				{
+					EXIT_STATUS = 1;
+					return 0;
+				}
 				dup2(fd, STDOUT_FILENO);
 			}
 			else if (temp->type == redir_out2){
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
+				if(fd == -1)
+				{
+					EXIT_STATUS = 1;
+					return 0;
+				}
 				dup2(fd, STDOUT_FILENO);
 			}
 			else if (temp->type == redir_in){
 				fd = open(temp->next->content, O_RDWR, 0644);
-				if(!fd || fd == -1)
+				if(fd == -1)
+				{
+					EXIT_STATUS = 1;
 					return 0;
+				}
 				dup2(fd, STDIN_FILENO);
 				close(fd);
 			}

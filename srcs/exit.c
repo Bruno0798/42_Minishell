@@ -29,7 +29,7 @@ void ft_exit(t_commands *command, t_commands *head)
 				EXIT_STATUS = 256 - ft_atoi(&(command->token->next->content[0]) + 1);
 			else
 				EXIT_STATUS = ft_atoi(command->token->next->content);
-		} 
+		}
 		else
 		{
 			ft_fprintf(2, " numeric argument required");

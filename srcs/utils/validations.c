@@ -76,11 +76,11 @@ bool syntax_checker(char *input)
 		{
 			free(input);
 			return true;
-		}	
+		}
 	if (*input == '|' && input[1] == '|')
-		print_error(ERROR_PIPE_2, NULL, 1);
+		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
-		print_error(ERROR_PIPE, NULL, 1);
+		print_error(ERROR_PIPE, NULL, 2);
 	else if (input[ft_strlen(input - 1)] == '|')
 		print_error(ERROR_PROMPT, NULL, 2);
 	else if (ft_strchr("<>", input[ft_strlen(input - 1)]))

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/25 15:21:17 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/25 14:22:59 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,10 @@ t_token *ft_new_token(char *str)
 	token = malloc(sizeof(t_token));
 	token->content = str;
 	token->type = ft_token_type(str);
-	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type ==redir_out2)
-		token = check_redir_syntax(token);
-	token->next = NULL;
+//	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type ==redir_out2)
+//		token = check_redir_syntax(token);
+//	else
+		token->next = NULL;
 	return (token);
 }
 
@@ -132,9 +133,9 @@ t_token *check_redir_syntax(t_token *token)
 
 	free(token->content);
 	token->content = new_content;
-	token->next = next;
 	token->next->type = files;
-	token = token->next;
+	token->next = next;
+	token->type = ft_token_type(token->content);
 
 	return token;
 }
@@ -157,9 +158,10 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	{
 		current->next = ft_new_token(words[i]);  /* Create a new token for the current word and add it to the end of the list */
 		current = current->next;  /* Move to the next token in the list */
+//		while (current->next)
+//			current = current->next;
 	}
 	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
-
 	command->next = NULL;
 	free(str);
 	free(words);
