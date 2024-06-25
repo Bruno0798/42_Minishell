@@ -96,9 +96,9 @@ t_token *ft_new_token(char *str)
 	token = malloc(sizeof(t_token));
 	token->content = str;
 	token->type = ft_token_type(str);
-//	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type ==redir_out2)
-//		token = check_redir_syntax(token);
-//	else
+	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type == redir_out2)
+		token = check_redir_syntax(token);
+	else
 		token->next = NULL;
 	return (token);
 }
@@ -122,6 +122,8 @@ t_token *check_redir_syntax(t_token *token)
 		free(next);
 		return NULL;
 	}
+	next->next = NULL;
+	next->type = files;
 
 	new_content = ft_substr(token->content, 0, i);
 	if (!new_content)
@@ -133,9 +135,9 @@ t_token *check_redir_syntax(t_token *token)
 
 	free(token->content);
 	token->content = new_content;
-	token->next->type = files;
 	token->next = next;
 	token->type = ft_token_type(token->content);
+	token->next->type = files;
 
 	return token;
 }
@@ -158,8 +160,8 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	{
 		current->next = ft_new_token(words[i]);  /* Create a new token for the current word and add it to the end of the list */
 		current = current->next;  /* Move to the next token in the list */
-//		while (current->next)
-//			current = current->next;
+		while(current->next)
+			current = current->next;
 	}
 	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
 	command->next = NULL;
