@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/19 15:45:00 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:11:27 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,14 @@ void ft_echo(t_token *token)
 	}
 	while(token)
 	{
-		i = -1; 
-		while(token->content[++i])
+		if(token->type == command)
+		{
+			i = -1;
+			while (token->content[++i])
 				printf("%c", token->content[i]); /* Print the token content */
-		if(token->next)
-			printf(" "); /* Print a space if the token is not the last one */
+			if (token->next)
+				printf(" "); /* Print a space if the token is not the last one */
+		}
 		token = token->next;
 	}
 	if (!flag) /* If the flag is not set, print a new line */

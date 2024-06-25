@@ -6,11 +6,13 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 16:58:35 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:21:17 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+t_token *check_redir_syntax(t_token *token);
 
 void ft_print_token_list(t_token *head) 
 {
@@ -59,13 +61,13 @@ t_type ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
 		return pipes;
-	else if (!ft_strcmp(word, ">>"))
+	else if (!ft_strncmp(word, ">>", 2))
 		return redir_out2;
-	else if (!ft_strcmp(word, ">"))
+	else if (!ft_strncmp(word, ">", 1))
 		return redir_out;
-	else if (!ft_strcmp(word, "<<"))
+	else if (!ft_strncmp(word, "<<", 2))
 		return redir_in2;
-	else if (!ft_strcmp(word, "<"))
+	else if (!ft_strncmp(word, "<", 1))
 		return redir_in;
 	else if(!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return option;
@@ -94,8 +96,47 @@ t_token *ft_new_token(char *str)
 	token = malloc(sizeof(t_token));
 	token->content = str;
 	token->type = ft_token_type(str);
+	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type ==redir_out2)
+		token = check_redir_syntax(token);
 	token->next = NULL;
 	return (token);
+}
+
+t_token *check_redir_syntax(t_token *token)
+{
+	t_token *next;
+	char *new_content;
+	int i;
+
+	i = 0;
+	while (token->content[i] && token->content[0] == token->content[i])
+		i++;
+
+	next = malloc(sizeof(t_token));
+	if (!next)
+		return NULL;
+	next->content = ft_substr(token->content, i, strlen(token->content) - i);
+	if (!next->content)
+	{
+		free(next);
+		return NULL;
+	}
+
+	new_content = ft_substr(token->content, 0, i);
+	if (!new_content)
+	{
+		free(next->content);
+		free(next);
+		return NULL;
+	}
+
+	free(token->content);
+	token->content = new_content;
+	token->next = next;
+	token->next->type = files;
+	token = token->next;
+
+	return token;
 }
 
 t_commands *ft_new_commands(char *str, t_env *env)
@@ -115,9 +156,10 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	while(words[++i])  /* Iterate over the rest of the words in the array */
 	{
 		current->next = ft_new_token(words[i]);  /* Create a new token for the current word and add it to the end of the list */
-		current =  current->next;  /* Move to the next token in the list */
+		current = current->next;  /* Move to the next token in the list */
 	}
 	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
+
 	command->next = NULL;
 	free(str);
 	free(words);

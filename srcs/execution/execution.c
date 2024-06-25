@@ -57,7 +57,6 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	char	**arr_command;  /* Array to hold the command's tokens */
 	char	**arr_env;  /* Array to hold the command's environment variables */
 
-
 	arr_command = ft_lst_to_arr(command->token);  /* Convert the command's tokens into an array */
 	arr_env = ft_env_to_arr(command->env);  /* Convert the command's environment variables into an array */
 	pid = fork();  /* Create a child process */
@@ -100,10 +99,10 @@ void ft_exec_command(t_commands *command, t_commands *head)
 			execve(arr[i], arr_command, arr_env);  /* Execute the file */
 		}
 		// dup2(STDERR_FILENO, STDOUT_FILENO);
+		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
-		check_permissions(head, command->token->content);
 		// print_error("command not found", command->token->content, 127);
 	}
 	free_double_pointer_array(arr_env);
