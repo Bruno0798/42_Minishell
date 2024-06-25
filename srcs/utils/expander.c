@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/18 20:03:54 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:44:33 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,28 @@ bool is_dollar_outside_single_quotes(char *str);
 void ft_expander(t_commands *commands)
 {
 	t_token *token = commands->token;
+	t_commands *head = commands;
 
-	while (token)
+	while(commands)
 	{
-		if (is_dollar_outside_single_quotes(token->content))
+		token = commands->token;
+		while (token)
 		{
-			while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && *(ft_strchr(token->content, '$') + 1) != DOUBLE_QUOTE && *(ft_strchr(token->content, '$') + 1) != ' ')
+			if (is_dollar_outside_single_quotes(token->content))
 			{
-				if (*(ft_strchr(token->content, '$') + 1) == '?')
-					token->content = expand_exit_code(token->content);
-				else
-					token->content = needs_expansion(token->content, commands);
+				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+				{
+					if (*(ft_strchr(token->content, '$') + 1) == '?')
+						token->content = expand_exit_code(token->content);
+					else
+						token->content = needs_expansion(token->content, commands);
+				}
 			}
+			token = token->next;
 		}
-		token = token->next;
+		commands =commands->next;
 	}
+	commands = head;
 }
 
 int calculate_extra_length(char *string, int num_len)
@@ -183,7 +190,7 @@ char *store_value(char *string)
 	length = 0;
 
 
-	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0' && string[i] != ' ')
+	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0' && string[i] != ' ' && string[i] != SINGLE_QUOTE)
 	{
 		i++;
 		length++;

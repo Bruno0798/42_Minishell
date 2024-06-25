@@ -4,6 +4,5 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/libft" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/minishell_tester" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/tester" vcs="Git" />
   </component>
 </project>
