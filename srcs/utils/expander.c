@@ -46,7 +46,7 @@ void ft_expander(t_commands *commands)
 		{
 			if (is_dollar_outside_single_quotes(token->content))
 			{
-				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && *(ft_strchr(token->content, '$') + 1) != DOUBLE_QUOTE && *(ft_strchr(token->content, '$') + 1) != ' ')
 				{
 					if (*(ft_strchr(token->content, '$') + 1) == '?')
 						token->content = expand_exit_code(token->content);

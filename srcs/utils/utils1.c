@@ -96,10 +96,9 @@ t_token *ft_new_token(char *str)
 	token = malloc(sizeof(t_token));
 	token->content = str;
 	token->type = ft_token_type(str);
+	token->next = NULL;
 	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type == redir_out2)
 		token = check_redir_syntax(token);
-	else
-		token->next = NULL;
 	return (token);
 }
 
@@ -112,7 +111,8 @@ t_token *check_redir_syntax(t_token *token)
 	i = 0;
 	while (token->content[i] && token->content[0] == token->content[i])
 		i++;
-
+	if (!token->content[i])
+		return token;
 	next = malloc(sizeof(t_token));
 	if (!next)
 		return NULL;

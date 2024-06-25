@@ -75,7 +75,6 @@ endif
 
 
 all: $(NAME)
-	clear
 	@printf "\n"
 	@echo $(G)"       _     _     _       _ _ "$(X)
 	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)

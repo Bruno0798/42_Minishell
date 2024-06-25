@@ -40,7 +40,7 @@ bool files_exist(t_token *token)
 			if (fd < 0)
 			{
 				exist = false;
-				print_error(ERROR_DIR, curr->next->content, 1); //TODO: exit code
+				ft_fprintf(2, ERROR_REDIR); //TODO: exit code
 			}
 		}
 		curr = curr->next;
