@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/18 20:03:54 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/25 15:44:33 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void ft_expander(t_commands *commands)
 	{
 		if (is_dollar_outside_single_quotes(token->content))
 		{
-			while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && *(ft_strchr(token->content, '$') + 1) != DOUBLE_QUOTE && *(ft_strchr(token->content, '$') + 1) != ' ')
+			while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 			{
 				if (*(ft_strchr(token->content, '$') + 1) == '?')
 					token->content = expand_exit_code(token->content);
@@ -183,7 +183,7 @@ char *store_value(char *string)
 	length = 0;
 
 
-	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0' && string[i] != ' ')
+	while (string[i] != '$' && string[i] != DOUBLE_QUOTE && string[i] != '\0' && string[i] != ' ' && string[i] != SINGLE_QUOTE)
 	{
 		i++;
 		length++;

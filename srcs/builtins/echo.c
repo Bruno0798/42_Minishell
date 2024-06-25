@@ -32,14 +32,11 @@ void ft_echo(t_token *token)
 	}
 	while(token)
 	{
-		if(token->type == command)
-		{
 			i = -1;
 			while (token->content[++i])
 				printf("%c", token->content[i]); /* Print the token content */
 			if (token->next)
 				printf(" "); /* Print a space if the token is not the last one */
-		}
 		token = token->next;
 	}
 	if (!flag) /* If the flag is not set, print a new line */
