@@ -30,4 +30,4 @@ jobs:
     - name: Run minishell tester
       run: |
         cd minishell_tester
-        python3 src/__main__.py [project path]
+        python3 src/__main__.py ../
