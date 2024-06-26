@@ -1,48 +1,33 @@
-name: Makefile CI
+name: Run Minishell Tester
 
 on:
   push:
-    branches: ["main"]
+    branches:
+      - main
   pull_request:
-    branches: ["main"]
+    branches:
+      - main
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-    - name: Set up the TERM environment variable
-      run: echo "TERM=xterm" >> $GITHUB_ENV
+    - name: Clone minishell tester
+      run: git clone https://github.com/kichkiro/minishell_tester.git
 
-    - name: Update submodules
-      run: git submodule update --init --recursive
+    - name: Change directory to minishell tester
+      run: cd minishell_tester
 
-    - name: Show directory structure before build
-      run: |
-        echo -e "\033[1;34mListing directory structure before build:\033[0m"
-        ls -R
-
-    - name: Build project
-      run: |
-        echo -e "\033[1;32mBuilding project:\033[0m"
-          make
-
-    - name: Clone tester repository
-      run: |
-        echo -e "\033[1;32mCloning tester repository:\033[0m"
-        git clone https://github.com/LucasKuhn/minishell_tester.git
-        ls -la minishell_tester  # List contents of minishell_tester directory
-        chmod +x minishell_tester/tester  # Ensure tester script has execute permissions
-
-    - name: Set up tester repository
+    - name: Install Python dependencies
       run: |
         cd minishell_tester
-        ls -la  # List contents of the directory to verify tester's presence
-    
-    - name: Run tests
+        pip3 install -r requirements.txt
+
+    - name: Run minishell tester
       run: |
         cd minishell_tester
-        ./tester  # Execute the tester script or binary
-    
+        python3 src/__main__.py [project path]
