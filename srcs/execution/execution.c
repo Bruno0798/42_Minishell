@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 17:54:05 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:01:51 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void ft_execute(t_commands *command, t_commands *head)
 	if(ft_check_redirect(command))
 	{	
 		ft_handle_redirect(command);
+		if(!command->token)
+			return ;
 		if (is_everything_space(command->token->content))
 			return ;
 		if (!(ft_strcmp(command->token->content,"pwd")))

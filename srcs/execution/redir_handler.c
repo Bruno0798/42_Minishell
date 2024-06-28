@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/06/28 18:27:13 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/06/28 19:00:34 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,6 @@ void ft_handle_redirect(t_commands *commands)
 		} 
 		temp = temp->next;
 	}
-	// printf("something: %s \n", token->content);
 	free_tokens(commands->token);
 	commands->token = head;
-	// token = head;
-	// while(token)
-	// {
-	// 	printf("something: %s \n", token->content);
-	// 	token = token->next;
-	// }
 }

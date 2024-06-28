@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:32:05 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:46:59 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,6 @@ t_commands	*pipe_commands(char *str, t_env *env)
 		current = current->next; /* Move to the next command in the list */
 	}
 	free(splitted_command);
-	ft_remove_quotes(commands);
 	return (commands);  /* Return the head of the list of commands */
 }
 

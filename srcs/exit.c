@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/19 23:01:35 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/28 18:56:20 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void ft_exit(t_commands *command, t_commands *head)
 			ft_fprintf(2, " numeric argument required");
 			EXIT_STATUS = 2;
 		}
-	}
+	} else
+		EXIT_STATUS = 0;
 	free_all(head, 2);
 	exit(EXIT_STATUS);
 }
