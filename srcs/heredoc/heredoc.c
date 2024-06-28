@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 13:59:32 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:26:32 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool files_exist(t_token *token)
 			if (fd < 0)
 			{
 				exist = false;
-				ft_fprintf(2, ERROR_REDIR); //TODO: exit code
+				ft_fprintf(2, ERROR_DIR); //TODO: exit code
 			}
 		}
 		curr = curr->next;

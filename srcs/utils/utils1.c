@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/25 14:22:59 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:25:58 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,8 @@ t_token *check_redir_syntax(t_token *token)
 	token->next = next;
 	token->type = ft_token_type(token->content);
 	token->next->type = files;
+	token->content = ft_delete_quotes(token->content);
+	token->next->content = ft_delete_quotes(token->next->content);
 
 	return token;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 03:44:56 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/28 18:07:54 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -325,10 +325,12 @@ bool files_exist(t_token *token);
 char *extract_home_path(const char *pwd);
 void heredoc_files(t_commands *command, int flag);
 void ft_expand_others(t_commands *commands);
-void parent_process(int fd_in, int count_pipes);
-void child_process(t_commands *command, int fd_in, int command_count);
-int count_commands(t_commands *command);
-void free_double_pointer_array(char **arr);
-bool is_between_single_quotes(char *str);
+void	parent_process(int fd_in, int count_pipes);
+void	child_process(t_commands *command, int fd_in, int command_count);
+int		count_commands(t_commands *command);
+void	free_double_pointer_array(char **arr);
+bool	is_between_single_quotes(char *str);
 void	check_permissions(t_commands *command, char *string);
+void	ft_token_addback(t_token **token, t_token *new);
+void	free_tokens(t_token *token);
 #endif

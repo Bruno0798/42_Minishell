@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 11:48:12 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:54:05 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	exec_exit_status(int status);
 void ft_execute(t_commands *command, t_commands *head)
 {
 	if(ft_check_redirect(command))
-	{
+	{	
 		ft_handle_redirect(command);
 		if (is_everything_space(command->token->content))
 			return ;

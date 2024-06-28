@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_handler.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/06/19 22:10:18 by bruno            ###   ########.fr       */
+/*   Updated: 2024/06/28 18:27:13 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int ft_check_redirect(t_commands *command)
 					EXIT_STATUS = 1;
 					return 0;
 				}
+				temp->next->type = files;
 				dup2(fd, STDOUT_FILENO);
 			}
 			else if (temp->type == redir_out2){
@@ -39,6 +40,7 @@ int ft_check_redirect(t_commands *command)
 					EXIT_STATUS = 1;
 					return 0;
 				}
+				temp->next->type = files;
 				dup2(fd, STDOUT_FILENO);
 			}
 			else if (temp->type == redir_in){
@@ -48,25 +50,45 @@ int ft_check_redirect(t_commands *command)
 					EXIT_STATUS = 1;
 					return 0;
 				}
+				temp->next->type = files;
 				dup2(fd, STDIN_FILENO);
 				close(fd);
 			}
 		}
 		temp = temp->next;
 	}
+
 	return (1);
 }
 
-void ft_handle_redirect(t_commands *command)
+void ft_handle_redirect(t_commands *commands)
 {
-	t_token *temp;
+	t_token *token;
+	t_token	*temp;
+	t_token	*head;
 
-	temp = command->token;
+	head = NULL;
+	token = NULL;
+	temp = commands->token;
 	while(temp)
 	{
-		if(temp->next && (temp->next->type == redir_out || temp->next->type == redir_out2 || temp->next->type == redir_in))
-			temp->next = NULL;
+		if (temp->type == command || temp->type == option)
+		{
+			token = malloc(sizeof(t_token));
+			token->content = ft_strdup(temp->content);
+			token->type = temp->type;
+			token->next = NULL;
+			ft_token_addback(&head, token);
+		} 
 		temp = temp->next;
 	}
-	//ft_execute(command); // I think it doesn't need to be here, its working so far
+	// printf("something: %s \n", token->content);
+	free_tokens(commands->token);
+	commands->token = head;
+	// token = head;
+	// while(token)
+	// {
+	// 	printf("something: %s \n", token->content);
+	// 	token = token->next;
+	// }
 }

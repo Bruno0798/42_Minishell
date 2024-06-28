@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/20 15:19:21 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/28 18:02:37 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,21 @@ void check_permissions(t_commands *command, char *string)
 	// Calculate the exit status
 	free_all(command, 2);
 	exit(EXIT_STATUS);
+}
+
+void ft_token_addback(t_token **token, t_token *new)
+{
+	t_token *temp;
+
+	temp = *token;
+	if(token)
+	{
+		if (*token)
+		{
+			while (temp->next)
+				temp = temp->next;
+			temp->next = new;
+		} else 
+			*token = new;
+	}
 }
