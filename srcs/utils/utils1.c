@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/25 14:22:59 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/06/28 17:08:48 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_token *check_redir_syntax(t_token *token)
 	next = malloc(sizeof(t_token));
 	if (!next)
 		return NULL;
-	next->content = ft_substr(token->content, i, strlen(token->content) - i);
+	next->content = ft_substr(token->content, i, ft_strlen(token->content) - i);
 	if (!next->content)
 	{
 		free(next);
@@ -132,12 +132,13 @@ t_token *check_redir_syntax(t_token *token)
 		free(next);
 		return NULL;
 	}
-
 	free(token->content);
 	token->content = new_content;
 	token->next = next;
 	token->type = ft_token_type(token->content);
 	token->next->type = files;
+	token->content = ft_delete_quotes(token->content);
+	token->next->content = ft_delete_quotes(token->next->content);
 
 	return token;
 }
@@ -187,6 +188,7 @@ t_commands	*pipe_commands(char *str, t_env *env)
 		current = current->next; /* Move to the next command in the list */
 	}
 	free(splitted_command);
+	ft_remove_quotes(commands);
 	return (commands);  /* Return the head of the list of commands */
 }
 
