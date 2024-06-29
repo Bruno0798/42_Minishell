@@ -50,6 +50,4 @@ jobs:
       run: |
         echo -e "\033[1;32mRunning tests and waiting to send input:\033[0m"
         cd minishell_tester
-        (python3 src/__main__.py ../ &)
-        sleep 120
         echo "2" | python3 src/__main__.py ../
