@@ -46,8 +46,20 @@ jobs:
         python3 -m pip install norminette
         pip3 install termcolor  # Ensure termcolor is installed
 
-    - name: Run tests
+    - name: Install expect
+      run: sudo apt-get install expect
+
+    - name: Create expect script
       run: |
-        echo -e "\033[1;32mRunning tests:\033[0m"
+        echo -e '#!/usr/bin/expect\n \
+        spawn python3 src/__main__.py ../\n \
+        expect "Press any key to continue"\n \
+        send "2\n"\n \
+        interact' > run_tests_with_input.exp
+        chmod +x run_tests_with_input.exp
+
+    - name: Run tests with expect script
+      run: |
+        echo -e "\033[1;32mRunning tests with automated input:\033[0m"
         cd minishell_tester
-        python3 src/__main__.py ../
+        ../run_tests_with_input.exp
