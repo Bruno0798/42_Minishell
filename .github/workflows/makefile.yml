@@ -54,13 +54,15 @@ jobs:
         echo -e '#!/usr/bin/expect\n \
         set timeout -1\n \
         spawn python3 src/__main__.py ../\n \
-        expect "Press \\[1\\] to see passed tests, \\[2\\] for failed, \\[n\\] to exit \\(\\[1/2\\]/n\\)?"\n \
-        send "2\\r"\n \
+        expect {\n \
+          "Press \\[1\\] to see passed tests, \\[2\\] for failed, \\[n\\] to exit \\(\\[1/2\\]/n\\)?" { send "2\\r" }\n \
+          timeout { puts "Timeout waiting for prompt"; exit 1 }\n \
+        }\n \
         expect eof' > run_tests_with_input.exp
         chmod +x run_tests_with_input.exp
 
     - name: Run tests with expect script
       run: |
-        echo -e "\033[1;32mRunning tests with automated input:\033[0m"
+        echo -e "\033[1;32mRunning tests and sending input:\033[0m"
         cd minishell_tester
         ../run_tests_with_input.exp
