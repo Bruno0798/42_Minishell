@@ -44,16 +44,16 @@ void ft_expander(t_commands *commands)
 		token = commands->token;
 		while (token)
 		{
-			if (is_dollar_outside_single_quotes(token->content))
-			{
-				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && *(ft_strchr(token->content, '$') + 1) != DOUBLE_QUOTE && *(ft_strchr(token->content, '$') + 1) != ' ')
+			// if (is_dollar_outside_single_quotes(token->content))
+			// {
+				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 				{
 					if (*(ft_strchr(token->content, '$') + 1) == '?')
 						token->content = expand_exit_code(token->content);
 					else
 						token->content = needs_expansion(token->content, commands);
 				}
-			}
+			// }
 			token = token->next;
 		}
 		commands =commands->next;
