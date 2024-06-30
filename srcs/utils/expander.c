@@ -44,8 +44,6 @@ void ft_expander(t_commands *commands)
 		token = commands->token;
 		while (token)
 		{
-			// if (is_dollar_outside_single_quotes(token->content))
-			// {
 				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 				{
 					if (*(ft_strchr(token->content, '$') + 1) == '?')
@@ -53,12 +51,12 @@ void ft_expander(t_commands *commands)
 					else
 						token->content = needs_expansion(token->content, commands);
 				}
-			// }
 			token = token->next;
 		}
 		commands =commands->next;
 	}
 	commands = head;
+
 }
 
 int calculate_extra_length(char *string, int num_len)
@@ -242,7 +240,6 @@ char *ft_get_value(t_env *env, char *key) {
 	return NULL; // If no matching key is found, return NULL
 }
 
-
 char *needs_expansion(char *input, t_commands *command)
 {
 	bool single_quotes = false;
@@ -267,47 +264,64 @@ char *needs_expansion(char *input, t_commands *command)
 	return input;
 }
 
+#include <stdlib.h>
+#include <string.h>
 
 char *expand_variable(char *string, int i, t_commands *commands)
 {
-	char *value;
-	char *key;
-	char *new_string;
-	int h;
-	int k;
-	int j;
+    char *value;
+    char *key;
+    char *new_string;
+    int h = 0;
+    int k = 0;
+    int j = 0;
 
-	key = store_value(&string[i]);
-	value = ft_get_value(commands->env, key);
+    // Get the key starting at the position i
+    key = store_value(&string[i]);
+    if (!key)
+        return NULL; // Handle key extraction failure
 
-	if (!value)
-		value = "";
+    // Get the value corresponding to the key from the environment
+    value = ft_get_value(commands->env, key);
+    if (!value)
+        value = ""; // Treat as an empty string if value is not found
 
+    // Calculate the new string length and allocate memory
+    new_string = malloc(strlen(string) - strlen(key) + strlen(value) + 1);
+    if (!new_string)
+    {
+        free(key); // Free the key if malloc fails
+        return NULL; // Handle malloc failure
+    }
 
-	// Correct memory allocation size
-	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1));
-	if (!new_string)
-		return NULL; // Handle malloc failure
-	h=0;
-	k = 0;
-	j = 0;
-	while (string[h])
-	{
-		if (string[h] == '$' && ft_strncmp(&string[h+1], key, ft_strlen(key)) == 0 && i == h)
-		{
-			h += ft_strlen(key) + 1; // Skip the dollar sign and key
-			while (value[k])
-				new_string[j++] = value[k++];
-			while (string[h])
-				new_string[j++] = string[h++];
-			break;
-		}
-		else
-			new_string[j++] = string[h++];
-	}
-	new_string[j] = '\0'; // Null-terminate the new string
-	return new_string;
+    // Iterate through the original string and construct the new string
+    while (string[h])
+    {
+        if (string[h] == '$' && strncmp(&string[h + 1], key, strlen(key)) == 0 && i == h)
+        {
+            // Skip the dollar sign and the key
+            h += strlen(key) + 1;
+            // Copy the value into the new string
+            while (value[k])
+                new_string[j++] = value[k++];
+
+            // Copy the rest of the original string
+            while (string[h])
+                new_string[j++] = string[h++];
+
+            break;
+        }
+        new_string[j++] = string[h++];
+    }
+
+    new_string[j] = '\0'; // Null-terminate the new string
+
+    // Free the key if it was dynamically allocated by store_value
+    free(key);
+
+    return new_string;
 }
+
 
 
 bool is_dollar_outside_single_quotes(char *str)
