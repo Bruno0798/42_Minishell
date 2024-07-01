@@ -58,7 +58,7 @@ void check_heredoc(t_commands *command)
 	{
 		if (token->type == redir_in2 && token->next)
 		{
-			ft_heredoc(token->next->content);
+			ft_heredoc(token->next->content, command);
 			dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
 		}
 		token = token->next;
@@ -66,7 +66,7 @@ void check_heredoc(t_commands *command)
 	delete_redir(command);
 }
 
-void ft_heredoc(char *delimiter)
+void ft_heredoc(char *delimiter, t_commands *command)
 {
 	int temp;
 	pid_t pid;
@@ -76,8 +76,8 @@ void ft_heredoc(char *delimiter)
 	pid = fork();
 	if (pid == 0)
 	{
-		line = ft_strjoin(delimiter, "\n");
-		heredoc_cycle(line);
+		// line = ft_strjoin(delimiter, "\n");
+		heredoc_cycle(delimiter, command);
 		free(line);
 		exit(EXIT_STATUS);
 	}
@@ -85,25 +85,29 @@ void ft_heredoc(char *delimiter)
 	EXIT_STATUS = temp >> 8;
 }
 
-void heredoc_cycle(char *line)
+void heredoc_cycle(char *line, t_commands *commands)
 {
-	int fd;
-	int output;
-	char buff[4095];
+	int		fd;
+	char	*buff;
 
 	ft_signals_heredoc();
 	fd = open("heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	write(1, "> ", 2);
-	output = read(1, buff, 4095);
-	while(output > 0)
+	buff = readline(">");
+	while(buff)
 	{
 		ft_signals_heredoc();
-		buff[output] = '\0';
 		if (!ft_strcmp(buff, line))
 			break;
-		write(fd, buff, output);
-		write(1, "> ", 2);
-		output = read(1, buff, 4095);
+		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1) != '\0' && is_dollar_outside_single_quotes(buff))
+		{
+			if (*(ft_strchr(buff, '$') + 1) == '?')
+				buff = expand_exit_code(buff);
+			else
+				buff = needs_expansion(buff, commands);
+		}
+		buff = ft_strjoin(buff, "\n");
+		ft_fprintf(fd, "%s", buff);
+		buff = readline(">");
 	}
 	close(fd);
 }

@@ -14,10 +14,11 @@
 
 int ft_parser(char *input, t_commands **commands, t_env *env)
 {
-	add_history(input);
 	*commands = pipe_commands(input, env);
 	if (!has_here_doc(*commands))
 		ft_expander(*commands);
+	else
+		ft_expander_heredoc(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
 	return EXIT_SUCCESS;

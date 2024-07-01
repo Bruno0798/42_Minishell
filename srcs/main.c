@@ -14,8 +14,6 @@
 
 static int init_and_set_fd(int argc, char **envp, t_env **env);
 
-//TODO EXPAND NO HEREDOC ESTA MAL, NAO DA EXPAND NO EOF MAS TEM DE DAR DENTRO
-
 int	EXIT_STATUS;
 
 int main(int argc, char **argv, char **envp)
@@ -37,6 +35,7 @@ int main(int argc, char **argv, char **envp)
 		dup2(fd, STDIN_FILENO);
 		dup2(fd1, STDOUT_FILENO);
 		input = readline("Minishell$>");
+		add_history(input);
 		if (is_valid_input(input, env))
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
 			{

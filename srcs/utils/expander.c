@@ -33,6 +33,37 @@ char *needs_expansion(char *input, t_commands *command);
 char *expand_variable(char *string, int i, t_commands *commands);
 bool is_dollar_outside_single_quotes(char *str);
 
+void ft_expander_heredoc(t_commands *commands)
+{
+	t_token		*token;
+	t_commands	*head;
+
+	head = commands;
+	token = commands->token;
+
+	while(commands)
+	{
+		token = commands->token;
+		while (token && token->type != redir_in2){
+			if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+			{
+				if (*(ft_strchr(token->content, '$') + 1) == '?')
+					token->content = expand_exit_code(token->content);
+				else
+					token->content = needs_expansion(token->content, commands);
+			}
+			token = token->next;
+		}
+		token = commands->token;
+		while(token){
+			printf("token content heredoc: %s\n", token->content);
+			token = token->next;
+		}
+		commands = commands->next;
+	}
+	
+	commands = head;
+}
 
 void ft_expander(t_commands *commands)
 {
@@ -43,13 +74,13 @@ void ft_expander(t_commands *commands)
 	{
 		token = commands->token;
 		while (token) {
-				if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
-				{
-					if (*(ft_strchr(token->content, '$') + 1) == '?')
-						token->content = expand_exit_code(token->content);
-					else
-						token->content = needs_expansion(token->content, commands);
-				}
+			if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+			{
+				if (*(ft_strchr(token->content, '$') + 1) == '?')
+					token->content = expand_exit_code(token->content);
+				
+				token->content = needs_expansion(token->content, commands);
+			}
 			token = token->next;
 		}
 		commands =commands->next;
@@ -246,7 +277,7 @@ char *needs_expansion(char *input, t_commands *command)
 	int i = -1;
 	int length;
 
-	while (input[++i]) {
+		while (input[++i]) {
 		if (input[i] == '\'' && !double_quotes) {
 			single_quotes = !single_quotes;
 		} else if (input[i] == '"' && !single_quotes) {

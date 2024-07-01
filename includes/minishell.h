@@ -314,10 +314,9 @@ void handle_signals(void);
 void open_pipes(t_commands *command);
 bool has_double_pipe(char *input);
 void check_heredoc(t_commands *command);
-void ft_heredoc(char *delimiter);
+void ft_heredoc(char *delimiter, t_commands *command);
 t_commands *delete_redir(t_commands *command);
-void heredoc_cycle(char *line);
-void ft_heredoc(char *delimiter);
+void heredoc_cycle(char *line, t_commands *commands);
 bool has_here_doc(t_commands *commands);
 void remake_commands(t_commands *command);
 void	ft_signals_heredoc(void);
@@ -333,4 +332,10 @@ bool	is_between_single_quotes(char *str);
 void	check_permissions(t_commands *command, char *string);
 void	ft_token_addback(t_token **token, t_token *new);
 void	free_tokens(t_token *token);
+void	ft_expander_heredoc(t_commands *commands);
+char	*needs_expansion(char *input, t_commands *command);
+char	*expand_variable(char *string, int i, t_commands *commands);
+char	*expand_exit_code(char *string);
+bool is_dollar_outside_single_quotes(char *str);
+
 #endif
