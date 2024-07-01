@@ -6,6 +6,7 @@
   <component name="CMakeRunConfigurationManager">
     <generated>
       <config projectName="42_Minishell" targetName="all" />
+      <config projectName="42_Minishell" targetName="commit" />
       <config projectName="42_Minishell" targetName="valgrind" />
       <config projectName="42_Minishell" targetName="re" />
       <config projectName="42_Minishell" targetName="fclean" />
@@ -19,9 +20,24 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="">
+    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/heredoc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/heredoc.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/cd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/cd.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/execution/redir_handler.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/redir_handler.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/signals/signal.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/signals/signal.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/utils1.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils1.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/validations.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/validations.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,13 +48,18 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$/..">
+      <ProjectState />
+    </projectState>
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file:///Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/sys/wait.h" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MakefileLocalSettings">
     <option name="availableProjects">
@@ -88,25 +109,31 @@
   "keyToString": {
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/bsousa-d/Desktop/42_Minishell",
+    "last_opened_file_path": "/Users/bruno/Desktop/42_Minishell",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "settings.sync",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.grazie",
     "structure.view.defaults.are.configured": "true",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RunManager" selected="Native Application.all">
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_Minishell" TARGET_NAME="all" CONFIG_NAME="all" version="1">
+      <method v="2">
+        <option name="CLION.COMPOUND.BUILD" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="commit" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_Minishell" TARGET_NAME="commit" CONFIG_NAME="commit" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
@@ -139,8 +166,9 @@
     <list>
       <item itemvalue="Native Application.all" />
       <item itemvalue="Native Application.fclean" />
-      <item itemvalue="Native Application.minishell" />
       <item itemvalue="Native Application.re" />
+      <item itemvalue="Native Application.commit" />
+      <item itemvalue="Native Application.minishell" />
       <item itemvalue="Native Application.run" />
       <item itemvalue="Native Application.valgrind" />
     </list>
@@ -167,8 +195,7 @@
       <workItem from="1718733805755" duration="8150000" />
       <workItem from="1718798195071" duration="9445000" />
       <workItem from="1718880098293" duration="11313000" />
-      <workItem from="1719831204576" duration="33000" />
-      <workItem from="1719831243489" duration="13089000" />
+      <workItem from="1719854164063" duration="1671000" />
     </task>
     <servers />
   </component>
@@ -185,5 +212,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

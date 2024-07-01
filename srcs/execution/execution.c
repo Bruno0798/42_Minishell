@@ -71,8 +71,8 @@ void ft_exec_abs(t_commands *command, t_commands *head)
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
-	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
-	exec_exit_status(EXIT_STATUS);
+	waitpid(pid, &g_exit_status, 0);  /* Wait for the child process to terminate */
+	exec_exit_status(g_exit_status);
 }
 
 void ft_exec_command(t_commands *command, t_commands *head)
@@ -110,8 +110,8 @@ void ft_exec_command(t_commands *command, t_commands *head)
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);
 	free_double_pointer_array(arr_command);
-	waitpid(pid, &EXIT_STATUS, 0);  /* Wait for the child process to terminate */
-	exec_exit_status(EXIT_STATUS);
+	waitpid(pid, &g_exit_status, 0);  /* Wait for the child process to terminate */
+	exec_exit_status(g_exit_status);
 }
 
 void	exec_exit_status(int status)
@@ -122,7 +122,7 @@ void	exec_exit_status(int status)
 	if (WIFEXITED(status))
 	{
 		exit_status = WEXITSTATUS(status);
-		EXIT_STATUS = exit_status;
+		g_exit_status = exit_status;
 	}
 	else if (WIFSIGNALED(status))
 	{
@@ -130,6 +130,6 @@ void	exec_exit_status(int status)
 		if (exit_status == 3)
 			printf("Quit (core dumped)");
 		printf("\n");
-		EXIT_STATUS = 128 + exit_status;
+		g_exit_status = 128 + exit_status;
 	}
 }

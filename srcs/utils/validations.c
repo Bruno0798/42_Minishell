@@ -104,7 +104,7 @@ bool is_valid_input(char *input, t_env *env)
 	{
 		free_env(env);
 		print_error("", "", 0);
-		exit(EXIT_STATUS);
+		exit(g_exit_status);
 	}
 	if (is_everything_space(input) || !syntax_checker(input) ||
 			check_quotes(input))

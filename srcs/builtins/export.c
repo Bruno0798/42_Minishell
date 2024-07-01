@@ -106,7 +106,7 @@ bool is_invalid_token(char *str)
 
 void handle_invalid_token(const char *content) {
 	ft_fprintf(2, " not a valid identifier\n");  //TODO DELETE THIS FUNCTION TO REPLACE WITH PRINT ERROR
-	EXIT_STATUS = 1;
+	g_exit_status = 1;
 }
 
 void update_or_add_env(t_commands *command, char *key, char *value) {
@@ -120,7 +120,7 @@ void update_or_add_env(t_commands *command, char *key, char *value) {
 void handle_export_token(t_commands *command, t_token *token) {
 	if (token->content[0] == '=' || token->content[0] == '-') {
 		ft_fprintf(2, " not a valid identifier\n", token->content);
-		EXIT_STATUS = 1;
+		g_exit_status = 1;
 		return;
 	}
 

@@ -63,21 +63,21 @@ void check_permissions(t_commands *command, char *string)
 
 	if (!file && execution && ft_strchr(string, '/')) {
 		ft_fprintf(2, EXECUTION_PERMISSION);
-		EXIT_STATUS = 126;
+		g_exit_status = 126;
 	} else if (!file && !execution && string[0] == '.' && string[1] == '/') {
 		ft_fprintf(2, DIRECTORY_EXISTS);
-		EXIT_STATUS = 126;
+		g_exit_status = 126;
 	} else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH")) {
 		ft_fprintf(2, ERROR_DIR);
-		EXIT_STATUS = 127;
+		g_exit_status = 127;
 	} else {
 		fprintf(stderr, "%s: %s\n", string, COMMAND_NOT_FOUND);
-		EXIT_STATUS = 127;
+		g_exit_status = 127;
 	}
 
 	// Calculate the exit status
 	free_all(command, 2);
-	exit(EXIT_STATUS);
+	exit(g_exit_status);
 }
 
 void ft_token_addback(t_token **token, t_token *new)

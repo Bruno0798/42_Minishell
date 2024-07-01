@@ -173,22 +173,22 @@ t_commands *ft_new_commands(char *str, t_env *env)
 
 t_commands	*pipe_commands(char *str, t_env *env)
 {
-	t_commands	*commands;  /* Pointer to the head of the list of commands */
-	t_commands	*current;  /* Pointer to the current command in the list */
-	char		**splitted_command;  /* Array of commands split from the provided string */
-	int			i;  /* Counter for iterating over the array of commands */
+	t_commands	*command;
+	t_commands	*current;
+	char		**splitted_command;
+	int			i;
 
 	i = 0;
 	splitted_command = ft_split2(str, '|');  /* Split the provided string into commands */
-	commands = ft_new_commands(splitted_command[0], env);  /* Create a new t_commands structure for the first command */
-	current = commands;  /* Assign the head of the list of commands to the current command */
+	command = ft_new_commands(splitted_command[0], env);  /* Create a new t_commands structure for the first command */
+	current = command;  /* Assign the head of the list of commands to the current command */
 	while(splitted_command[++i])  /* Iterate over the rest of the commands in the array */
 	{
 		current->next = ft_new_commands(splitted_command[i], env);  /* Create a new t_commands structure for the current command and add it to the end of the list */
 		current = current->next; /* Move to the next command in the list */
 	}
 	free(splitted_command);
-	return (commands);  /* Return the head of the list of commands */
+	return (command);  /* Return the head of the list of commands */
 }
 
 bool	ft_hasSpecialChar(char *str)

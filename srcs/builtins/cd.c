@@ -23,7 +23,7 @@ void ft_cd(t_commands *commands)
 		if(commands->token->next->type == command)
 		{
 			ft_fprintf(2,ERROR_ARG, NULL, 1);
-			EXIT_STATUS = 1;
+			g_exit_status = 1;
 			return ;
 		}
 	}
@@ -39,11 +39,11 @@ void ft_cd(t_commands *commands)
 		if (commands->token->next->content[0] == '-')
 		{
 			printf("bash: cd: %s: invalid option\n", commands->token->next->content); /* Print error message */
-			EXIT_STATUS = 1;
+			g_exit_status = 1;
 			return ;
 		}
 		ft_fprintf(2," No such file or directory"); /* Print error message */
-		EXIT_STATUS = 1;
+		g_exit_status = 1;
 		return ;
 	}
 	ft_update_env(commands->env, "OLDPWD", dir, 1); /* Update the OLDPWD environment variable */

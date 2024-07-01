@@ -70,19 +70,16 @@ void ft_heredoc(char *delimiter, t_commands *command)
 {
 	int temp;
 	pid_t pid;
-	char *line;
 
 	handle_signals();
 	pid = fork();
 	if (pid == 0)
 	{
-		// line = ft_strjoin(delimiter, "\n");
 		heredoc_cycle(delimiter, command);
-		free(line);
-		exit(EXIT_STATUS);
+		exit(g_exit_status);
 	}
 	waitpid(pid, &temp, 0);
-	EXIT_STATUS = temp >> 8;
+	g_exit_status = temp >> 8;
 }
 
 void heredoc_cycle(char *line, t_commands *commands)

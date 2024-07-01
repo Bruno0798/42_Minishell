@@ -128,7 +128,7 @@ char *expand_exit_code(char *string) {
 	int num_len;
 	int extra_length;
 
-	num = ft_itoa(EXIT_STATUS);
+	num = ft_itoa(g_exit_status);
 	num_len = ft_strlen(num);
 	extra_length = calculate_extra_length(string, num_len);
 

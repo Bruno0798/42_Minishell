@@ -32,7 +32,7 @@ void	ft_handler_ctrl(int signum)
 	printf("\n");
 	rl_on_new_line();
 	rl_redisplay();
-	EXIT_STATUS = 130;
+	g_exit_status = 130;
 }
 
 void handle_signals(void)

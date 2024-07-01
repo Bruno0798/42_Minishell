@@ -12,28 +12,33 @@
 
 #include "../includes/minishell.h"
 
-static int init_and_set_fd(int argc, char **envp, t_env **env);
-
-int	EXIT_STATUS;
+static int	init_and_set_fd(int argc, char **envp, t_env **env);
+static void	main_cycle(int fd, int fd1, t_env *env);
+void		reset_fd_signals(int fd, int fd1);
 
 int main(int argc, char **argv, char **envp)
 {
 	(void)		argv;
-	t_commands	*command; // NEEDS TO BE REMOVED FROM HERE AND PASS TO PARER
 	t_env		*env;
-	char		*input;
 	int			fd;
 	int			fd1;
 
 
 	fd = init_and_set_fd(argc, envp, &env);
 	fd1 = dup(1);
+	main_cycle(fd, fd1, env);
+	return 0;
+}
+
+void main_cycle(int fd, int fd1, t_env *env)
+{
+	t_commands	*command; // NEEDS TO BE REMOVED FROM HERE AND PASS TO PARER
+	char		*input;
+
 	while (42)
 	{
 		command = NULL;
-		handle_signals();
-		dup2(fd, STDIN_FILENO);
-		dup2(fd1, STDOUT_FILENO);
+		reset_fd_signals(fd, fd1);
 		input = readline("Minishell$>");
 		add_history(input);
 		if (is_valid_input(input, env))
@@ -44,7 +49,13 @@ int main(int argc, char **argv, char **envp)
 			}
 		ft_free_commands(command, 1);
 	}
-	return 0;
+}
+
+void reset_fd_signals(int fd, int fd1)
+{
+	handle_signals();
+	dup2(fd, STDIN_FILENO);
+	dup2(fd1, STDOUT_FILENO);
 }
 
 static int init_and_set_fd(int argc, char **envp, t_env **env)

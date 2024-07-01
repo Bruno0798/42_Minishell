@@ -65,7 +65,7 @@ void child_process(t_commands *command, int fd_in, int command_count)
 			close(fd_in);
 			ft_execute(command, head);
 			free_all(head, 2);
-			exit(EXIT_STATUS);
+			exit(g_exit_status);
 		}
 		dup2(pipes[0], fd_in);
 		close(pipes[0]);

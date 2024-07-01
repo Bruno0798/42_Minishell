@@ -27,7 +27,7 @@ int ft_check_redirect(t_commands *command)
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
 				if(fd == -1)
 				{
-					EXIT_STATUS = 1;
+					g_exit_status = 1;
 					return 0;
 				}
 				temp->next->type = files;
@@ -37,7 +37,7 @@ int ft_check_redirect(t_commands *command)
 				fd = open(temp->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
 				if(fd == -1)
 				{
-					EXIT_STATUS = 1;
+					g_exit_status = 1;
 					return 0;
 				}
 				temp->next->type = files;
@@ -48,7 +48,7 @@ int ft_check_redirect(t_commands *command)
 				fd = open(temp->next->content, O_RDONLY, 0644);
 				if(fd == -1)
 				{
-					EXIT_STATUS = 1;
+					g_exit_status = 1;
 					return 0;
 				}
 				temp->next->type = files;

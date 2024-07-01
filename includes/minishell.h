@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:54:28 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/01 18:43:57 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@
 # define COMMAND_NOT_FOUND "command not found"
 
 /* Global variable for the exit status */
-extern int	EXIT_STATUS;
+int	g_exit_status;
+
 /* Enum for different token types */
 typedef enum s_type
 {
