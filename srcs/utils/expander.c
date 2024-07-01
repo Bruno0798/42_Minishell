@@ -54,11 +54,6 @@ void ft_expander_heredoc(t_commands *commands)
 			}
 			token = token->next;
 		}
-		token = commands->token;
-		while(token){
-			printf("token content heredoc: %s\n", token->content);
-			token = token->next;
-		}
 		commands = commands->next;
 	}
 	
