@@ -41,15 +41,18 @@ void init_env(t_env **env,char **envp)
 
 	i = 0;
 	ft_bzero(env, sizeof(t_env)); /* Set the environment to 0 */
-	while(envp[i])
-	{
-		equal_sign = ft_strchr(envp[i], '='); /* Get the equal sign */
-		key = ft_substr(envp[i], 0, equal_sign - envp[i]); /* Get the key */
-		value = equal_sign + 1; /* Get the value */
-		ft_add_env_back(env, ft_new_env(key, value, 1)); /* Add the environment variable */
-		free(key); /* Free the key */
-		i++;
-	}
+	if (envp[0] == NULL)
+		ft_add_env_back(env, ft_new_env("SHLVL", "1", 1)); /* Add the environment variable */
+	else
+		while(envp[i])
+		{
+			equal_sign = ft_strchr(envp[i], '='); /* Get the equal sign */
+			key = ft_substr(envp[i], 0, equal_sign - envp[i]); /* Get the key */
+			value = equal_sign + 1; /* Get the value */
+			ft_add_env_back(env, ft_new_env(key, value, 1)); /* Add the environment variable */
+			free(key); /* Free the key */
+			i++;
+		}
 }
 
 void	ft_add_env_back(t_env **env_lst, t_env *new_env)

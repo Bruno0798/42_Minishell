@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 19:01:51 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:11:05 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int ft_execution(t_commands *command, t_commands *head)
 {
 	if (command->token->content[0] == '/' || !ft_strncmp(command->token->content, "./", 2))
         ft_exec_abs(command, head);
-	else 
+	else
 		ft_exec_command(command, head);
 	return (1); 
 }
@@ -100,7 +100,7 @@ void ft_exec_command(t_commands *command, t_commands *head)
 			free(temp_arr);
 			execve(arr[i], arr_command, arr_env);  /* Execute the file */
 		}
-		// dup2(STDERR_FILENO, STDOUT_FILENO);
+		//dup2(STDERR_FILENO, STDOUT_FILENO);
 		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);

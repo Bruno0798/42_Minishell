@@ -53,7 +53,7 @@ char *ft_delete_quotes(char *input) {
 	char *new_str;
 	char quote;
 
-	new_str = malloc(strlen(input) + 1);
+	new_str = malloc(ft_strlen(input) + 1);
 	i = -1;
 	j = 0;
 	while (input[++i])

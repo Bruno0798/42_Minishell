@@ -32,9 +32,9 @@ int main(int argc, char **argv, char **envp)
 
 	fd = init_and_set_fd(argc, envp, &env);
 	fd1 = dup(1);
-	command = NULL; //empty line
 	while (42)
 	{
+		command = NULL; //empty line
 		handle_signals();
 		dup2(fd, STDIN_FILENO);
 		dup2(fd1, STDOUT_FILENO);

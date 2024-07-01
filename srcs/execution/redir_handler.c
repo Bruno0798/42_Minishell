@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/06/28 19:00:34 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/01 13:30:10 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int ft_check_redirect(t_commands *command)
 				temp->next->type = files;
 				dup2(fd, STDOUT_FILENO);
 			}
-			else if (temp->type == redir_in){
-				fd = open(temp->next->content, O_RDWR, 0644);
+			else if (temp->type == redir_in)
+			{
+				fd = open(temp->next->content, O_RDONLY, 0644);
 				if(fd == -1)
 				{
 					EXIT_STATUS = 1;
@@ -57,7 +58,6 @@ int ft_check_redirect(t_commands *command)
 		}
 		temp = temp->next;
 	}
-
 	return (1);
 }
 
