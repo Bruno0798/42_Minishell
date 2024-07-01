@@ -15,8 +15,6 @@
 static int init_and_set_fd(int argc, char **envp, t_env **env);
 
 //TODO EXPAND NO HEREDOC ESTA MAL, NAO DA EXPAND NO EOF MAS TEM DE DAR DENTRO
-//TODO CHANGED THE MESSAGES ERRORS ON THE TESTER AND THE PROJECT
-
 
 int	EXIT_STATUS;
 
@@ -34,7 +32,7 @@ int main(int argc, char **argv, char **envp)
 	fd1 = dup(1);
 	while (42)
 	{
-		command = NULL; //empty line
+		command = NULL;
 		handle_signals();
 		dup2(fd, STDIN_FILENO);
 		dup2(fd1, STDOUT_FILENO);
@@ -45,7 +43,6 @@ int main(int argc, char **argv, char **envp)
 				remake_commands(command);
 				open_pipes(command);
 			}
-		ft_special_handler(input); // NEEDS TO BE REMOVED FROM HERE
 		ft_free_commands(command, 1);
 	}
 	return 0;
@@ -60,13 +57,4 @@ static int init_and_set_fd(int argc, char **envp, t_env **env)
 	init_env(env, envp);
 
 	return fd;
-}
-
-void ft_special_handler(const char *input) {
-	if (input[0] == '$' && input[1] == '?' &&
-		input[2] == '+' && input[3] == '$' && input[4] == '?' &&
-		input[5] == '\0') {
-		printf("%i+%if: command not found\n", EXIT_STATUS, EXIT_STATUS);
-		EXIT_STATUS = 127;  // Set exit status for subsequent commands
-	}
 }

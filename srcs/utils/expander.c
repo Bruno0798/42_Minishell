@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 15:23:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/25 15:44:33 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/01 15:57:01 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,8 @@ void ft_expander(t_commands *commands)
 	while(commands)
 	{
 		token = commands->token;
-		while (token)
-		{
-				while (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+		while (token) {
+				if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 				{
 					if (*(ft_strchr(token->content, '$') + 1) == '?')
 						token->content = expand_exit_code(token->content);
@@ -244,22 +243,23 @@ char *needs_expansion(char *input, t_commands *command)
 {
 	bool single_quotes = false;
 	bool double_quotes = false;
-	size_t i = 0;
+	int i = -1;
 	int length;
 
-	while (input[i]) {
+	while (input[++i]) {
 		if (input[i] == '\'' && !double_quotes) {
 			single_quotes = !single_quotes;
 		} else if (input[i] == '"' && !single_quotes) {
 			double_quotes = !double_quotes;
 		} else if (input[i] == '$' && !single_quotes) {
-			length = ft_strlen(input);
-			input = expand_variable(input, i, command);
-			i += ft_strlen(input) - length;
+			if(input[i + 1] != ' ' && input[i + 1] != SINGLE_QUOTE && input[i + 1] != DOUBLE_QUOTE) {
+				length = ft_strlen(input);
+				input = expand_variable(input, i, command);
+				i += ft_strlen(input) - length;
+			}
 		}
 		if (i > ft_strlen(input))
 			break ;
-		i++;
 	}
 	return input;
 }
@@ -322,18 +322,20 @@ char *expand_variable(char *string, int i, t_commands *commands)
     return new_string;
 }
 
-
-
 bool is_dollar_outside_single_quotes(char *str)
 {
 	bool s_quote;
+	bool d_quote;
 	int i;
 
 	i = -1;
 	s_quote = false;
+	d_quote = false;
 	while (str[++i])
 	{
-		if (str[i] == SINGLE_QUOTE)
+		if(str[i] == DOUBLE_QUOTE)
+			d_quote = !d_quote;
+		if (str[i] == SINGLE_QUOTE && !d_quote)
 			s_quote = !s_quote;
 		else if (str[i] == '$' && !s_quote)
 			return true;
