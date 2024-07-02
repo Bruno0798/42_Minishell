@@ -13,33 +13,31 @@
 #include "../../includes/minishell.h"
 
 char **ft_lst_to_arr(t_token *token) {
-	int i;      /* Counter for the number of tokens and the current index in the array */
-	char **arr; /* Array of strings representing the content of each token */
-	t_token *tmp; /* Temporary pointer to the current token */
+	int i;
+	char **arr;
+	t_token *tmp;
 
 	if (!token)
 		return NULL;
 
 	i = 0;
 	tmp = token;
-	while (tmp) { /* Iterate over each token in the linked list */
+	while (tmp) {
 		if (tmp->type == redir_out || tmp->type == redir_out2 || tmp->type == redir_in)
 			break;
 		i++;
 		tmp = tmp->next;
 	}
-
-	arr = malloc(sizeof(char *) * (i + 1)); /* Allocate memory for the array of strings (including NULL terminator) */
+	arr = malloc(sizeof(char *) * (i + 1));
 	if (!arr)
 		return NULL;
-
 	tmp = token;
 	i = 0;
-	while (tmp) { /* Iterate over each token in the linked list again */
+	while (tmp) {
 		if (tmp->type == redir_out || tmp->type == redir_out2 || tmp->type == redir_in)
 			break;
-		arr[i] = ft_strdup(tmp->content); /* Assign the content of the current token to the corresponding element in the array */
-		if (!arr[i]) { /* If ft_strdup fails, free the already allocated memory */
+		arr[i] = ft_strdup(tmp->content);
+		if (!arr[i]) {
 			while (i > 0)
 				free(arr[--i]);
 			free(arr);
@@ -48,8 +46,8 @@ char **ft_lst_to_arr(t_token *token) {
 		i++;
 		tmp = tmp->next;
 	}
-	arr[i] = NULL; /* Set the last element of the array to NULL */
-	return arr; /* Return the array of strings */
+	arr[i] = NULL;
+	return arr;
 }
 
 
@@ -60,7 +58,6 @@ void check_permissions(t_commands *command, char *string)
 
 	file = access(string, F_OK);
 	execution = access(string, X_OK);
-
 	if (!file && execution && ft_strchr(string, '/')) {
 		ft_fprintf(2, EXECUTION_PERMISSION);
 		g_exit_status = 126;
@@ -74,8 +71,6 @@ void check_permissions(t_commands *command, char *string)
 		fprintf(stderr, "%s: %s\n", string, COMMAND_NOT_FOUND);
 		g_exit_status = 127;
 	}
-
-	// Calculate the exit status
 	free_all(command, 2);
 	exit(g_exit_status);
 }
@@ -85,7 +80,7 @@ void ft_token_addback(t_token **token, t_token *new)
 	t_token *temp;
 
 	temp = *token;
-	if(token)
+	if (token)
 	{
 		if (*token)
 		{

@@ -19,8 +19,8 @@ bool is_everything_space(char *str)
 	i = -1;
 	while (str[++i])
 		if (str[i] != ' ')
-			return false;
-	return true;
+			return (false);
+	return (true);
 }
 
 bool is_between_quotes(char *str)
@@ -40,8 +40,8 @@ bool is_between_quotes(char *str)
 			s_quote = !s_quote;
 	}
 	if (s_quote != 0 || d_quote != 0)
-		return false;
-	return true;
+		return (false);
+	return (true);
 }
 
 bool check_quotes(char *str)
@@ -63,19 +63,19 @@ bool check_quotes(char *str)
 	if (s_quote != 0 || d_quote != 0)
 	{
 		print_error(ERROR_QUOTE, NULL, 1);
-		return true;
+		return (true);
 	}
-	return false;
+	return (false);
 }
 
 bool syntax_checker(char *input)
 {
 	input = ft_strtrim(input, " \t");
-	if (input && !ft_strchr("|<>", input[ft_strlen(input) - 1]) && *input != '|') //doesnt end with "<>|" and doesnt start with "|"
-		if(ft_strcmp("<", input) && ft_strcmp(">", input)) //verification for "<" && ">"
+	if (input && !ft_strchr("|<>", input[ft_strlen(input) - 1]) && *input != '|')
+		if (ft_strcmp("<", input) && ft_strcmp(">", input))
 		{
 			free(input);
-			return true;
+			return (true);
 		}
 	if (*input == '|' && input[1] == '|')
 		print_error(ERROR_PIPE_2, NULL, 2);
@@ -86,7 +86,7 @@ bool syntax_checker(char *input)
 	else if (ft_strchr("<>", input[ft_strlen(input - 1)]))
 		print_error(ERROR_REDIR, NULL, 2);
 	free(input);
-	return false;
+	return (false);
 }
 
 void check_args(int argc, int valid_argc)
@@ -108,8 +108,8 @@ bool is_valid_input(char *input, t_env *env)
 	}
 	if (is_everything_space(input) || !syntax_checker(input) ||
 			check_quotes(input))
-				return false;
-	return true;
+				return (false);
+	return (true);
 }
 
 bool is_between_single_quotes(char *str)
@@ -129,6 +129,6 @@ bool is_between_single_quotes(char *str)
 			s_quote = !s_quote;
 	}
 	if (s_quote != 0)
-		return true;
-	return false;
+		return (true);
+	return (false);
 }

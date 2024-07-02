@@ -29,8 +29,7 @@ void ft_expand_others(t_commands *commands)
 	int i;
 	t_token *curr = commands->token;
 
-	i = -1;
-	while(curr)
+	while (curr)
 	{
 		i = -1;
 		while (curr->content[++i])
@@ -64,7 +63,7 @@ char *ft_delete_quotes(char *input) {
 		else if (input[i] == '"' || input[i] == '\'')
 		{
 			quote = input[i++];
-			while(input[i] != quote)
+			while (input[i] != quote)
 				new_str[j++] = input[i++];
 		}
 	}
@@ -84,7 +83,7 @@ void ft_remove_quotes(t_commands *commands)
 		while (curr)
 		{
 			if (curr->type == command && is_between_quotes(curr->content))
-				curr->content = ft_delete_quotes(curr->content); /* Account for quotes */
+				curr->content = ft_delete_quotes(curr->content);
 			curr = curr->next;
 		}
 		head = head->next;

@@ -35,7 +35,7 @@ void	ft_handler_ctrl(int signum)
 	g_exit_status = 130;
 }
 
-void handle_signals(void)
+void	handle_signals(void)
 {
 	signal(SIGINT, ft_handler_ctrl);
 	signal(SIGQUIT, ft_handler_ctrl);

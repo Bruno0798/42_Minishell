@@ -12,64 +12,62 @@
 
 #include "../../includes/minishell.h"
 
-int check_unset(t_token *head);
+int	check_unset(t_token *head);
 
-void ft_unset(t_commands *command)
+void	ft_unset(t_commands *command)
 {
-	t_env *current;
-	t_env *previous;
+	t_env	*current;
+	t_env	*previous;
 
 	current = command->env;
 	previous = NULL;
-
 	if (command->token->next != NULL)
 	{
 		if (command->token->next->content[0] == '-' || !check_unset(command->token))
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
 			printf("minishell: unset: %s: invalid option\n", command->token->next->content);
-			return;
+			return ;
 		}
 	}
-
 	while (current != NULL && command->token->next != NULL)
 	{
 		if (!ft_strcmp(current->key, command->token->next->content))
 		{
 			if (previous != NULL)
-				previous->next = current->next; // Link previous node to the next node
+				previous->next = current->next;
 			else
-				command->env = current->next; // Update the head of the list
-
+				command->env = current->next;
 			free(current->key);
 			free(current->value);
 			free(current);
-			return;
+			return ;
 		}
 		previous = current;
 		current = current->next;
 	}
 }
 
-
-
-int check_unset(t_token *head)
+int	check_unset(t_token *head)
 {
-	t_token *current = head;
+	t_token	*current;
+	char	*cmd;
+	int		i;
 
+	current = head;
 	while (current != NULL)
 	{
-		char *cmd = current->content;
-		int i = 0;
+		cmd = current->content;
+		i = 0;
 		if (ft_isdigit(cmd[i]) != 1)
-			return 1;
+			return (1);
 		while (cmd[i])
 		{
 			if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_')
-				return 1;
+				return (1);
 			i++;
 		}
 		current = current->next;
 	}
-	return 0;
+	return (0);
 }

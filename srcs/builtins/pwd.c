@@ -12,19 +12,18 @@
 
 #include "../../includes/minishell.h"
 
-void ft_pwd(t_commands *command)
+void	ft_pwd(t_commands *command)
 {
-	char pwd[4096]; /* Create a buffer to store the current working directory */
+	char	pwd[4096];
+
 	if (command->token->next != NULL)
 	{
-		if (command->token->next->content[0] ==
-			'-')
+		if (command->token->next->content[0] == '-')
 		{
-			printf("bash: pwd %s: invalid option\n",
-				   command->token->next->content);
-			return;
+			printf("bash: pwd %s: invalid option\n", command->token->next->content);
+			return ;
 		}
 	}
-	getcwd(pwd, sizeof(pwd)); /* Get the current working directory */
-	printf("%s\n", pwd); /* Print the current working directory */
+	getcwd(pwd, sizeof(pwd));
+	printf("%s\n", pwd);
 }

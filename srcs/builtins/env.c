@@ -12,36 +12,29 @@
 
 #include "../../includes/minishell.h"
 
-void ft_print_env(t_commands *command)
+void	ft_print_env(t_commands *command)
 {
-	t_env *current;
+	t_env	*current;
 
 	current = command->env;
-
 	if (command->env == NULL)
-		return;
-
-	// Check for additional tokens, handle errors for options or invalid arguments
+		return ;
 	if (command->token->next != NULL)
 	{
 		if (ft_strchr(command->token->next->content, '-') != NULL)
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
 			print_error(ERROR_OPTIONS, command->token->next->content, 1);
-			return;
+			return ;
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
 		printf("env '%s': no such file or directory\n", command->token->next->content);
-		return;
+		return ;
 	}
-
-	// Loop through the environment variables
 	while (current != NULL)
 	{
 		if (current->key != NULL && current->visible)
-		{
-			printf("%s=%s\n", current->key, current->value); // Print the environment variable
-		}
+			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
 }

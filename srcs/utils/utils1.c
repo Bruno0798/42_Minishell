@@ -30,12 +30,12 @@ static bool check_echo_option(char *str)
 	int i;
 
 	i = 0;
-	while(str[++i])
+	while (str[++i])
 	{
 		if (str[i] != 'n')
-			return false;
+			return (false);
 	}
-	return true;
+	return (true);
 }
 
 static bool check_redirection(char *str)
@@ -43,18 +43,18 @@ static bool check_redirection(char *str)
 	int i;
 
 	i = -1;
-	while(str[++i] == '<')
-		if(i == 2)
-			return false;
+	while (str[++i] == '<')
+		if (i == 2)
+			return (false);
 	i = -1;
 	while (str[++i] == '>')
-		if(i == 2)
-			return false;
+		if (i == 2)
+			return (false);
 	i = 0;
-	while((str[i] == '>' && str[i + 1] == '<') ||
+	while ((str[i] == '>' && str[i + 1] == '<') ||
 		(str[i] == '<' && str[i + 1] == '>'))
-		return false;
-	return true;
+		return (false);
+	return (true);
 }
 
 t_type ft_token_type(char *word)
@@ -69,7 +69,7 @@ t_type ft_token_type(char *word)
 		return redir_in2;
 	else if (!ft_strncmp(word, "<", 1))
 		return redir_in;
-	else if(!ft_strncmp(word, "-n", 2) && check_echo_option(word))
+	else if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return option;
 	else if (!check_redirection(word))
 		return error; //! make function to check what to print and exit
@@ -97,7 +97,7 @@ t_token *ft_new_token(char *str)
 	token->content = str;
 	token->type = ft_token_type(str);
 	token->next = NULL;
-	if(token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type == redir_out2)
+	if (token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type == redir_out2)
 		token = check_redir_syntax(token);
 	return (token);
 }
@@ -145,30 +145,30 @@ t_token *check_redir_syntax(t_token *token)
 
 t_commands *ft_new_commands(char *str, t_env *env)
 {
-	t_commands	*command;  /* Pointer to the new t_commands structure */
-	t_token		*head;  /* Pointer to the head of the list of tokens */
-	t_token		*current;  /* Pointer to the current token in the list */
-	char		**words;  /* Array of words split from the provided string */
-	int			i;  /* Counter for iterating over the array of words */
+	t_commands	*command;
+	t_token		*head;
+	t_token		*current;
+	char		**words;
+	int			i;
 
 	i = 0;
-	command = malloc(sizeof(t_commands));  /* Allocate memory for the new t_commands structure */
-	command->env = env;  /* Assign the provided environment to the t_commands structure */
-	words = ft_split2(str, SPACE);  /* Split the provided string into words */
-	head = ft_new_token(words[0]);  /* Create a new token for the first word */
-	current = head;  /* Assign the head of the list of tokens to the current token */
-	while(words[++i])  /* Iterate over the rest of the words in the array */
+	command = malloc(sizeof(t_commands));
+	command->env = env;
+	words = ft_split2(str, SPACE);
+	head = ft_new_token(words[0]);
+	current = head;
+	while (words[++i])
 	{
-		current->next = ft_new_token(words[i]);  /* Create a new token for the current word and add it to the end of the list */
-		current = current->next;  /* Move to the next token in the list */
-		while(current->next)
+		current->next = ft_new_token(words[i]);
+		current = current->next;
+		while (current->next)
 			current = current->next;
 	}
-	command->token = head;  /* Assign the head of the list of tokens to the token field of the t_commands structure */
+	command->token = head;
 	command->next = NULL;
 	free(str);
 	free(words);
-	return command;  /* Return the new t_commands structure */
+	return command;
 }
 
 t_commands	*pipe_commands(char *str, t_env *env)
@@ -179,16 +179,16 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	int			i;
 
 	i = 0;
-	splitted_command = ft_split2(str, '|');  /* Split the provided string into commands */
-	command = ft_new_commands(splitted_command[0], env);  /* Create a new t_commands structure for the first command */
-	current = command;  /* Assign the head of the list of commands to the current command */
-	while(splitted_command[++i])  /* Iterate over the rest of the commands in the array */
+	splitted_command = ft_split2(str, '|');
+	command = ft_new_commands(splitted_command[0], env);
+	current = command;
+	while (splitted_command[++i])
 	{
-		current->next = ft_new_commands(splitted_command[i], env);  /* Create a new t_commands structure for the current command and add it to the end of the list */
-		current = current->next; /* Move to the next command in the list */
+		current->next = ft_new_commands(splitted_command[i], env);
+		current = current->next;
 	}
 	free(splitted_command);
-	return (command);  /* Return the head of the list of commands */
+	return (command);
 }
 
 bool	ft_hasSpecialChar(char *str)
@@ -196,11 +196,11 @@ bool	ft_hasSpecialChar(char *str)
 	int i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
 		if (!(ft_isalnum(str[i]) || str[i] == '_')){
-			return true;
+			return (true);
 		}
 	}
-	return false;
+	return (false);
 }

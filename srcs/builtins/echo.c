@@ -12,40 +12,40 @@
 
 #include "../../includes/minishell.h"
 
-/* Function Prototypes */
-static t_token *while_option(t_token *token);
+static t_token	*while_option(t_token *token);
 
-void ft_echo(t_token *token)
+void	ft_echo(t_token *token)
 {
 	int	i;
-	int flag = 0;
+	int	flag;
 
-	if (!token) /* If there is no token to print, return */
+	flag = 0;
+	if (!token)
 	{
 		printf("\n");
 		return ;
 	}
-	if (token->type == option) /* If the first token is an option, skip it */
+	if (token->type == option)
 	{
-		token = while_option(token); /* Skip while token is equal to -n */
-		flag = 1; /* Set flag to 1 */
+		token = while_option(token);
+		flag = 1;
 	}
-	while(token)
+	while (token)
 	{
 		i = -1;
 		while (token->content[++i])
-			printf("%c", token->content[i]); /* Print the token content */
+			printf("%c", token->content[i]);
 		if (token->next)
-			printf(" "); /* Print a space if the token is not the last one */
+			printf(" ");
 		token = token->next;
 	}
-	if (!flag) /* If the flag is not set, print a new line */
+	if (!flag)
 		printf("\n");
 }
 
-t_token *while_option(t_token *token)
+t_token	*while_option(t_token *token)
 {
-	while(token && token->type == option) /* While token is equal to -n */
+	while (token && token->type == option)
 		token = token->next;
 	return (token);
 }
