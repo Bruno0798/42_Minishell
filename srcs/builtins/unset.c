@@ -19,6 +19,8 @@ void	ft_unset(t_commands *command)
 	t_env	*current;
 	t_env	*previous;
 
+	if(command->token->next && command->token->next->content[0] == '_')
+		return ;
 	current = command->env;
 	previous = NULL;
 	if (command->token->next != NULL)

@@ -65,9 +65,9 @@ void	ft_exec_abs(t_commands *command, t_commands *head)
 	if (pid == 0)
 	{
 		execve(command->token->content, arr_command, arr_env);
-		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr_command);
+		check_permissions(head, command->token->content);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
@@ -99,10 +99,10 @@ void	ft_exec_command(t_commands *command, t_commands *head)
 			free(temp_arr);
 			execve(arr[i], arr_command, arr_env);
 		}
-		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
+		check_permissions(head, command->token->content);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);

@@ -46,6 +46,7 @@ t_env	*order_list(t_env *env)
 	t_env	*tmp;
 	char	*key;
 	char	*value;
+	int		visible;
 
 	current = env;
 	while (current->next)
@@ -57,10 +58,13 @@ t_env	*order_list(t_env *env)
 			{
 				key = current->key;
 				value = current->value;
+				visible = current->visible;
 				current->key = tmp->key;
 				current->value = tmp->value;
+				current->visible = tmp->visible;
 				tmp->key = key;
 				tmp->value = value;
+				tmp->visible = visible;
 			}
 			tmp = tmp->next;
 		}
@@ -78,7 +82,8 @@ void	print_env(t_env *env)
 	current = order_list(dup);
 	while (current)
 	{
-		printf("declare -x %s=\"%s\"\n", current->key, current->value);
+		if(current->visible != 3)
+			printf("declare -x %s=\"%s\"\n", current->key, current->value);
 		current = current->next;
 	}
 	free_env(dup);

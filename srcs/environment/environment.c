@@ -6,11 +6,14 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 15:27:01 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/02 18:00:54 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+void update_shlvl(t_env **env);
+t_env	*get_env_node(t_env *env, char *key);
 
 char	*extract_home_path(const char *pwd)
 {
@@ -47,12 +50,17 @@ void	init_env(t_env **env, char **envp)
 	char	*key;
 	char	*value;
 	char	*equal_sign;
+	char	pwd[4086];
 
 	i = 0;
 	ft_bzero(env, sizeof(t_env));
 	if (envp[0] == NULL)
-		ft_add_env_back(env, ft_new_env("SHLVL", "1", 1));
+	{
+		ft_add_env_back(env, ft_new_env("_", "/usr/bin/env", 1));
+		ft_add_env_back(env, ft_new_env("PWD", getcwd(pwd, sizeof(pwd)), 1));
+	}
 	else
+	{
 		while (envp[i])
 		{
 			equal_sign = ft_strchr(envp[i], '=');
@@ -62,6 +70,40 @@ void	init_env(t_env **env, char **envp)
 			free(key);
 			i++;
 		}
+	}
+	update_shlvl(env);
+}
+
+void update_shlvl(t_env **env)
+{
+	t_env	*shlvl_node;
+	int		curr_shlvl_int;
+	char	*next_shlvl;
+
+	shlvl_node = get_env_node(*env, "SHLVL");
+	if (shlvl_node == NULL)
+	{
+		ft_add_env_back(env,ft_new_env("SHLVL", "1", 1));
+		return ;
+	}
+	curr_shlvl_int = ft_atoi(shlvl_node->value);
+	curr_shlvl_int++;
+	next_shlvl = ft_itoa(curr_shlvl_int);
+	if (next_shlvl == NULL)
+		return ;
+	free(shlvl_node->value);
+	shlvl_node->value = next_shlvl;
+}
+
+t_env	*get_env_node(t_env *env, char *key)
+{
+	while (env != NULL)
+	{
+		if (ft_strcmp(env->key, key) == 0)
+			return (env);
+		env = env->next;
+	}
+	return (NULL);
 }
 
 void	ft_add_env_back(t_env **env_lst, t_env *new_env)
@@ -135,8 +177,8 @@ char	**ft_env_to_arr(t_env *env)
 		temp = ft_strjoin(tmp->key, "=");
 		arr[i] = ft_strjoin(temp, tmp->value);
 		free(temp);
-		tmp = tmp->next;
 		i++;
+		tmp = tmp->next;
 	}
 	arr[i] = NULL;
 	return (arr);

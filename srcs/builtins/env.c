@@ -33,7 +33,7 @@ void	ft_print_env(t_commands *command)
 	}
 	while (current != NULL)
 	{
-		if (current->key != NULL && current->visible)
+		if (current->key != NULL && current->visible == 1)
 			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
