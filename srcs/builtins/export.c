@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 12:37:43 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:34:30 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,12 @@ void	ft_export(t_commands *command)
 	t_token	*token;
 
 	token = command->token;
-	if (!token->next)
+	if (token && !token->next)
 	{
 		print_env(command->env);
 		return ;
 	}
-	while (token->next)
+	while (token && token->next)
 	{
 		token = token->next;
 		handle_export_token(command, token);

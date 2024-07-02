@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/01 13:11:05 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:23:07 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ void	ft_exec_abs(t_commands *command, t_commands *head)
 	if (pid == 0)
 	{
 		execve(command->token->content, arr_command, arr_env);
-		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr_command);
+		check_permissions(head, command->token->content);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr_command);
@@ -99,10 +99,10 @@ void	ft_exec_command(t_commands *command, t_commands *head)
 			free(temp_arr);
 			execve(arr[i], arr_command, arr_env);
 		}
-		check_permissions(head, command->token->content);
 		free_double_pointer_array(arr_env);
 		free_double_pointer_array(arr);
 		free_double_pointer_array(arr_command);
+		check_permissions(head, command->token->content);
 	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);
