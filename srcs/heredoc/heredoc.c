@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:32:19 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/02 17:34:35 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	ft_heredoc(char *delimiter, t_commands *command)
 	if (pid == 0)
 	{
 		heredoc_cycle(delimiter, command);
+		free_all(command, 2);
 		exit(g_exit_status);
 	}
 	waitpid(pid, &temp, 0);
@@ -103,6 +104,7 @@ void	heredoc_cycle(char *line, t_commands *commands)
 		}
 		buff = ft_strjoin(buff, "\n");
 		ft_fprintf(fd, "%s", buff);
+		free(buff);
 		buff = readline(">");
 	}
 	close(fd);

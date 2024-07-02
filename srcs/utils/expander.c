@@ -129,6 +129,7 @@ char	*expand_exit_code(char *string)
 	new_string = malloc(ft_strlen(string) + extra_length + 1);
 	replace_exit_code(string, new_string, num, num_len);
 	free(num);
+	free(string);
 	return (new_string);
 }
 
@@ -294,7 +295,7 @@ char	*expand_variable(char *string, int i, t_commands *commands)
 	value = ft_get_value(commands->env, key);
 	if (!value)
 		value = "";
-	new_string = malloc(strlen(string) - strlen(key) + strlen(value) + 1);
+	new_string = malloc(ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1);
 	if (!new_string)
 	{
 		free(key);
@@ -302,9 +303,9 @@ char	*expand_variable(char *string, int i, t_commands *commands)
 	}
 	while (string[h])
 	{
-		if (string[h] == '$' && strncmp(&string[h + 1], key, strlen(key)) == 0 && i == h)
+		if (string[h] == '$' && ft_strncmp(&string[h + 1], key, ft_strlen(key)) == 0 && i == h)
 		{
-			h += strlen(key) + 1;
+			h += ft_strlen(key) + 1;
 			while (value[k])
 				new_string[j++] = value[k++];
 			while (string[h])
@@ -315,6 +316,7 @@ char	*expand_variable(char *string, int i, t_commands *commands)
 	}
 	new_string[j] = '\0';
 	free(key);
+	free(string);
 	return (new_string);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 18:00:54 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/05/27 15:27:01 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,8 +177,8 @@ char	**ft_env_to_arr(t_env *env)
 		temp = ft_strjoin(tmp->key, "=");
 		arr[i] = ft_strjoin(temp, tmp->value);
 		free(temp);
-		i++;
 		tmp = tmp->next;
+		i++;
 	}
 	arr[i] = NULL;
 	return (arr);

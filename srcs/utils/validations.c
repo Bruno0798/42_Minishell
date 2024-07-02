@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/19 18:31:48 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/02 17:52:12 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ bool	syntax_checker(char *input)
 		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
 		print_error(ERROR_PIPE, NULL, 2);
-	else if (input[ft_strlen(input - 1)] == '|')
+	else if (input[ft_strlen(input) - 1] == '|')
 		print_error(ERROR_PROMPT, NULL, 2);
-	else if (ft_strchr("<>", input[ft_strlen(input - 1)]))
+	else if (ft_strchr("<>", input[ft_strlen(input) - 1]))
 		print_error(ERROR_REDIR, NULL, 2);
 	free(input);
 	return (false);
@@ -108,8 +108,11 @@ bool	is_valid_input(char *input, t_env *env)
 		print_error("", "", 0);
 		exit(g_exit_status);
 	}
-	if (is_everything_space(input) || !syntax_checker(input)
-		|| check_quotes(input))
+	if (is_everything_space(input)) 
+		return (false);
+	if (!syntax_checker(input))
+		return (false);
+	if (check_quotes(input))
 		return (false);
 	return (true);
 }

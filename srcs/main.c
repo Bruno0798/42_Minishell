@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 10:45:57 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/02 16:00:38 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void		reset_fd_signals(int fd, int fd1);
 //todo change print error
 // todo verify in every malloc if its true
 //todo verify for instead of while
+
+int g_exit_status;
 
 int	main(int argc, char **argv, char **envp)
 {
