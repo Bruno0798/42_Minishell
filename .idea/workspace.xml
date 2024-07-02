@@ -22,22 +22,14 @@
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/cd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/cd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/echo.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/echo.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/env.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/env.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/export.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/pwd.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/pwd.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/unset.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/unset.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/environment/environment.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/environment/environment.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/execution/redir_handler.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/redir_handler.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/exit.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/signals/signal.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/signals/signal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/redirections.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/redirections.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/free.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/free.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/split2.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/split2.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/utils1.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils1.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/validations.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/validations.c" afterDir="false" />
@@ -201,7 +193,7 @@
       <workItem from="1719854164063" duration="2017000" />
       <workItem from="1719912972317" duration="3730000" />
       <workItem from="1719919724170" duration="32000" />
-      <workItem from="1719919762161" duration="2217000" />
+      <workItem from="1719919762161" duration="4741000" />
     </task>
     <servers />
   </component>

@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-void open_pipes(t_commands *command)
+void	open_pipes(t_commands *command)
 {
-	int fd_in;
-	int pipes_count;
+	int	fd_in;
+	int	pipes_count;
 
 	pipes_count = count_commands(command);
 	if (pipes_count > 1)
@@ -28,9 +28,9 @@ void open_pipes(t_commands *command)
 		ft_execute(command, command);
 }
 
-void parent_process(int fd_in, int count_pipes)
+void	parent_process(int fd_in, int count_pipes)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	close(fd_in);
@@ -41,12 +41,12 @@ void parent_process(int fd_in, int count_pipes)
 	}
 }
 
-void child_process(t_commands *command, int fd_in, int command_count)
+void	child_process(t_commands *command, int fd_in, int command_count)
 {
-	int i;
-	int pipes[2];
-	t_commands *head;
-	pid_t  pid;
+	int			i;
+	int			pipes[2];
+	t_commands	*head;
+	pid_t		pid;
 
 	i = 0;
 	head = command;

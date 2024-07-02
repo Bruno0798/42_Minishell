@@ -12,10 +12,10 @@
 
 #include "../includes/minishell.h"
 
-t_commands *delete_redir(t_commands *command)
+t_commands	*delete_redir(t_commands *command)
 {
-	t_token *curr;
-	t_token *prev;
+	t_token	*curr;
+	t_token	*prev;
 
 	curr = command->token;
 	prev = NULL;
@@ -31,10 +31,10 @@ t_commands *delete_redir(t_commands *command)
 			free(curr->next->content);
 			free(curr->next);
 			free(curr);
-			return command;
+			return (command);
 		}
 		prev = curr;
 		curr = curr->next;
 	}
-	return command;
+	return (command);
 }

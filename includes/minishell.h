@@ -300,7 +300,7 @@ void ft_cleans_special_chars(t_commands *commands);
 void ft_cd(t_commands *command);
 bool can_execute(t_commands *command);
 t_env	*ft_fnd_env(t_env *env, char *search);
-bool	ft_hasSpecialChar(char *str);
+bool	ft_has_special_char(char *str);
 
 void ft_create_file(char *filename);
 

@@ -12,7 +12,7 @@
 
 #include "../includes/minishell.h"
 
-int ft_parser(char *input, t_commands **commands, t_env *env)
+int	ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	*commands = pipe_commands(input, env);
 	if (!has_here_doc(*commands))
@@ -21,21 +21,22 @@ int ft_parser(char *input, t_commands **commands, t_env *env)
 		ft_expander_heredoc(*commands);
 	ft_expand_others(*commands);
 	ft_remove_quotes(*commands);
-	return EXIT_SUCCESS;
+	return (EXIT_SUCCESS);
 }
 
-void ft_expand_others(t_commands *commands)
+void	ft_expand_others(t_commands *commands)
 {
-	int i;
-	t_token *curr = commands->token;
+	int		i;
+	t_token	*curr;
 
+	curr = commands->token;
 	while (curr)
 	{
 		i = -1;
 		while (curr->content[++i])
 		{
-			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] ==
-																																   '\0') || (curr->content[i + 1] == '/')))
+			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ')
+					|| (curr ->content[i + 1] == '\0') || (curr->content[i + 1] == '/')))
 				curr->content = ft_strjoin(ft_get_value(commands->env, "HOME"), curr->content + 1);
 			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '+'))
 				curr->content = ft_strjoin(ft_get_value(commands->env, "PWD"), curr->content + 2);
@@ -47,11 +48,12 @@ void ft_expand_others(t_commands *commands)
 	free (curr);
 }
 
-char *ft_delete_quotes(char *input) {
-	int i;
-	int j;
-	char *new_str;
-	char quote;
+char	*ft_delete_quotes(char *input)
+{
+	int		i;
+	int		j;
+	char	*new_str;
+	char	quote;
 
 	new_str = malloc(ft_strlen(input) + 1);
 	i = -1;
@@ -69,14 +71,15 @@ char *ft_delete_quotes(char *input) {
 	}
 	new_str[j] = '\0';
 	free(input);
-	return new_str;
+	return (new_str);
 }
 
-void ft_remove_quotes(t_commands *commands)
+void	ft_remove_quotes(t_commands *commands)
 {
-	t_token *curr;
-	t_commands *head = commands;
+	t_token		*curr;
+	t_commands	*head;
 
+	head = commands;
 	while (head != NULL)
 	{
 		curr = head->token;
@@ -90,10 +93,10 @@ void ft_remove_quotes(t_commands *commands)
 	}
 }
 
-int count_commands(t_commands *command)
+int	count_commands(t_commands *command)
 {
-	int count;
-	t_commands *token;
+	int			count;
+	t_commands	*token;
 
 	count = 0;
 	token = command;
@@ -102,5 +105,5 @@ int count_commands(t_commands *command)
 		count++;
 		token = token->next;
 	}
-	return count;
+	return (count);
 }

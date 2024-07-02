@@ -12,12 +12,13 @@
 
 #include "../../includes/minishell.h"
 
-t_token *check_redir_syntax(t_token *token);
+t_token	*check_redir_syntax(t_token *token);
 
-void ft_print_token_list(t_token *head) 
+void	ft_print_token_list(t_token *head)
 {
-	t_token *token = head;
+	t_token	*token;
 
+	token = head;
 	while (token)
 	{
 		printf("Token: '%s' \nType: '%d'\n\n", token->content, token->type);
@@ -25,9 +26,9 @@ void ft_print_token_list(t_token *head)
 	}
 }
 
-static bool check_echo_option(char *str)
+static	bool	check_echo_option(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[++i])
@@ -38,9 +39,9 @@ static bool check_echo_option(char *str)
 	return (true);
 }
 
-static bool check_redirection(char *str)
+static	bool	check_redirection(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i] == '<')
@@ -51,32 +52,32 @@ static bool check_redirection(char *str)
 		if (i == 2)
 			return (false);
 	i = 0;
-	while ((str[i] == '>' && str[i + 1] == '<') ||
-		(str[i] == '<' && str[i + 1] == '>'))
+	while ((str[i] == '>' && str[i + 1] == '<')
+		|| (str[i] == '<' && str[i + 1] == '>'))
 		return (false);
 	return (true);
 }
 
-t_type ft_token_type(char *word)
+t_type	ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
-		return pipes;
-	else if (!ft_strncmp(word, ">>", 2))
-		return redir_out2;
-	else if (!ft_strncmp(word, ">", 1))
-		return redir_out;
-	else if (!ft_strncmp(word, "<<", 2))
-		return redir_in2;
-	else if (!ft_strncmp(word, "<", 1))
-		return redir_in;
-	else if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
-		return option;
-	else if (!check_redirection(word))
-		return error; //! make function to check what to print and exit
-	return command;
+		return (pipes);
+	if (!ft_strncmp(word, ">>", 2))
+		return (redir_out2);
+	if (!ft_strncmp(word, ">", 1))
+		return (redir_out);
+	if (!ft_strncmp(word, "<<", 2))
+		return (redir_in2);
+	if (!ft_strncmp(word, "<", 1))
+		return (redir_in);
+	if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
+		return (option);
+	if (!check_redirection(word))
+		return (error);
+	return (command);
 }
 
-int count_pipes(char *str)
+int	count_pipes(char *str)
 {
 	int	i;
 	int	count;
@@ -89,9 +90,9 @@ int count_pipes(char *str)
 	return (count);
 }
 
-t_token *ft_new_token(char *str)
+t_token	*ft_new_token(char *str)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = malloc(sizeof(t_token));
 	token->content = str;
@@ -102,35 +103,34 @@ t_token *ft_new_token(char *str)
 	return (token);
 }
 
-t_token *check_redir_syntax(t_token *token)
+t_token	*check_redir_syntax(t_token *token)
 {
-	t_token *next;
-	char *new_content;
-	int i;
+	t_token	*next;
+	char	*new_content;
+	int		i;
 
 	i = 0;
 	while (token->content[i] && token->content[0] == token->content[i])
 		i++;
 	if (!token->content[i])
-		return token;
+		return (token);
 	next = malloc(sizeof(t_token));
 	if (!next)
-		return NULL;
+		return (NULL);
 	next->content = ft_substr(token->content, i, ft_strlen(token->content) - i);
 	if (!next->content)
 	{
 		free(next);
-		return NULL;
+		return (NULL);
 	}
 	next->next = NULL;
 	next->type = files;
-
 	new_content = ft_substr(token->content, 0, i);
 	if (!new_content)
 	{
 		free(next->content);
 		free(next);
-		return NULL;
+		return (NULL);
 	}
 	free(token->content);
 	token->content = new_content;
@@ -139,11 +139,10 @@ t_token *check_redir_syntax(t_token *token)
 	token->next->type = files;
 	token->content = ft_delete_quotes(token->content);
 	token->next->content = ft_delete_quotes(token->next->content);
-
-	return token;
+	return (token);
 }
 
-t_commands *ft_new_commands(char *str, t_env *env)
+t_commands	*ft_new_commands(char *str, t_env *env)
 {
 	t_commands	*command;
 	t_token		*head;
@@ -168,7 +167,7 @@ t_commands *ft_new_commands(char *str, t_env *env)
 	command->next = NULL;
 	free(str);
 	free(words);
-	return command;
+	return (command);
 }
 
 t_commands	*pipe_commands(char *str, t_env *env)
@@ -191,16 +190,13 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	return (command);
 }
 
-bool	ft_hasSpecialChar(char *str)
+bool	ft_has_special_char(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
-	{
-		if (!(ft_isalnum(str[i]) || str[i] == '_')){
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (true);
-		}
-	}
 	return (false);
 }

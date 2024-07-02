@@ -12,9 +12,9 @@
 
 #include "../../includes/minishell.h"
 
-bool is_everything_space(char *str)
+bool	is_everything_space(char *str)
 {
-	int i;
+	int	i;
 
 	i = -1;
 	while (str[++i])
@@ -23,13 +23,13 @@ bool is_everything_space(char *str)
 	return (true);
 }
 
-bool is_between_quotes(char *str)
+bool	is_between_quotes(char *str)
 {
-	int s_quote;
-	int d_quote;
-	int i;
+	int	s_quote;
+	int	d_quote;
+	int	i;
 
-	i =-1;
+	i = -1;
 	s_quote = 0;
 	d_quote = 0;
 	while (str[++i])
@@ -44,13 +44,13 @@ bool is_between_quotes(char *str)
 	return (true);
 }
 
-bool check_quotes(char *str)
+bool	check_quotes(char *str)
 {
-	int s_quote;
-	int d_quote;
-	int i;
+	int	s_quote;
+	int	d_quote;
+	int	i;
 
-	i =-1;
+	i = -1;
 	s_quote = 0;
 	d_quote = 0;
 	while (str[++i])
@@ -68,15 +68,17 @@ bool check_quotes(char *str)
 	return (false);
 }
 
-bool syntax_checker(char *input)
+bool	syntax_checker(char *input)
 {
 	input = ft_strtrim(input, " \t");
 	if (input && !ft_strchr("|<>", input[ft_strlen(input) - 1]) && *input != '|')
+	{
 		if (ft_strcmp("<", input) && ft_strcmp(">", input))
 		{
 			free(input);
 			return (true);
 		}
+	}
 	if (*input == '|' && input[1] == '|')
 		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
@@ -89,7 +91,7 @@ bool syntax_checker(char *input)
 	return (false);
 }
 
-void check_args(int argc, int valid_argc)
+void	check_args(int argc, int valid_argc)
 {
 	if (argc != valid_argc)
 	{
@@ -98,7 +100,7 @@ void check_args(int argc, int valid_argc)
 	}
 }
 
-bool is_valid_input(char *input, t_env *env)
+bool	is_valid_input(char *input, t_env *env)
 {
 	if (!input)
 	{
@@ -106,17 +108,17 @@ bool is_valid_input(char *input, t_env *env)
 		print_error("", "", 0);
 		exit(g_exit_status);
 	}
-	if (is_everything_space(input) || !syntax_checker(input) ||
-			check_quotes(input))
-				return (false);
+	if (is_everything_space(input) || !syntax_checker(input)
+		|| check_quotes(input))
+		return (false);
 	return (true);
 }
 
-bool is_between_single_quotes(char *str)
+bool	is_between_single_quotes(char *str)
 {
-	int s_quote;
-	int d_quote;
-	int i;
+	int	s_quote;
+	int	d_quote;
+	int	i;
 
 	i = -1;
 	s_quote = 0;

@@ -14,7 +14,7 @@
 
 int	ft_isnum(char *s);
 
-void ft_exit(t_commands *command, t_commands *head)
+void	ft_exit(t_commands *command, t_commands *head)
 {
 	if (command->token->next)
 	{
@@ -35,7 +35,8 @@ void ft_exit(t_commands *command, t_commands *head)
 			ft_fprintf(2, " numeric argument required");
 			g_exit_status = 2;
 		}
-	} else
+	}
+	else
 		g_exit_status = 0;
 	free_all(head, 2);
 	exit(g_exit_status);

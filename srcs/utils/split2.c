@@ -12,22 +12,23 @@
 
 #include "../../includes/minishell.h"
 
-static void free_split(char **arr, size_t j)
+static	void	free_split(char **arr, size_t j)
 {
-	size_t i;
+	size_t	i;
 
-	for (i = 0; i < j; i++)
-		free(arr[i]);
+	i = 0;
+	while (i < j)
+		free(arr[i++]);
 	free(arr);
 }
 
-static size_t word_count(char const *s, char c)
+static	size_t	word_count(char const *s, char c)
 {
-	size_t i;
-	size_t j;
-	size_t flag;
-	size_t d_quote;
-	size_t s_quote;
+	size_t	i;
+	size_t	j;
+	size_t	flag;
+	size_t	d_quote;
+	size_t	s_quote;
 
 	i = 0;
 	j = 0;
@@ -49,14 +50,14 @@ static size_t word_count(char const *s, char c)
 			s_quote = !s_quote;
 		i++;
 	}
-	return j;
+	return (j);
 }
 
-static size_t letters_in_word(char const *s, char c, size_t i)
+static	size_t	letters_in_word(char const *s, char c, size_t i)
 {
-	size_t size;
-	size_t d_quote;
-	size_t s_quote;
+	size_t	size;
+	size_t	d_quote;
+	size_t	s_quote;
 
 	size = 0;
 	d_quote = 1;
@@ -70,39 +71,39 @@ static size_t letters_in_word(char const *s, char c, size_t i)
 		size++;
 		i++;
 	}
-	return size;
+	return (size);
 }
 
-char **ft_split2(char const *s, char c)
+char	**ft_split2(char const *s, char c)
 {
-	size_t i;
-	size_t j;
-	size_t words;
-	char **arr;
+	size_t	i;
+	size_t	j;
+	size_t	words;
+	char	**arr;
+	size_t	len;
 
 	if (!s)
-		return NULL;
+		return (NULL);
 	j = 0;
 	i = 0;
 	words = word_count(s, c);
 	arr = (char **)malloc(sizeof(char *) * (words + 1));
 	if (!arr)
-		return NULL;
+		return (NULL);
 	while (j < words)
 	{
 		while (s[i] == c)
 			i++;
-		size_t len = letters_in_word(s, c, i);
+		len = letters_in_word(s, c, i);
 		arr[j] = ft_substr(s, i, len);
 		if (!arr[j])
 		{
 			free_split(arr, j);
-			return NULL;
+			return (NULL);
 		}
 		i += len;
 		j++;
 	}
-	arr[j] = NULL;
-	return arr;
+	arr[j] = (NULL);
+	return (arr);
 }
-

@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 11:04:37 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/02 14:11:15 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	ft_expander_heredoc(t_commands *commands)
 
 	head = commands;
 	token = commands->token;
-
 	while (commands)
 	{
 		token = commands->token;
@@ -47,15 +46,16 @@ void	ft_expander_heredoc(t_commands *commands)
 		}
 		commands = commands->next;
 	}
-	
 	commands = head;
 }
 
 void	ft_expander(t_commands *commands)
 {
-	t_token *token = commands->token;
-	t_commands *head = commands;
+	t_token		*token;
+	t_commands	*head;
 
+	token = commands->token;
+	head = commands;
 	while (commands)
 	{
 		token = commands->token;
@@ -65,15 +65,13 @@ void	ft_expander(t_commands *commands)
 			{
 				if (*(ft_strchr(token->content, '$') + 1) == '?')
 					token->content = expand_exit_code(token->content);
-				
 				token->content = needs_expansion(token->content, commands);
 			}
 			token = token->next;
 		}
-		commands =commands->next;
+		commands = commands->next;
 	}
 	commands = head;
-
 }
 
 int	calculate_extra_length(char *string, int num_len)
@@ -118,7 +116,8 @@ void	replace_exit_code(char *string, char *new_string, char *num, int num_len)
 	new_string[k] = '\0';
 }
 
-char	*expand_exit_code(char *string) {
+char	*expand_exit_code(char *string)
+{
 	char	*num;
 	char	*new_string;
 	int		num_len;
@@ -141,7 +140,7 @@ char	*expand_variables(t_commands *commands, char *string)
 
 	value = store_value(string);
 	if (!value)
-		return NULL;
+		return (NULL);
 	key = ft_get_value(commands->env, value);
 	if (key)
 		new_string = expand_new_string(value, key, string);
@@ -149,7 +148,7 @@ char	*expand_variables(t_commands *commands, char *string)
 		new_string = expand_new_string(value, "", string);
 	free(value);
 	if (!new_string)
-		return NULL;
+		return (NULL);
 	if (new_string != string)
 	{
 		free(string);
@@ -158,7 +157,7 @@ char	*expand_variables(t_commands *commands, char *string)
 	return (string);
 }
 
-char	*expand_new_string(char *value, char* key, char *string)
+char	*expand_new_string(char *value, char *key, char *string)
 {
 	int		i;
 	int		j;
@@ -169,8 +168,8 @@ char	*expand_new_string(char *value, char* key, char *string)
 	j = 0;
 	k = 0;
 	new_string = malloc(sizeof(char) * (ft_strlen(string) - ft_strlen(value) + ft_strlen(key) + 1));
-	if (!new_string) // Check for malloc failure
-		return NULL;
+	if (!new_string)
+		return (NULL);
 	while (string[i])
 	{
 		if (string[i] == '$' && ft_strncmp(&string[i + 1], value, ft_strlen(value)) == 0)
@@ -180,12 +179,12 @@ char	*expand_new_string(char *value, char* key, char *string)
 			i += ft_strlen(value) + 1;
 			while (string[i])
 				new_string[j++] = string[i++];
-			break;
+			break ;
 		}
 		new_string[j++] = string[i++];
 	}
-	new_string[j] = '\0'; // Null-terminate the new string
-	return new_string;
+	new_string[j] = '\0';
+	return (new_string);
 }
 
 char	*store_value(char *string)
@@ -212,7 +211,8 @@ char	*store_value(char *string)
 	return (key);
 }
 
-int	value_length(char *string) {
+int	alue_length(char *string)
+{
 	int	i;
 	int	length;
 
@@ -239,7 +239,7 @@ char	*ft_get_value(t_env *env, char *key)
 	while (current)
 	{
 		if (!strcmp(current->key, key))
-			return current->value;
+			return (current->value);
 		current = current->next;
 	}
 	return (NULL);
@@ -247,10 +247,10 @@ char	*ft_get_value(t_env *env, char *key)
 
 char	*needs_expansion(char *input, t_commands *command)
 {
-	bool single_quotes;
-	bool double_quotes;
-	int i;
-	int length;
+	bool	single_quotes;
+	bool	double_quotes;
+	int		i;
+	int		length;
 
 	single_quotes = false;
 	double_quotes = false;
@@ -278,22 +278,25 @@ char	*needs_expansion(char *input, t_commands *command)
 
 char	*expand_variable(char *string, int i, t_commands *commands)
 {
-    char	*value;
-    char	*key;
-    char	*new_string;
-    int h = 0;
-    int k = 0;
-    int j = 0;
+	char	*value;
+	char	*key;
+	char	*new_string;
+	int		h;
+	int		k;
+	int		j;
 
-    key = store_value(&string[i]);
-    if (!key)
-        return NULL;
+	h = 0;
+	k = 0;
+	j = 0;
+	key = store_value(&string[i]);
+	if (!key)
+		return (NULL);
 	value = ft_get_value(commands->env, key);
 	if (!value)
 		value = "";
 	new_string = malloc(strlen(string) - strlen(key) + strlen(value) + 1);
 	if (!new_string)
-    {
+	{
 		free(key);
 		return (NULL);
 	}

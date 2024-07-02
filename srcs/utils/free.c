@@ -66,5 +66,3 @@ void	ft_free_commands(t_commands *command, int option)
 		current = next;
 	}
 }
-
-
