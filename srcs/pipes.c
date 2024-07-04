@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 14:36:22 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:22:42 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 		pid = fork();
 		if (pid == 0)
 		{
+			ft_handle_signals(CHILD);
 			if (i != 0)
 				dup2(fd_in, STDIN_FILENO);
 			if ((i + 1) != command_count)

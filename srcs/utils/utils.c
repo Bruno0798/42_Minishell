@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:02:37 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/04 15:35:13 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,12 +72,12 @@ void	check_permissions(t_commands *command, char *string)
 	}
 	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
 	{
-		ft_fprintf(2, ERROR_DIR);
+		ft_fprintf(2, "minishell: %s: %s\n", string, ERROR_DIR);
 		g_exit_status = 127;
 	}
 	else
 	{
-		fprintf(stderr, "%s: %s\n", string, COMMAND_NOT_FOUND);
+		ft_fprintf(2, "%s: %s\n", string, COMMAND_NOT_FOUND);
 		g_exit_status = 127;
 	}
 	free_all(command, 2);

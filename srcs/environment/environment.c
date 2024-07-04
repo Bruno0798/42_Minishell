@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/27 15:27:01 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 14:58:20 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void update_shlvl(t_env **env);
 t_env	*get_env_node(t_env *env, char *key);
 
-char	*extract_home_path(const char *pwd)
+char    *extract_home_path(const char *pwd)
 {
-	char	*home;
-	char	*third_slash;
-	size_t	length;
+	char    *home;
+	char    *third_slash;
+	size_t  length;
 
 	home = NULL;
 	third_slash = ft_strchr(pwd, '/');
@@ -40,23 +40,30 @@ char	*extract_home_path(const char *pwd)
 			}
 		}
 	}
-	return (home);
+	return (home); // Ensure the caller frees this memory
 }
 
-void	init_env(t_env **env, char **envp)
+void    init_env(t_env **env, char **envp)
 {
-	int		i;
-	char	*key;
-	char	*value;
-	char	*equal_sign;
-	char	pwd[4086];
+	int     i;
+	char    *key;
+	char    *value;
+	char    *equal_sign;
+	char    pwd[4086];
+	int fd;
 
 	i = 0;
 	ft_bzero(env, sizeof(t_env));
 	if (envp[0] == NULL)
 	{
+		value = ft_strdup(getcwd(pwd, sizeof (pwd)));
 		ft_add_env_back(env, ft_new_env("_", "/usr/bin/env", 1));
-		ft_add_env_back(env, ft_new_env("PWD", getcwd(pwd, sizeof(pwd)), 1));
+		ft_add_env_back(env, ft_new_env("PWD", value, 1)); // Ensure getcwd result is duplicated
+		fd = open("/etc/environment", O_RDONLY);
+		value = get_next_line(fd);
+		ft_add_env_back(env, ft_new_env("PATH", value, 3));
+		close(fd);
+		free(value);
 	}
 	else
 	{
@@ -73,16 +80,16 @@ void	init_env(t_env **env, char **envp)
 	update_shlvl(env);
 }
 
-void update_shlvl(t_env **env)
+void    update_shlvl(t_env **env)
 {
-	t_env	*shlvl_node;
-	int		curr_shlvl_int;
-	char	*next_shlvl;
+	t_env   *shlvl_node;
+	int     curr_shlvl_int;
+	char    *next_shlvl;
 
 	shlvl_node = get_env_node(*env, "SHLVL");
 	if (shlvl_node == NULL)
 	{
-		ft_add_env_back(env,ft_new_env("SHLVL", "1", 1));
+		ft_add_env_back(env, ft_new_env("SHLVL", "1", 1));
 		return ;
 	}
 	curr_shlvl_int = ft_atoi(shlvl_node->value);
@@ -91,7 +98,7 @@ void update_shlvl(t_env **env)
 	if (next_shlvl == NULL)
 		return ;
 	free(shlvl_node->value);
-	shlvl_node->value = next_shlvl;
+	shlvl_node->value = next_shlvl; // Ensure next_shlvl is freed properly elsewhere if not needed anymore
 }
 
 t_env	*get_env_node(t_env *env, char *key)
@@ -161,12 +168,12 @@ char	**get_path(t_env *env_lst)
 	return (NULL);
 }
 
-char	**ft_env_to_arr(t_env *env)
+char    **ft_env_to_arr(t_env *env)
 {
-	char	**arr;
-	char	*temp;
-	t_env	*tmp;
-	int		i;
+	char    **arr;
+	char    *temp;
+	t_env   *tmp;
+	int     i;
 
 	arr = malloc(sizeof(char *) * env_size(env));
 	tmp = env;
@@ -180,7 +187,7 @@ char	**ft_env_to_arr(t_env *env)
 		i++;
 	}
 	arr[i] = NULL;
-	return (arr);
+	return (arr); // Ensure the caller frees this array
 }
 
 int	env_size(t_env *env)
