@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 16:55:32 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:55:10 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,11 @@ void	ft_expander(t_commands *commands)
 			if (dollar_pos && *(dollar_pos + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 			{
 				if (*(dollar_pos + 1) == '?')
-				{
 					token->content = expand_exit_code(token->content);
-				}
 				else if (isdigit(*(dollar_pos + 1)))
 					token->content = expand_number(token->content);
 				else
-				{
 					token->content = needs_expansion(token->content, commands);
-				}
 			}
 			token = token->next;
 		}
@@ -292,12 +288,12 @@ char	*needs_expansion(char *input, t_commands *command)
 			double_quotes = !double_quotes;
 		else if (input[i] == '$' && !single_quotes)
 		{
-			if (input[i + 1] != ' ' && input[i + 1] != SINGLE_QUOTE && input[i + 1] != DOUBLE_QUOTE)
-			{
-				length = ft_strlen(input);
-				input = expand_variable(input, i, command);
-				i += ft_strlen(input) - length;
-			}
+				if (input[i + 1] != ' ' && input[i + 1] != SINGLE_QUOTE && input[i + 1] != DOUBLE_QUOTE)
+				{
+					length = ft_strlen(input);
+					input = expand_variable(input, i, command);
+					i += ft_strlen(input) - length;
+				}
 		}
 		if (i > ft_strlen(input))
 			break ;

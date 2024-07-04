@@ -1,0 +1,14 @@
+$USER
+bsousa-d
+dwdwa
+heredoc.txt
+includes
+libft
+ls
+Makefile
+minishell
+obj
+readline.supp
+README.md
+srcs
+tester1

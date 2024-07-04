@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 15:20:00 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:29:36 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@
 # define ERROR_ARG " too many arguments"
 # define ERROR_SUPPORT "Arguments and options aren't supported"
 # define ERROR_OPTIONS " illegal option"
-# define ERROR_REDIR " syntax error near unexpected token `\\n'"
+# define ERROR_REDIR " syntax error near unexpected token `newline'"
 # define ERROR_SYNTAX " syntax error near unexpected token"
 # define EXPORT_NOTE "too few argumnts"
 # define EXECUTION_PERMISSION "permission denied"

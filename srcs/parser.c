@@ -6,15 +6,41 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/05/21 17:19:50 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:02:28 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+bool check_syntax(t_commands *commands)
+{
+	t_commands *temp;
+	t_token *curr;
+
+	temp = commands;
+	while(temp)
+	{
+		curr = commands->token;
+		while(curr)
+		{
+			if (curr->type == redir_in || curr->type == redir_out)
+				if (curr->next && curr->next->type != command && curr->next->type != files)
+				{
+					ft_printf("error token: %s \n", curr->next->content);
+					return true;
+				}
+			curr = curr->next;
+		}
+		temp = temp->next;
+	}
+	return false;
+}
+
 int	ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	*commands = pipe_commands(input, env);
+	if (check_syntax(*commands))
+		return (EXIT_FAILURE);
 	if (!has_here_doc(*commands))
 		ft_expander(*commands);
 	else

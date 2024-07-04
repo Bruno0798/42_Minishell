@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 02:12:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/25 18:49:59 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:12:48 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	ft_echo(t_token *token)
 	}
 	if (!flag)
 		printf("\n");
+	g_exit_status = 0;
 }
 
 t_token	*while_option(t_token *token)

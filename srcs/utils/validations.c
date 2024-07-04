@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 17:52:12 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/04 19:10:38 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,18 +68,20 @@ bool	check_quotes(char *str)
 	return (false);
 }
 
-bool	syntax_checker(char *input)
+bool    syntax_checker(char *input)
 {
 	input = ft_strtrim(input, " \t");
 	if (input && !ft_strchr("|<>", input[ft_strlen(input) - 1]) && *input != '|')
 	{
-		if (ft_strcmp("<", input) && ft_strcmp(">", input))
+		if (ft_strcmp("<", input) && ft_strcmp(">", input) && !(ft_strchr(input, '|') &&
+																*(ft_strchr(input, '|') + 1) == '|'))
 		{
 			free(input);
 			return (true);
 		}
 	}
-	if (*input == '|' && input[1] == '|')
+	if (ft_strchr(input, '|') &&
+		*(ft_strchr(input, '|') + 1) == '|')
 		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
 		print_error(ERROR_PIPE, NULL, 2);
