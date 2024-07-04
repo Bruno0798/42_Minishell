@@ -21,37 +21,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/minishell" beforeDir="false" afterPath="$PROJECT_DIR$/minishell" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/cd.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/cd.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/echo.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/echo.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/env.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/env.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/export.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/export.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/pwd.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/pwd.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/builtins/unset.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/builtins/unset.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/environment/environment.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/environment/environment.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/execution/execution.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/execution/execution.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/execution/redir_handler.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/execution/redir_handler.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/exit.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/exit.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/heredoc/heredoc.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/heredoc/heredoc.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/main.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/parser.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/parser.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/pipes.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/pipes.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/redirections.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/redirections.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/signals/signal.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/signals/signal.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/expander.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/expander.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/free.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/free.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/split2.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/split2.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/utils.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/utils.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/utils1.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/utils1.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/obj/utils/validations.o" beforeDir="false" afterPath="$PROJECT_DIR$/obj/utils/validations.o" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/environment/environment.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/environment/environment.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

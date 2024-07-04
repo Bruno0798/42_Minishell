@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 18:10:39 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 16:55:32 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char	*expand_new_string(char *value, char*key, char *string);
 char	*needs_expansion(char *input, t_commands *command);
 char	*expand_variable(char *string, int i, t_commands *commands);
 bool	is_dollar_outside_single_quotes(char *str);
+char *expand_number(const char *content);
 
 void	ft_expander_heredoc(t_commands *commands)
 {
@@ -61,17 +62,44 @@ void	ft_expander(t_commands *commands)
 		token = commands->token;
 		while (token)
 		{
-			if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+			char *dollar_pos = ft_strchr(token->content, '$');
+			if (dollar_pos && *(dollar_pos + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
 			{
-				if (*(ft_strchr(token->content, '$') + 1) == '?')
+				if (*(dollar_pos + 1) == '?')
+				{
 					token->content = expand_exit_code(token->content);
-				token->content = needs_expansion(token->content, commands);
+				}
+				else if (isdigit(*(dollar_pos + 1)))
+					token->content = expand_number(token->content);
+				else
+				{
+					token->content = needs_expansion(token->content, commands);
+				}
 			}
 			token = token->next;
 		}
 		commands = commands->next;
 	}
 	commands = head;
+}
+
+char *expand_number(const char *content)
+{
+	char *result;
+	const char *start = ft_strchr(content, '$');
+
+	if (!start)
+		return (char *)content;
+	if(content[1] == '0')
+	{
+		result = ft_strdup("bash");
+		return result;
+	}
+
+	start += 2;
+	result = strdup(start); // Adjust this line based on your actual requirements
+
+	return result;
 }
 
 int	calculate_extra_length(char *string, int num_len)
