@@ -17,8 +17,7 @@ static void	main_cycle(int fd, int fd1, t_env *env);
 void		reset_fd_signals(int fd, int fd1);
 
 //todo change print error
-// todo verify in every malloc if its true
-//todo verify for instead of while
+//todo verify in every malloc if its true
 
 int g_exit_status;
 
@@ -60,7 +59,7 @@ void	main_cycle(int fd, int fd1, t_env *env)
 
 void	reset_fd_signals(int fd, int fd1)
 {
-	handle_signals();
+	ft_handle_signals(MAIN);
 	dup2(fd, STDIN_FILENO);
 	dup2(fd1, STDOUT_FILENO);
 }

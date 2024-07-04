@@ -70,7 +70,7 @@ void	ft_heredoc(char *delimiter, t_commands *command)
 	int		temp;
 	pid_t	pid;
 
-	handle_signals();
+	//handle_signals();
 	pid = fork();
 	if (pid == 0)
 	{
@@ -87,12 +87,12 @@ void	heredoc_cycle(char *line, t_commands *commands)
 	int		fd;
 	char	*buff;
 
-	ft_signals_heredoc();
+	//ft_has_special_chars_heredoc();
 	fd = open("heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	buff = readline(">");
 	while (buff)
 	{
-		ft_signals_heredoc();
+		//ft_signals_heredoc();
 		if (!ft_strcmp(buff, line))
 			break ;
 		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1) != '\0' && is_dollar_outside_single_quotes(buff))

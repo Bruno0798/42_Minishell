@@ -105,7 +105,7 @@ bool	is_valid_input(char *input, t_env *env)
 	if (!input)
 	{
 		free_env(env);
-		print_error("", "", 0);
+		g_exit_status= 0;
 		exit(g_exit_status);
 	}
 	if (is_everything_space(input)) 

@@ -79,7 +79,12 @@ typedef enum s_type
 	redir_in2,
 	redir_out,
 	redir_out2,
-	error
+	error,
+	MAIN,
+	CHILD,
+	PIPE,
+	HERE_DOC,
+	IGNORE
 } 		t_type;
 
 typedef struct s_token
@@ -311,7 +316,6 @@ void ft_handle_redirect(t_commands *command);
 int ft_check_redirect(t_commands *command);
 int ft_count_redirects(t_commands *commands);
 void check_fork(t_commands *command);
-void handle_signals(void);
 void open_pipes(t_commands *command);
 bool has_double_pipe(char *input);
 void check_heredoc(t_commands *command);
@@ -320,7 +324,7 @@ t_commands *delete_redir(t_commands *command);
 void heredoc_cycle(char *line, t_commands *commands);
 bool has_here_doc(t_commands *commands);
 void remake_commands(t_commands *command);
-void	ft_signals_heredoc(void);
+//void	ft_signals_heredoc(void);
 bool files_exist(t_token *token);
 char *extract_home_path(const char *pwd);
 void heredoc_files(t_commands *command, int flag);
@@ -338,5 +342,7 @@ char	*needs_expansion(char *input, t_commands *command);
 char	*expand_variable(char *string, int i, t_commands *commands);
 char	*expand_exit_code(char *string);
 bool is_dollar_outside_single_quotes(char *str);
+void	main_signal(int signum);
+void	ft_handle_signals(int id);
 
 #endif

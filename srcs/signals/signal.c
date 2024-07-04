@@ -6,37 +6,61 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 14:55:13 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/04/20 01:58:19 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/04 11:16:49 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	ft_signals(void)
+void	main_signal(int signum)
 {
-	signal(SIGINT, ft_handler_ctrl);
+	if (signum == SIGINT)
+	{
+		rl_replace_line("", 0);
+		write(STDERR_FILENO, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
+		g_exit_status = 130;
+	}
+}
+
+void	pipe_signal(int signum)
+{
+	(void)signum;
+	close(STDIN_FILENO);
+}
+
+void	init_pipe_signal(void)
+{
+	signal(SIGINT, pipe_signal);
 	signal(SIGQUIT, SIG_IGN);
 }
 
-void	ft_signals_heredoc(void)
+void	ft_handle_signals(int id)
 {
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	ft_handler_ctrl(int signum)
-{
-	if (signum != SIGINT)
-		return ;
-	rl_replace_line("", 0);
-	printf("\n");
-	rl_on_new_line();
-	rl_redisplay();
-	g_exit_status = 130;
-}
-
-void	handle_signals(void)
-{
-	signal(SIGINT, ft_handler_ctrl);
-	signal(SIGQUIT, ft_handler_ctrl);
+	if (id == MAIN)
+	{
+		signal(SIGINT, main_signal);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (id == CHILD)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
+		signal(SIGPIPE, pipe_signal);
+	}
+	else if (id == HERE_DOC)
+	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_IGN);
+	}
+	else if (id == PIPE)
+	{
+		init_pipe_signal();
+	}
+	else if (id == IGNORE)
+	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
+	}
 }

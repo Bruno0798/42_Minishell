@@ -33,11 +33,10 @@ char	*extract_home_path(const char *pwd)
 			{
 				length = third_slash - pwd;
 				home = malloc(length + 1);
-				if (home)
-				{
-					ft_strlcpy(home, pwd, length);
-					home[length] = '\0';
-				}
+				if(!home)
+					return NULL;
+				ft_strlcpy(home, pwd, length);
+				home[length] = '\0';
 			}
 		}
 	}
