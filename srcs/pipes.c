@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 16:11:38 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 18:19:27 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 			close(pipes[1]);
 			close(fd_in);
 			ft_execute(command, head);
-			check_permissions(command, command->token->content);
 			free_all(head, 2);
 			exit(g_exit_status);
 		}

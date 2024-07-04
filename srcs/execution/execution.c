@@ -83,13 +83,11 @@ void	ft_exec_command(t_commands *command, t_commands *head)
 	char	**arr_env;
 	int		i;
 	char	*temp_arr;
-	int j;
 
 	arr = get_path(command->env);
 	arr_command = ft_lst_to_arr(command->token);
 	arr_env = ft_env_to_arr(command->env);
 	i = -1;
-	j = 0;
 	pid = fork();
 	if (pid == 0)
 	{
