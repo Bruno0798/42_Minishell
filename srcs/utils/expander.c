@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 19:55:10 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/07 15:34:34 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*expand_new_string(char *value, char*key, char *string);
 char	*needs_expansion(char *input, t_commands *command);
 char	*expand_variable(char *string, int i, t_commands *commands);
 bool	is_dollar_outside_single_quotes(char *str);
-char *expand_number(const char *content);
+char *expand_number(char *content);
 
 void	ft_expander_heredoc(t_commands *commands)
 {
@@ -79,21 +79,21 @@ void	ft_expander(t_commands *commands)
 	commands = head;
 }
 
-char *expand_number(const char *content)
+char *expand_number(char *content)
 {
 	char *result;
-	const char *start = ft_strchr(content, '$');
+	char *start = ft_strchr(content, '$');
 
 	if (!start)
 		return (char *)content;
 	if(content[1] == '0')
 	{
-		result = ft_strdup("bash");
+		result = ft_strdup("minishell");
 		return result;
 	}
 
 	start += 2;
-	result = strdup(start); // Adjust this line based on your actual requirements
+	result = ft_strdup(start);
 
 	return result;
 }

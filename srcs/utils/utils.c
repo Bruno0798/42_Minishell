@@ -77,7 +77,7 @@ void	check_permissions(t_commands *command, char *string)
 	}
 	else
 	{
-		ft_fprintf(2, "%s: %s\n", string, COMMAND_NOT_FOUND);
+		ft_fprintf(2, "minishell %s: %s\n", string, COMMAND_NOT_FOUND);
 		g_exit_status = 127;
 	}
 	free_all(command, 2);

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:46:59 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:49:19 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,13 @@ static	bool	check_redirection(char *str)
 	int	i;
 
 	i = -1;
-	while (str[++i] == '<')
-		if (i == 2)
-			return (false);
-	i = -1;
-	while (str[++i] == '>')
-		if (i == 2)
-			return (false);
-	i = 0;
-	while ((str[i] == '>' && str[i + 1] == '<')
-		|| (str[i] == '<' && str[i + 1] == '>'))
-		return (false);
+	while(str[++i])
+	{
+		if(str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+			return false;
+		if(str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			return false;
+	}
 	return (true);
 }
 
@@ -62,13 +58,13 @@ t_type	ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
 		return (pipes);
-	if (!ft_strncmp(word, ">>", 2))
+	if (!ft_strncmp(word, ">>", 2) && (*(ft_strchr(word, '>') + 2) != '>'))
 		return (redir_out2);
-	if (!ft_strncmp(word, ">", 1))
+	if (!ft_strncmp(word, ">", 1) && (*(ft_strchr(word, '>') + 1) != '>'))
 		return (redir_out);
-	if (!ft_strncmp(word, "<<", 2))
+	if (!ft_strncmp(word, "<<", 2) && (*(ft_strchr(word, '<') + 2) != '<'))
 		return (redir_in2);
-	if (!ft_strncmp(word, "<", 1))
+	if (!ft_strncmp(word, "<", 1) && (*(ft_strchr(word, '>') + 1) != '<'))
 		return (redir_in);
 	if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return (option);

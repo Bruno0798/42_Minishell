@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 19:02:28 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/04 22:18:37 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ bool check_syntax(t_commands *commands)
 		while(curr)
 		{
 			if (curr->type == redir_in || curr->type == redir_out)
-				if (curr->next && curr->next->type != command && curr->next->type != files)
+				if (curr->next && curr->next->type != command && curr->next->type != files || curr->next->type == redir_in2 || curr->next->type == redir_out2)
 				{
 					ft_printf("error token: %s \n", curr->next->content);
 					return true;
