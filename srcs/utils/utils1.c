@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 22:49:19 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/08 16:32:54 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ t_type	ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
 		return (pipes);
-	if (!ft_strncmp(word, ">>", 2) && (*(ft_strchr(word, '>') + 2) != '>'))
+	if (!ft_strncmp(word, ">>", 2))
 		return (redir_out2);
-	if (!ft_strncmp(word, ">", 1) && (*(ft_strchr(word, '>') + 1) != '>'))
+	if (!ft_strncmp(word, ">", 1))
 		return (redir_out);
-	if (!ft_strncmp(word, "<<", 2) && (*(ft_strchr(word, '<') + 2) != '<'))
+	if (!ft_strncmp(word, "<<", 2))
 		return (redir_in2);
-	if (!ft_strncmp(word, "<", 1) && (*(ft_strchr(word, '>') + 1) != '<'))
+	if (!ft_strncmp(word, "<", 1))
 		return (redir_in);
 	if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return (option);

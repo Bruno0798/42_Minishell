@@ -6,56 +6,58 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/01 13:30:10 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:38:48 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+int	handle_redirection(t_token *token)
+{
+	int	fd;
+
+	if (token->type == redir_out)
+	{
+		fd = open(token->next->content,O_CREAT | O_RDWR |O_TRUNC, 0644);
+		if (fd !=-1)
+			dup2(fd, STDOUT_FILENO);
+	}
+	else if (token->type == redir_out2)
+	{
+			fd = open(token->next->content,O_CREAT |O_RDWR | O_APPEND, 0644);
+			if (fd !=-1)
+				dup2(fd, STDOUT_FILENO);
+		}
+	else if (token->type == redir_in)
+	{
+		fd = open(token->next->content, O_RDONLY, 0644);
+		if (fd != -1)
+		{
+			dup2(fd, STDIN_FILENO);
+			close(fd);
+		}
+	}
+	if (fd == -1)
+	{
+		g_exit_status = 1;
+		return (0);
+	}
+	token->next->type = files;
+	return (1);
+}
+
 int	ft_check_redirect(t_commands *command)
 {
 	t_token	*temp;
-	int		fd;
 
 	temp = command->token;
 	while (temp)
 	{
-		if (temp->type == redir_out || temp->type == redir_out2 || temp->type == redir_in)
+		if (temp->type == redir_out || temp->type == redir_out2
+			|| temp->type == redir_in)
 		{
-			if (temp->type == redir_out)
-			{
-				fd = open(temp->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
-				if (fd == -1)
-				{
-					g_exit_status = 1;
-					return (0);
-				}
-				temp->next->type = files;
-				dup2(fd, STDOUT_FILENO);
-			}
-			else if (temp->type == redir_out2)
-			{
-				fd = open(temp->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
-				if (fd == -1)
-				{
-					g_exit_status = 1;
-					return (0);
-				}
-				temp->next->type = files;
-				dup2(fd, STDOUT_FILENO);
-			}
-			else if (temp->type == redir_in)
-			{
-				fd = open(temp->next->content, O_RDONLY, 0644);
-				if (fd == -1)
-				{
-					g_exit_status = 1;
-					return (0);
-				}
-				temp->next->type = files;
-				dup2(fd, STDIN_FILENO);
-				close(fd);
-			}
+			if (!handle_redirection(temp))
+				return (0);
 		}
 		temp = temp->next;
 	}

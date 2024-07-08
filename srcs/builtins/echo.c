@@ -14,22 +14,10 @@
 
 static t_token	*while_option(t_token *token);
 
-void	ft_echo(t_token *token)
+void	print_token_content(t_token *token)
 {
 	int	i;
-	int	flag;
 
-	flag = 0;
-	if (!token)
-	{
-		printf("\n");
-		return ;
-	}
-	if (token->type == option)
-	{
-		token = while_option(token);
-		flag = 1;
-	}
 	while (token)
 	{
 		i = -1;
@@ -39,6 +27,30 @@ void	ft_echo(t_token *token)
 			printf(" ");
 		token = token->next;
 	}
+}
+
+t_token	*process_options(t_token *token, int *flag)
+{
+	if (token->type == option)
+	{
+		token = while_option(token);
+		*flag = 1;
+	}
+	return (token);
+}
+
+void	ft_echo(t_token *token)
+{
+	int	flag;
+
+	flag = 0;
+	if (!token)
+	{
+		printf("\n");
+		return ;
+	}
+	token = process_options(token, &flag);
+	print_token_content(token);
 	if (!flag)
 		printf("\n");
 	g_exit_status = 0;

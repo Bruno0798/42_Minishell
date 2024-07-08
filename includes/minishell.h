@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 18:29:36 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/08 19:58:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 # define ERROR_DIR " No such file or directory"
 # define ERROR_CMD "command not found"
 # define ERROR_EXP " not a valid identifier"
-# define ERROR_HOME " HOME not set"
+# define ERROR_HOME "HOME not set"
 # define ERROR_PID " pipe error"
 # define ERROR_NUM " numeric argument required"
 # define ERROR_ARG " too many arguments"
@@ -344,5 +344,25 @@ char	*expand_exit_code(char *string);
 bool is_dollar_outside_single_quotes(char *str);
 void	main_signal(int signum);
 void	ft_handle_signals(int id);
-
+void	update_or_add_env(t_commands *command, char *key, char *value);
+bool	is_invalid_token(char *str);
+int compare_keys(const char *a, const char *b);
+void swap_nodes(t_env *a, t_env *b);
+t_env	*order_list(t_env *env);
+t_env	*dup_list(t_env *env);
+void	handle_export_token(t_commands *command, t_token *token);
+void	print_env(t_env *env);
+void	handle_env_update(t_commands *command, char *key, char *equal_sign);
+bool	validate_and_handle_key(char **key, char *equal_sign, t_token *token);
+int check_unset(t_token *head);
+void handle_child_execution(t_commands *command, t_commands *head, char **arr, char **arr_command, char **arr_env);
+void cleanup_exec(char **arr_command, char **arr_env, char **arr);
+void handle_child_process(t_commands *command, t_commands *head);
+int is_relative_path(const char *path);
+int is_absolute_path(const char *path);
+void ft_exec_command(t_commands *command, t_commands *head);
+void	exec_exit_status(int status);
+void	execute_with_path(char **path_arr, char *token_content,
+		char **arr_command, char **arr_env);
+void	free_all_memory(char **arr_env, char **arr, char **arr_command);
 #endif

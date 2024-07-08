@@ -16,12 +16,7 @@ static int	init_and_set_fd(int argc, char **envp, t_env **env);
 static void	main_cycle(int fd, int fd1, t_env *env);
 void		reset_fd_signals(int fd, int fd1);
 
-//todo change print error
-//todo verify in every malloc if its true
-//todo export: se não tiver sinal de igual, não é para adicionar no export o sinal
-//todo cd com/varios/diretorios/naofunciona
-
-int g_exit_status;
+int	g_exit_status;
 
 int	main(int argc, char **argv, char **envp)
 {

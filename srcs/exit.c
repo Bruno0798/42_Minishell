@@ -47,12 +47,12 @@ void	print_error(char *msg, char *key, int exit_code)
 	if (key)
 	{
 		if (msg)
-			printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+			ft_fprintf(2,"%s: %s: %s\n", ERROR_TITLE, key, msg);
 		else
-			printf("%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
+			ft_fprintf(2,"%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
 	}
 	else
-		printf("%s: %s\n", ERROR_TITLE, msg);
+		ft_fprintf(2,"%s: %s\n", ERROR_TITLE, msg);
 	g_exit_status = exit_code;
 }
 
