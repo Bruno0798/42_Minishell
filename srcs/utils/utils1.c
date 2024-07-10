@@ -6,13 +6,11 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 22:49:19 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/10 17:20:48 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-t_token	*check_redir_syntax(t_token *token);
 
 void	ft_print_token_list(t_token *head)
 {
@@ -58,13 +56,13 @@ t_type	ft_token_type(char *word)
 {
 	if (!ft_strcmp(word, "|"))
 		return (pipes);
-	if (!ft_strncmp(word, ">>", 2) && (*(ft_strchr(word, '>') + 2) != '>'))
+	if (!ft_strcmp(word, ">>"))
 		return (redir_out2);
-	if (!ft_strncmp(word, ">", 1) && (*(ft_strchr(word, '>') + 1) != '>'))
+	if (!ft_strcmp(word, ">"))
 		return (redir_out);
-	if (!ft_strncmp(word, "<<", 2) && (*(ft_strchr(word, '<') + 2) != '<'))
+	if (!ft_strcmp(word, "<<"))
 		return (redir_in2);
-	if (!ft_strncmp(word, "<", 1) && (*(ft_strchr(word, '>') + 1) != '<'))
+	if (!ft_strcmp(word, "<"))
 		return (redir_in);
 	if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
 		return (option);
@@ -86,7 +84,7 @@ int	count_pipes(char *str)
 	return (count);
 }
 
-t_token	*ft_new_token(char *str)
+t_token	*ft_new_token(char *str, int flag)
 {
 	t_token	*token;
 
@@ -94,49 +92,14 @@ t_token	*ft_new_token(char *str)
 	token->content = str;
 	token->type = ft_token_type(str);
 	token->next = NULL;
-	if (token->type == redir_in || token->type == redir_in2 || token->type == redir_out || token->type == redir_out2)
+	if (!redir_valid(token))
+		exit(g_exit_status);
+	if ((ft_strchr(str, '<') || ft_strchr(str, '>')) && token->type == command && flag)
 		token = check_redir_syntax(token);
 	return (token);
 }
 
-t_token	*check_redir_syntax(t_token *token)
-{
-	t_token	*next;
-	char	*new_content;
-	int		i;
 
-	i = 0;
-	while (token->content[i] && token->content[0] == token->content[i])
-		i++;
-	if (!token->content[i])
-		return (token);
-	next = malloc(sizeof(t_token));
-	if (!next)
-		return (NULL);
-	next->content = ft_substr(token->content, i, ft_strlen(token->content) - i);
-	if (!next->content)
-	{
-		free(next);
-		return (NULL);
-	}
-	next->next = NULL;
-	next->type = files;
-	new_content = ft_substr(token->content, 0, i);
-	if (!new_content)
-	{
-		free(next->content);
-		free(next);
-		return (NULL);
-	}
-	free(token->content);
-	token->content = new_content;
-	token->next = next;
-	token->type = ft_token_type(token->content);
-	token->next->type = files;
-	token->content = ft_delete_quotes(token->content);
-	token->next->content = ft_delete_quotes(token->next->content);
-	return (token);
-}
 
 t_commands	*ft_new_commands(char *str, t_env *env)
 {
@@ -150,11 +113,13 @@ t_commands	*ft_new_commands(char *str, t_env *env)
 	command = malloc(sizeof(t_commands));
 	command->env = env;
 	words = ft_split2(str, SPACE);
-	head = ft_new_token(words[0]);
+	head = ft_new_token(words[0], 1);
 	current = head;
+	while (current->next)
+			current = current->next;
 	while (words[++i])
 	{
-		current->next = ft_new_token(words[i]);
+		current->next = ft_new_token(words[i], 1);
 		current = current->next;
 		while (current->next)
 			current = current->next;

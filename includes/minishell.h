@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 18:29:36 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/10 11:18:51 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -344,5 +344,9 @@ char	*expand_exit_code(char *string);
 bool is_dollar_outside_single_quotes(char *str);
 void	main_signal(int signum);
 void	ft_handle_signals(int id);
+t_token	*check_redir_syntax(t_token *token);
+bool	redir_valid(t_token *token);
+t_type	ft_token_type(char *word);
+t_token	*ft_new_token(char *str, int flag);
 
 #endif

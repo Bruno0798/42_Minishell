@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:42:09 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 16:34:30 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/08 18:02:40 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,12 @@ void	print_env(t_env *env)
 	while (current)
 	{
 		if(current->visible != 3)
-			printf("declare -x %s=\"%s\"\n", current->key, current->value);
+		{
+			if(current->visible == 1)
+				printf("declare -x %s=\"%s\"\n", current->key, current->value);
+			else
+				printf("declare -x %s\n", current->key);
+		}
 		current = current->next;
 	}
 	free_env(dup);
