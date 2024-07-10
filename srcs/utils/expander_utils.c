@@ -64,12 +64,12 @@ char	*needs_expansion(char *input, t_commands *command)
 			double_quotes = !double_quotes;
 		else if (input[i] == '$' && !single_quotes)
 		{
-				if (input[i + 1] != ' ' && input[i + 1] != SINGLE_QUOTE && input[i + 1] != DOUBLE_QUOTE)
-				{
-					length = ft_strlen(input);
-					input = expand_variable(input, i, command);
-					i += ft_strlen(input) - length;
-				}
+			if (input[i + 1] != ' ' && input[i + 1] != '\'' && input[i + 1] != '\"')
+			{
+				length = ft_strlen(input);
+				input = expand_variable(input, i, command);
+				i += ft_strlen(input) - length;
+			}
 		}
 		if (i > ft_strlen(input))
 			break ;
@@ -77,21 +77,15 @@ char	*needs_expansion(char *input, t_commands *command)
 	return (input);
 }
 
-char	*expand_variable(char *string, int i, t_commands *commands)
+char *expand_variable(char *string, int i, t_commands *commands)
 {
-	char	*value;
-	char	*key;
-	char	*new_string;
-	int		h;
-	int		k;
-	int		j;
+	char *value;
+	char *key;
+	char *new_string;
 
-	h = 0;
-	k = 0;
-	j = 0;
 	key = store_value(&string[i]);
 	if (!key)
-		return (NULL);
+		return NULL;
 	value = ft_get_value(commands->env, key);
 	if (!value)
 		value = "";
@@ -99,8 +93,25 @@ char	*expand_variable(char *string, int i, t_commands *commands)
 	if (!new_string)
 	{
 		free(key);
-		return (NULL);
+		return NULL;
 	}
+	new_string = replace_variable(string, key, value, i);
+	free(key);
+	free(string);
+	return (new_string);
+}
+
+char *replace_variable(char *string, char *key, char *value, int i)
+{
+	char *new_string;
+	int h;
+	int k;
+	int j;
+
+	h = 0;
+	k = 0;
+	j = 0;
+	new_string = malloc(ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1);
 	while (string[h])
 	{
 		if (string[h] == '$' && ft_strncmp(&string[h + 1], key, ft_strlen(key)) == 0 && i == h)
@@ -115,8 +126,6 @@ char	*expand_variable(char *string, int i, t_commands *commands)
 		new_string[j++] = string[h++];
 	}
 	new_string[j] = '\0';
-	free(key);
-	free(string);
 	return (new_string);
 }
 

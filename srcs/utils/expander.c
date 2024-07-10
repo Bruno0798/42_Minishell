@@ -36,7 +36,9 @@ void	ft_expander_heredoc(t_commands *commands)
 		token = commands->token;
 		while (token && token->type != redir_in2)
 		{
-			if (ft_strchr(token->content, '$') && *(ft_strchr(token->content, '$') + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
+			if (ft_strchr(token->content, '$')
+				&& *(ft_strchr(token->content, '$') + 1) != '\0'
+				&& is_dollar_outside_single_quotes(token->content))
 			{
 				if (*(ft_strchr(token->content, '$') + 1) == '?')
 					token->content = expand_exit_code(token->content);
@@ -52,27 +54,16 @@ void	ft_expander_heredoc(t_commands *commands)
 
 void	ft_expander(t_commands *commands)
 {
-	t_token		*token;
 	t_commands	*head;
-	char		*dollar_pos;
+	t_token		*token;
 
-	token = commands->token;
 	head = commands;
 	while (commands)
 	{
 		token = commands->token;
 		while (token)
 		{
-			dollar_pos = ft_strchr(token->content, '$');
-			if (dollar_pos && *(dollar_pos + 1) != '\0' && is_dollar_outside_single_quotes(token->content))
-			{
-				if (*(dollar_pos + 1) == '?')
-					token->content = expand_exit_code(token->content);
-				else if (isdigit(*(dollar_pos + 1)))
-					token->content = expand_number(token->content);
-				else
-					token->content = needs_expansion(token->content, commands);
-			}
+			process_token(token, commands);
 			token = token->next;
 		}
 		commands = commands->next;
@@ -80,39 +71,25 @@ void	ft_expander(t_commands *commands)
 	commands = head;
 }
 
-char	*expand_number(char *content)
+void	process_token(t_token *token, t_commands *commands)
 {
-	char	*result;
-	char	*start;
+	char	*dollar_pos;
 
-	start = ft_strchr(content, '$');
-	if (!start)
-		return (content);
-	if (content[1] == '0')
-	{
-		result = ft_strdup("minishell");
-		return (result);
-	}
-	start += 2;
-	result = ft_strdup(start);
-	return (result);
+	dollar_pos = ft_strchr(token->content, '$');
+	if (dollar_pos && *(dollar_pos + 1) != '\0'
+		&& is_dollar_outside_single_quotes(token->content))
+		token->content = process_token_content(token->content, commands);
 }
 
-int	calculate_extra_length(char *string, int num_len)
+char	*process_token_content(char *content, t_commands *commands)
 {
-	int	i;
-	int	extra_length;
+	char	*dollar_pos;
 
-	i = 0;
-	extra_length = 0;
-	while (string[i])
-	{
-		if (string[i] == '$' && string[i + 1] == '?')
-		{
-			extra_length += num_len - 2;
-			i++;
-		}
-		i++;
-	}
-	return (extra_length);
+	dollar_pos = ft_strchr(content, '$');
+	if (*(dollar_pos + 1) == '?')
+		return (expand_exit_code(content));
+	else if (isdigit(*(dollar_pos + 1)))
+		return (expand_number(content));
+	else
+		return (needs_expansion(content, commands));
 }

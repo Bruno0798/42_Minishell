@@ -26,7 +26,8 @@ void	ft_exit(t_commands *command, t_commands *head)
 		else if (command->token->next->content && ft_isnum(command->token->next->content))
 		{
 			if (command->token->next->content[0] == '-')
-				g_exit_status = 256 - ft_atoi(&(command->token->next->content[0]) + 1);
+				g_exit_status = 256
+					- ft_atoi(&(command->token->next->content[0]) + 1);
 			else
 				g_exit_status = ft_atoi(command->token->next->content);
 		}

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 19:58:08 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/10 14:33:00 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -373,4 +373,14 @@ void process_child(t_commands *command, t_commands *head, int fd_in, int pipes[]
 char	*store_value(char *string);
 char	*expand_new_string(char *value, char *key, char *string);
 int	calculate_extra_length(char *string, int num_len);
+void process_token(t_token *token, t_commands *commands);
+char *process_token_content(char *content, t_commands *commands);
+size_t	get_new_string_length(char *value, char *key, char *string);
+char	*allocate_new_string(size_t length);
+void	replace_value_with_key(char **new_string, char *value, char *key, char *string);
+bool	check_quotes(char *str);
+char *replace_variable(char *string, char *key, char *value, int i);
+void	copy_key_to_new_string(char *new_string, int *j, char *key);
+char *perform_variable_replacement(char *string, char *key, char *value, int i);
+bool	is_dollar_outside_single_quotes(char *str);
 #endif

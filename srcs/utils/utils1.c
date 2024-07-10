@@ -44,12 +44,12 @@ static	bool	check_redirection(char *str)
 	int	i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
-		if(str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-			return false;
-		if(str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
-			return false;
+		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+			return (false);
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			return (false);
 	}
 	return (true);
 }
