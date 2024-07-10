@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 16:08:19 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/08 20:21:51 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ void	ft_execute(t_commands *command, t_commands *head)
 
 int	ft_execution(t_commands *command, t_commands *head)
 {
-	if (command->token->content[0] == '/' || !ft_strncmp(command->token->content, "./", 2))
+	if (command->token->content[0] == '/'
+		|| !ft_strncmp(command->token->content, "./", 2))
 		ft_exec_abs(command, head);
 	else
 		ft_exec_command(command, head);
@@ -75,59 +76,26 @@ void	ft_exec_abs(t_commands *command, t_commands *head)
 	exec_exit_status(g_exit_status);
 }
 
-void	ft_exec_command(t_commands *command, t_commands *head)
+void	free_all_memory(char **arr_env, char **arr, char **arr_command)
 {
-	pid_t	pid;
-	char	**arr;
-	char	**arr_command;
-	char	**arr_env;
-	int		i;
-	char	*temp_arr;
-
-	arr = get_path(command->env);
-	arr_command = ft_lst_to_arr(command->token);
-	arr_env = ft_env_to_arr(command->env);
-	i = -1;
-	pid = fork();
-	if (pid == 0)
-	{
-		if (arr) {
-			while (arr[++i]) {
-				temp_arr = ft_strjoin(arr[i], "/");
-				free(arr[i]);
-				arr[i] = ft_strjoin(temp_arr, command->token->content);
-				free(temp_arr);
-				execve(arr[i], arr_command, arr_env);
-			}
-		}
-		free_double_pointer_array(arr_env);
-		free_double_pointer_array(arr);
-		free_double_pointer_array(arr_command);
-		check_permissions(head, command->token->content);
-	}
 	free_double_pointer_array(arr_env);
 	free_double_pointer_array(arr);
 	free_double_pointer_array(arr_command);
-	waitpid(pid, &g_exit_status, 0);
-	exec_exit_status(g_exit_status);
 }
 
-void	exec_exit_status(int status)
+void	execute_with_path(char **path_arr, char *token_content,
+		char **arr_command, char **arr_env)
 {
-	int	exit_status;
+	int		i;
+	char	*temp_arr;
 
-	exit_status = 0;
-	if (WIFEXITED(status))
+	i = -1;
+	while (path_arr[++i])
 	{
-		exit_status = WEXITSTATUS(status);
-		g_exit_status = exit_status;
-	}
-	else if (WIFSIGNALED(status))
-	{
-		exit_status = WTERMSIG(status);
-		if (exit_status == 3)
-			printf("Quit (core dumped)");
-		printf("\n");
-		g_exit_status = 128 + exit_status;
+		temp_arr = ft_strjoin(path_arr[i], "/");
+		free(path_arr[i]);
+		path_arr[i] = ft_strjoin(temp_arr, token_content);
+		free(temp_arr);
+		execve(path_arr[i], arr_command, arr_env);
 	}
 }

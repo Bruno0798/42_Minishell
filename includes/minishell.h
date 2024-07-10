@@ -5,22 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/07 13:05:33 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 11:18:51 by brpereir         ###   ########.fr       */
+/*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
+/*   Updated: 2024/07/10 17:57:05 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: brunolopes <brunolopes@student.42.fr>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/03 11:39:03 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/03/07 12:49:34 by brunolopes       ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -52,7 +42,7 @@
 # define ERROR_DIR " No such file or directory"
 # define ERROR_CMD "command not found"
 # define ERROR_EXP " not a valid identifier"
-# define ERROR_HOME " HOME not set"
+# define ERROR_HOME "HOME not set"
 # define ERROR_PID " pipe error"
 # define ERROR_NUM " numeric argument required"
 # define ERROR_ARG " too many arguments"
@@ -349,4 +339,43 @@ bool	redir_valid(t_token *token);
 t_type	ft_token_type(char *word);
 t_token	*ft_new_token(char *str, int flag);
 
+void	update_or_add_env(t_commands *command, char *key, char *value);
+bool	is_invalid_token(char *str);
+int compare_keys(const char *a, const char *b);
+void swap_nodes(t_env *a, t_env *b);
+t_env	*order_list(t_env *env);
+t_env	*dup_list(t_env *env);
+void	handle_export_token(t_commands *command, t_token *token);
+void	print_env(t_env *env);
+void	handle_env_update(t_commands *command, char *key, char *equal_sign);
+bool	validate_and_handle_key(char **key, char *equal_sign, t_token *token);
+int check_unset(t_token *head);
+void handle_child_execution(t_commands *command, t_commands *head, char **arr, char **arr_command, char **arr_env);
+void cleanup_exec(char **arr_command, char **arr_env, char **arr);
+void handle_child_process(t_commands *command, t_commands *head);
+int is_relative_path(const char *path);
+int is_absolute_path(const char *path);
+void ft_exec_command(t_commands *command, t_commands *head);
+void	exec_exit_status(int status);
+void	execute_with_path(char **path_arr, char *token_content,
+char **arr_command, char **arr_env);
+void	free_all_memory(char **arr_env, char **arr, char **arr_command);
+int handle_redir_in(t_token *token);
+int handle_redir_out2(t_token *token);
+int handle_redir_out(t_token *token);
+void handle_parent_pipes(int pipes[], int *fd_in);
+void process_child(t_commands *command, t_commands *head, int fd_in, int pipes[], int i, int command_count);
+char	*store_value(char *string);
+char	*expand_new_string(char *value, char *key, char *string);
+int	calculate_extra_length(char *string, int num_len);
+void process_token(t_token *token, t_commands *commands);
+char *process_token_content(char *content, t_commands *commands);
+size_t	get_new_string_length(char *value, char *key, char *string);
+char	*allocate_new_string(size_t length);
+void	replace_value_with_key(char **new_string, char *value, char *key, char *string);
+bool	check_quotes(char *str);
+char *replace_variable(char *string, char *key, char *value, int i);
+void	copy_key_to_new_string(char *new_string, int *j, char *key);
+char *perform_variable_replacement(char *string, char *key, char *value, int i);
+bool	is_dollar_outside_single_quotes(char *str);
 #endif

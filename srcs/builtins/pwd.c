@@ -20,7 +20,7 @@ void	ft_pwd(t_commands *command)
 	{
 		if (command->token->next->content[0] == '-')
 		{
-			printf("bash: pwd %s: invalid option\n", command->token->next->content);
+			print_error(ERROR_OPTIONS, command->token->next->content, 2);
 			return ;
 		}
 	}

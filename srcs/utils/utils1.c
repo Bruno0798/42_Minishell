@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 17:20:48 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:30:16 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static	bool	check_redirection(char *str)
 	int	i;
 
 	i = -1;
-	while(str[++i])
+	while (str[++i])
 	{
-		if(str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-			return false;
-		if(str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
-			return false;
+		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
+			return (false);
+		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
+			return (false);
 	}
 	return (true);
 }
@@ -128,6 +128,12 @@ t_commands	*ft_new_commands(char *str, t_env *env)
 	command->next = NULL;
 	free(str);
 	free(words);
+	while(head)
+	{
+		if(head->next && head->type != 1 && head->type != 2 && head->type != 3)
+			head->next->type = 3;
+		head = head->next;
+	}
 	return (command);
 }
 

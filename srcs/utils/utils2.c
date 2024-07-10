@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 11:21:20 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/10 17:20:28 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/10 18:17:47 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ t_token *split_string(char *content)
 	while (ptr && ft_strpbrk(ptr, "<>"))
 	{
 		next = ft_strpbrk(ptr, "<>");
-        printf("%s\n", next);
 		if(next[1] == '<' || next[1] == '>')
 			token = ft_new_token(ft_substr(ptr, 0, 2), 0);
 		else

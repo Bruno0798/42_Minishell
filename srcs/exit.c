@@ -26,7 +26,8 @@ void	ft_exit(t_commands *command, t_commands *head)
 		else if (command->token->next->content && ft_isnum(command->token->next->content))
 		{
 			if (command->token->next->content[0] == '-')
-				g_exit_status = 256 - ft_atoi(&(command->token->next->content[0]) + 1);
+				g_exit_status = 256
+					- ft_atoi(&(command->token->next->content[0]) + 1);
 			else
 				g_exit_status = ft_atoi(command->token->next->content);
 		}
@@ -47,12 +48,12 @@ void	print_error(char *msg, char *key, int exit_code)
 	if (key)
 	{
 		if (msg)
-			printf("%s: %s: %s\n", ERROR_TITLE, key, msg);
+			ft_fprintf(2,"%s: %s: %s\n", ERROR_TITLE, key, msg);
 		else
-			printf("%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
+			ft_fprintf(2,"%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
 	}
 	else
-		printf("%s: %s\n", ERROR_TITLE, msg);
+		ft_fprintf(2,"%s: %s\n", ERROR_TITLE, msg);
 	g_exit_status = exit_code;
 }
 

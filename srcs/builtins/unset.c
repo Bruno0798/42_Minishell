@@ -12,37 +12,39 @@
 
 #include "../../includes/minishell.h"
 
-int	check_unset(t_token *head);
+void	remove_env_node(t_commands *command, t_env *previous, t_env *current)
+{
+	if (previous != NULL)
+		previous->next = current->next;
+	else
+		command->env = current->next;
+	free(current->key);
+	free(current->value);
+	free(current);
+}
 
 void	ft_unset(t_commands *command)
 {
 	t_env	*current;
 	t_env	*previous;
 
-	if(command->token->next && command->token->next->content[0] == '_')
-		return ;
 	current = command->env;
 	previous = NULL;
-	if (command->token->next != NULL)
+	if (!command || !command->token)
+		return ;
+	if (command->token->next && command->token->next->content[0] == '_')
+		return ;
+	if (command->token->next && (command->token->next->content[0] == '-'
+			|| !check_unset(command->token)))
 	{
-		if (command->token->next->content[0] == '-' || !check_unset(command->token))
-		{
-			dup2(STDERR_FILENO, STDOUT_FILENO);
-			printf("minishell: unset: %s: invalid option\n", command->token->next->content);
-			return ;
-		}
+		print_error(ERROR_OPTIONS, NULL, 2);
+		return ;
 	}
-	while (current != NULL && command->token->next != NULL)
+	while (current && command->token->next)
 	{
 		if (!ft_strcmp(current->key, command->token->next->content))
 		{
-			if (previous != NULL)
-				previous->next = current->next;
-			else
-				command->env = current->next;
-			free(current->key);
-			free(current->value);
-			free(current);
+			remove_env_node(command, previous, current);
 			return ;
 		}
 		previous = current;
@@ -52,20 +54,22 @@ void	ft_unset(t_commands *command)
 
 int	check_unset(t_token *head)
 {
+	int		i;
 	t_token	*current;
 	char	*cmd;
-	int		i;
 
+	if (!head)
+		return (1);
 	current = head;
-	while (current != NULL)
+	while (current)
 	{
 		cmd = current->content;
 		i = 0;
-		if (ft_isdigit(cmd[i]) != 1)
+		if (!ft_isdigit((unsigned char)cmd[i]))
 			return (1);
 		while (cmd[i])
 		{
-			if (ft_isalnum(cmd[i]) == 0 && cmd[i] != '_')
+			if (!ft_isalnum((unsigned char)cmd[i]) && cmd[i] != '_')
 				return (1);
 			i++;
 		}
