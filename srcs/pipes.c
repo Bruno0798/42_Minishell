@@ -12,6 +12,9 @@
 
 #include "../includes/minishell.h"
 
+void	close_pipes(int pipes[]);
+void	setup_pipes(int pipes[], int i, int fd_in, int command_count);
+
 void	open_pipes(t_commands *command)
 {
 	int	fd_in;
@@ -48,30 +51,38 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 	t_commands	*head;
 	pid_t		pid;
 
-	i = 0;
+	i = -1;
 	head = command;
-	while (i < command_count)
+	while (++i < command_count)
 	{
 		pipe(pipes);
 		pid = fork();
 		if (pid == 0)
 		{
 			ft_handle_signals(CHILD);
-			if (i != 0)
-				dup2(fd_in, STDIN_FILENO);
-			if ((i + 1) != command_count)
-				dup2(pipes[1], STDOUT_FILENO);
-			close(pipes[0]);
-			close(pipes[1]);
+			setup_pipes(pipes, i, fd_in, command_count);
+			close_pipes(pipes);
 			close(fd_in);
 			ft_execute(command, head);
 			free_all(head, 2);
 			exit(g_exit_status);
 		}
 		dup2(pipes[0], fd_in);
-		close(pipes[0]);
-		close(pipes[1]);
+		close_pipes(pipes);
 		command = command->next;
-		i++;
 	}
+}
+
+void	setup_pipes(int pipes[], int i, int fd_in, int command_count)
+{
+	if (i != 0)
+		dup2(fd_in, STDIN_FILENO);
+	if ((i + 1) != command_count)
+		dup2(pipes[1], STDOUT_FILENO);
+}
+
+void	close_pipes(int pipes[])
+{
+	close(pipes[0]);
+	close(pipes[1]);
 }

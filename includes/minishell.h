@@ -365,4 +365,12 @@ void	exec_exit_status(int status);
 void	execute_with_path(char **path_arr, char *token_content,
 		char **arr_command, char **arr_env);
 void	free_all_memory(char **arr_env, char **arr, char **arr_command);
+int handle_redir_in(t_token *token);
+int handle_redir_out2(t_token *token);
+int handle_redir_out(t_token *token);
+void handle_parent_pipes(int pipes[], int *fd_in);
+void process_child(t_commands *command, t_commands *head, int fd_in, int pipes[], int i, int command_count);
+char	*store_value(char *string);
+char	*expand_new_string(char *value, char *key, char *string);
+int	calculate_extra_length(char *string, int num_len);
 #endif

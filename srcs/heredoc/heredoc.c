@@ -94,7 +94,8 @@ void	heredoc_cycle(char *line, t_commands *commands)
 	{
 		if (!ft_strcmp(buff, line))
 			break ;
-		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1) != '\0' && is_dollar_outside_single_quotes(buff))
+		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1)
+			!= '\0' && is_dollar_outside_single_quotes(buff))
 		{
 			if (*(ft_strchr(buff, '$') + 1) == '?')
 				buff = expand_exit_code(buff);
@@ -107,27 +108,4 @@ void	heredoc_cycle(char *line, t_commands *commands)
 		buff = readline(">");
 	}
 	close(fd);
-}
-
-bool	has_here_doc(t_commands *commands)
-{
-	t_token	*curr;
-
-	curr = commands->token;
-	while (curr)
-	{
-		if (curr->type == redir_in2)
-			return (true);
-		curr = curr->next;
-	}
-	return (false);
-}
-
-void	remake_commands(t_commands *command)
-{
-	t_commands	*temp;
-
-	temp = command;
-	heredoc_files(temp, 1);
-	heredoc_files(temp, 2);
 }

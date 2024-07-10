@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+void	cleanup_key(char *equal_sign, char *key);
+
 int	starts_with_special_char(const char *content)
 {
 	return (content[0] == '=' || content[0] == '-');
@@ -57,11 +59,15 @@ void	handle_export_token(t_commands *command, t_token *token)
 		*equal_sign = '\0';
 	if (!validate_and_handle_key(&key, equal_sign, token))
 	{
-		if (equal_sign == NULL)
-			free(key);
+		cleanup_key(equal_sign, key);
 		return ;
 	}
 	handle_env_update(command, key, equal_sign);
-	if (equal_sign == NULL)
+	cleanup_key(equal_sign, key);
+}
+
+void	cleanup_key(char *equal_sign, char *key)
+{
+	if (equal_sign == NULL && key != NULL)
 		free(key);
 }

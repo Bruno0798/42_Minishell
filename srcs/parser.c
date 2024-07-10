@@ -12,28 +12,30 @@
 
 #include "../includes/minishell.h"
 
-bool check_syntax(t_commands *commands)
+bool	check_syntax(t_commands *commands)
 {
-	t_commands *temp;
-	t_token *curr;
+	t_commands	*temp;
+	t_token		*curr;
 
 	temp = commands;
-	while(temp)
+	while (temp)
 	{
 		curr = commands->token;
-		while(curr)
+		while (curr)
 		{
 			if (curr->type == redir_in || curr->type == redir_out)
+			{
 				if (curr->next && curr->next->type != command && curr->next->type != files || curr->next->type == redir_in2 || curr->next->type == redir_out2)
 				{
 					ft_printf("error token: %s \n", curr->next->content);
-					return true;
+					return (true);
 				}
+			}
 			curr = curr->next;
 		}
 		temp = temp->next;
 	}
-	return false;
+	return (false);
 }
 
 int	ft_parser(char *input, t_commands **commands, t_env *env)
@@ -61,8 +63,7 @@ void	ft_expand_others(t_commands *commands)
 		i = -1;
 		while (curr->content[++i])
 		{
-			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ')
-					|| (curr ->content[i + 1] == '\0') || (curr->content[i + 1] == '/')))
+			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] == '\0') || (curr->content[i + 1] == '/')))
 				curr->content = ft_strjoin(ft_get_value(commands->env, "HOME"), curr->content + 1);
 			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '+'))
 				curr->content = ft_strjoin(ft_get_value(commands->env, "PWD"), curr->content + 2);

@@ -16,27 +16,13 @@ int	handle_redirection(t_token *token)
 {
 	int	fd;
 
+	fd = -1;
 	if (token->type == redir_out)
-	{
-		fd = open(token->next->content,O_CREAT | O_RDWR |O_TRUNC, 0644);
-		if (fd !=-1)
-			dup2(fd, STDOUT_FILENO);
-	}
+		fd = handle_redir_out(token);
 	else if (token->type == redir_out2)
-	{
-			fd = open(token->next->content,O_CREAT |O_RDWR | O_APPEND, 0644);
-			if (fd !=-1)
-				dup2(fd, STDOUT_FILENO);
-		}
+		fd = handle_redir_out2(token);
 	else if (token->type == redir_in)
-	{
-		fd = open(token->next->content, O_RDONLY, 0644);
-		if (fd != -1)
-		{
-			dup2(fd, STDIN_FILENO);
-			close(fd);
-		}
-	}
+		fd = handle_redir_in(token);
 	if (fd == -1)
 	{
 		g_exit_status = 1;
@@ -44,6 +30,39 @@ int	handle_redirection(t_token *token)
 	}
 	token->next->type = files;
 	return (1);
+}
+
+int	handle_redir_out(t_token *token)
+{
+	int	fd;
+
+	fd = open(token->next->content, O_CREAT | O_RDWR | O_TRUNC, 0644);
+	if (fd != -1)
+		dup2(fd, STDOUT_FILENO);
+	return (fd);
+}
+
+int	handle_redir_out2(t_token *token)
+{
+	int	fd;
+
+	fd = open(token->next->content, O_CREAT | O_RDWR | O_APPEND, 0644);
+	if (fd != -1)
+		dup2(fd, STDOUT_FILENO);
+	return (fd);
+}
+
+int	handle_redir_in(t_token *token)
+{
+	int	fd;
+
+	fd = open(token->next->content, O_RDONLY, 0644);
+	if (fd != -1)
+	{
+		dup2(fd, STDIN_FILENO);
+		close(fd);
+	}
+	return (fd);
 }
 
 int	ft_check_redirect(t_commands *command)
@@ -62,29 +81,4 @@ int	ft_check_redirect(t_commands *command)
 		temp = temp->next;
 	}
 	return (1);
-}
-
-void	ft_handle_redirect(t_commands *commands)
-{
-	t_token	*token;
-	t_token	*temp;
-	t_token	*head;
-
-	head = NULL;
-	token = NULL;
-	temp = commands->token;
-	while (temp)
-	{
-		if (temp->type == command || temp->type == option)
-		{
-			token = malloc(sizeof(t_token));
-			token->content = ft_strdup(temp->content);
-			token->type = temp->type;
-			token->next = NULL;
-			ft_token_addback(&head, token);
-		}
-		temp = temp->next;
-	}
-	free_tokens(commands->token);
-	commands->token = head;
 }
