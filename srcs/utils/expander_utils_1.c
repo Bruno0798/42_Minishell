@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:09:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 16:18:02 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:33:46 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ char	*expand_number(char *content, t_commands *commands)
 	}
 	start += 2;
 	result = ft_strdup(start);
+	free(content);
 	return (result);
 }
 

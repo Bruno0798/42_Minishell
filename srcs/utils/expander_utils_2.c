@@ -18,9 +18,9 @@ void	replace_exit_code(char *string,
 	int	i;
 	int	j;
 	int	k;
-
-	i = 0;
 	k = 0;
+	i = 0;
+
 	while (string[i])
 	{
 		if (string[i] == '$' && string[i + 1] == '?')
@@ -36,21 +36,31 @@ void	replace_exit_code(char *string,
 	new_string[k] = '\0';
 }
 
-char	*expand_exit_code(char *string)
-{
-	char	*num;
-	char	*new_string;
-	int		num_len;
-	int		extra_length;
+char *expand_exit_code(char *string) {
+	char *num;
+	char *new_string;
+	int num_len;
+	int extra_length;
 
 	num = ft_itoa(g_exit_status);
+	if (!num)
+	{
+		free(string);
+		return NULL;
+	}
 	num_len = ft_strlen(num);
 	extra_length = calculate_extra_length(string, num_len);
 	new_string = malloc(ft_strlen(string) + extra_length + 1);
+	if (!new_string)
+	{
+		free(num);
+		free(string);
+		return NULL;
+	}
 	replace_exit_code(string, new_string, num, num_len);
 	free(num);
 	free(string);
-	return (new_string);
+	return new_string;
 }
 
 char	*expand_variables(t_commands *commands, char *string)

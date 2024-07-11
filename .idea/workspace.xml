@@ -21,27 +21,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/heredoc.txt" beforeDir="false" afterPath="$PROJECT_DIR$/heredoc.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft" beforeDir="false" afterPath="$PROJECT_DIR$/libft" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft/ft_str/ft_substr.c" beforeDir="false" afterPath="$PROJECT_DIR$/libft/ft_str/ft_substr.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/readline.supp" beforeDir="false" afterPath="$PROJECT_DIR$/readline.supp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/export_utils_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export_utils_2.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/execution/redir_handler.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/redir_handler.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/parser.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/parser.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/expander.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/expander_utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander_utils.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/srcs/utils/expander_utils_1.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander_utils_1.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/utils1.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils1.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/srcs/utils/utils2.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/expander_utils_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/expander_utils_2.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -218,7 +202,7 @@
       <workItem from="1720121724703" duration="1112000" />
       <workItem from="1720360218860" duration="1512000" />
       <workItem from="1720610578388" duration="1299000" />
-      <workItem from="1720696038138" duration="19618000" />
+      <workItem from="1720696038138" duration="21313000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed error on echo when it had SINGLE QUOTES">
       <option name="closed" value="true" />
