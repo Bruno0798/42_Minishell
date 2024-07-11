@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/10 17:57:05 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:45:35 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,4 +378,5 @@ char *replace_variable(char *string, char *key, char *value, int i);
 void	copy_key_to_new_string(char *new_string, int *j, char *key);
 char *perform_variable_replacement(char *string, char *key, char *value, int i);
 bool	is_dollar_outside_single_quotes(char *str);
+char *ft_strpbrk(char *s, char *delims);
 #endif

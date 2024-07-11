@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 18:18:35 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:04:56 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,13 @@ void	check_permissions(t_commands *command, char *string)
 	file = access(string, F_OK);
 	execution = access(string, X_OK);
 	if (!file && execution && ft_strchr(string, '/'))
-	{
-		ft_fprintf(2, EXECUTION_PERMISSION);
-		g_exit_status = 126;
-	}
-	else if (!file && !execution && string[0] == '.' && string[1] == '/')
-	{
-		ft_fprintf(2, DIRECTORY_EXISTS);
-		g_exit_status = 126;
-	}
+		print_error(EXECUTION_PERMISSION, NULL, 126);
+	else if (!file && !execution && string[0] != '.')
+		print_error(DIRECTORY_EXISTS, NULL, 126);
 	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
-	{
-		ft_fprintf(2, "minishell: %s: %s\n", string, ERROR_DIR);
-		g_exit_status = 127;
-	}
+		print_error(ERROR_DIR, NULL, 127);
 	else
-	{
-		ft_fprintf(2, "minishell %s: %s\n", string, COMMAND_NOT_FOUND);
-		g_exit_status = 127;
-	}
+		print_error(COMMAND_NOT_FOUND, string, 127);
 	free_all(command, 2);
 	exit(g_exit_status);
 }

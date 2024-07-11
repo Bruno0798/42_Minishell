@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/07 15:34:34 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:20:05 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*expand_new_string(char *value, char*key, char *string);
 char	*needs_expansion(char *input, t_commands *command);
 char	*expand_variable(char *string, int i, t_commands *commands);
 bool	is_dollar_outside_single_quotes(char *str);
-char	*expand_number(char *content);
+char	*expand_number(char *content, t_commands *commands);
 
 void	ft_expander_heredoc(t_commands *commands)
 {
@@ -41,7 +41,10 @@ void	ft_expander_heredoc(t_commands *commands)
 				&& is_dollar_outside_single_quotes(token->content))
 			{
 				if (*(ft_strchr(token->content, '$') + 1) == '?')
+				{
 					token->content = expand_exit_code(token->content);
+					token->content = needs_expansion(token->content, commands);
+				}
 				else
 					token->content = needs_expansion(token->content, commands);
 			}
@@ -78,7 +81,11 @@ void	process_token(t_token *token, t_commands *commands)
 	dollar_pos = ft_strchr(token->content, '$');
 	if (dollar_pos && *(dollar_pos + 1) != '\0'
 		&& is_dollar_outside_single_quotes(token->content))
+	{
 		token->content = process_token_content(token->content, commands);
+		token->content = needs_expansion(token->content, commands);
+
+	}
 }
 
 char	*process_token_content(char *content, t_commands *commands)
@@ -89,7 +96,7 @@ char	*process_token_content(char *content, t_commands *commands)
 	if (*(dollar_pos + 1) == '?')
 		return (expand_exit_code(content));
 	else if (isdigit(*(dollar_pos + 1)))
-		return (expand_number(content));
+		return (expand_number(content, commands));
 	else
 		return (needs_expansion(content, commands));
 }

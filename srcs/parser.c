@@ -6,11 +6,13 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 22:18:37 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:05:35 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void ft_empty_nodes(t_commands *commands);
 
 bool	check_syntax(t_commands *commands)
 {
@@ -41,15 +43,52 @@ bool	check_syntax(t_commands *commands)
 int	ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	*commands = pipe_commands(input, env);
+	if(*commands == NULL)
+		return (EXIT_FAILURE);
 	if (check_syntax(*commands))
 		return (EXIT_FAILURE);
 	if (!has_here_doc(*commands))
 		ft_expander(*commands);
 	else
 		ft_expander_heredoc(*commands);
-	ft_expand_others(*commands);
+	ft_empty_nodes(*commands);
 	ft_remove_quotes(*commands);
+	ft_expand_others(*commands);
 	return (EXIT_SUCCESS);
+}
+
+void ft_empty_nodes(t_commands *commands) {
+	t_commands *head = commands;
+	t_token *token_temp, *temp, *prev;
+
+	while (commands) {
+		token_temp = commands->token;
+		prev = NULL;
+		while (commands->token != NULL)
+		{
+			if (commands->token->content != NULL && ft_strcmp(commands->token->content, "") == 0)
+			{
+				temp = commands->token;
+				if (prev != NULL)
+					prev->next = commands->token->next;
+				else
+					token_temp = commands->token->next;
+				free(temp->content);
+				free(temp);
+				if (prev == NULL)
+					commands->token = token_temp;
+				else
+					commands->token = prev->next;
+			}else
+			{
+				prev = commands->token;
+				commands->token = commands->token->next;
+			}
+		}
+		commands->token = token_temp;
+		commands = commands->next;
+	}
+	commands = head;
 }
 
 void	ft_expand_others(t_commands *commands)
@@ -112,7 +151,7 @@ void	ft_remove_quotes(t_commands *commands)
 		curr = head->token;
 		while (curr)
 		{
-			if (curr->type == command && is_between_quotes(curr->content))
+			if ((curr->type == command || curr->type == files) && is_between_quotes(curr->content))
 				curr->content = ft_delete_quotes(curr->content);
 			curr = curr->next;
 		}

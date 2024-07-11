@@ -6,13 +6,13 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:09:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 14:09:06 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 16:18:02 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*expand_number(char *content)
+char	*expand_number(char *content, t_commands *commands)
 {
 	char	*result;
 	char	*start;

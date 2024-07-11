@@ -122,6 +122,8 @@ t_token *check_redir_syntax(t_token *head)
 
 	content = head->content;
     token = NULL;
+	if(head->type == error)
+		return head;
     if (!ft_strchr("<>", content[0])) // Check if it starts with redirection
     {
         next = ft_strpbrk(content, "<>");

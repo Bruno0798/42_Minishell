@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 18:30:16 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:45:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,29 @@ static	bool	check_echo_option(char *str)
 	return (true);
 }
 
-static	bool	check_redirection(char *str)
+static  bool    check_redirection(char *str)
 {
-	int	i;
-
+	int i;
+	int out;
+	int in;
 	i = -1;
-	while (str[++i])
+	if (ft_strpbrk(str, "<>"))
 	{
-		if (str[i] == '>' && str[i + 1] == '>' && str[i + 2] == '>')
-			return (false);
-		if (str[i] == '<' && str[i + 1] == '<' && str[i + 2] == '<')
-			return (false);
+		in = 0;
+		out = 0;
+		i = ft_strpbrk(str, "<>") - str;
+		while (str[i] && ft_strchr("<>", str[i]))
+		{
+			if (str[i] == '<' && !out)
+				in++;
+			else if (str[i] == '>' && !in)
+				out++;
+			else
+				return (false);
+			if (in > 2 || out > 2)
+				return (false);
+			i++;
+		}
 	}
 	return (true);
 }
@@ -92,8 +104,6 @@ t_token	*ft_new_token(char *str, int flag)
 	token->content = str;
 	token->type = ft_token_type(str);
 	token->next = NULL;
-	if (!redir_valid(token))
-		exit(g_exit_status);
 	if ((ft_strchr(str, '<') || ft_strchr(str, '>')) && token->type == command && flag)
 		token = check_redir_syntax(token);
 	return (token);
@@ -114,12 +124,24 @@ t_commands	*ft_new_commands(char *str, t_env *env)
 	command->env = env;
 	words = ft_split2(str, SPACE);
 	head = ft_new_token(words[0], 1);
+	if(head == NULL)
+	{
+		free(str);
+		free(words);
+		return NULL;
+	}
 	current = head;
 	while (current->next)
 			current = current->next;
 	while (words[++i])
 	{
 		current->next = ft_new_token(words[i], 1);
+		if (current->next == NULL)
+		{
+			free(str);
+			free(words);
+			return NULL;
+		}
 		current = current->next;
 		while (current->next)
 			current = current->next;
@@ -147,10 +169,17 @@ t_commands	*pipe_commands(char *str, t_env *env)
 	i = 0;
 	splitted_command = ft_split2(str, '|');
 	command = ft_new_commands(splitted_command[0], env);
+	if(command == NULL)
+	{
+		free(splitted_command);
+		return NULL;
+	}
 	current = command;
 	while (splitted_command[++i])
 	{
 		current->next = ft_new_commands(splitted_command[i], env);
+		if(command->next == NULL)
+			return NULL;
 		current = current->next;
 	}
 	free(splitted_command);

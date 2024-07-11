@@ -58,10 +58,7 @@ void	handle_export_token(t_commands *command, t_token *token)
 	if (equal_sign != NULL)
 		*equal_sign = '\0';
 	if (!validate_and_handle_key(&key, equal_sign, token))
-	{
-		cleanup_key(equal_sign, key);
 		return ;
-	}
 	handle_env_update(command, key, equal_sign);
 	cleanup_key(equal_sign, key);
 }

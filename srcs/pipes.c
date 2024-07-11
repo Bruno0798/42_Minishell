@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 18:19:27 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:15:49 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,21 @@ void	open_pipes(t_commands *command)
 void	parent_process(int fd_in, int count_pipes)
 {
 	int	i;
+	int status;
 
 	i = 0;
 	close(fd_in);
 	while (i < count_pipes)
 	{
-		wait(NULL);
+		wait(&status);
+		if (WIFSIGNALED(status))
+		{
+		    if(WTERMSIG(status) == 2)
+				printf("\n");
+			else
+				printf("Quit Core Dump.");
+		}
+
 		i++;
 	}
 }
@@ -56,6 +65,7 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 	while (++i < command_count)
 	{
 		pipe(pipes);
+		ft_handle_signals(IGNORE);
 		pid = fork();
 		if (pid == 0)
 		{

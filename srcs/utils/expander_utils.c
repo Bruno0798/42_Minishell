@@ -6,13 +6,13 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:34:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/09 16:34:34 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 14:36:07 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	alue_length(char *string)
+int	value_length(char *string)
 {
 	int	i;
 	int	length;
@@ -89,12 +89,6 @@ char *expand_variable(char *string, int i, t_commands *commands)
 	value = ft_get_value(commands->env, key);
 	if (!value)
 		value = "";
-	new_string = malloc(ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1);
-	if (!new_string)
-	{
-		free(key);
-		return NULL;
-	}
 	new_string = replace_variable(string, key, value, i);
 	free(key);
 	free(string);

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/08 20:38:48 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 17:48:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_redirection(t_token *token)
 		fd = handle_redir_in(token);
 	if (fd == -1)
 	{
-		g_exit_status = 1;
+		print_error(ERROR_DIR, NULL, 1);
 		return (0);
 	}
 	token->next->type = files;
@@ -72,6 +72,11 @@ int	ft_check_redirect(t_commands *command)
 	temp = command->token;
 	while (temp)
 	{
+		if (temp->type == error)
+		{
+			print_error(ERROR_REDIR, NULL, 2);
+			return 0;
+		}
 		if (temp->type == redir_out || temp->type == redir_out2
 			|| temp->type == redir_in)
 		{
