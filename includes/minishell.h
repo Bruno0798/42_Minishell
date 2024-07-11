@@ -6,11 +6,9 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:45:35 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/11 18:44:53 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
@@ -21,7 +19,6 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 /* Color codes for terminal output */
 # define RED	"\033[1m\033[31m"
@@ -75,32 +72,31 @@ typedef enum s_type
 	PIPE,
 	HERE_DOC,
 	IGNORE
-} 		t_type;
+}		t_type;
 
 typedef struct s_token
 {
-	char *content;
-	t_type type;
-	struct s_token *next;
+	char			*content;
+	t_type			type;
+	struct s_token	*next;
 }		t_token;
 
 typedef struct s_env
 {
-	char	*key;
-	char	*value;
-	int		visible;
+	char			*key;
+	char			*value;
+	int				visible;
 	struct s_env	*next;
 }				t_env;
 
 typedef struct s_commands
 {
-	t_env	*env;
-	t_token	*token;
-	struct	s_commands *next;	
+	t_env				*env;
+	t_token				*token;
+	struct s_commands	*next;	
 }		t_commands;
 
 /* Function prototypes */
-
 
 /************************************ ENV ************************************/
 
@@ -110,7 +106,7 @@ typedef struct s_commands
  * @param env   The environment structure to initialize.
  * @param envp  The array of environment variables.
  */
-void	init_env(t_env **env,char **envp);
+void		init_env(t_env **env, char **envp);
 
 /**
  * Creates a new environment variable node.
@@ -120,7 +116,7 @@ void	init_env(t_env **env,char **envp);
  *
  * @return The new environment variable node.
  */
-t_env	*ft_new_env(char *key, char *value, int visible);
+t_env		*ft_new_env(char *key, char *value, int visible);
 
 /**
  * Adds a new environment variable node to the end of the environment list.
@@ -128,7 +124,7 @@ t_env	*ft_new_env(char *key, char *value, int visible);
  * @param env_lst The head of the environment list.
  * @param new_env The new environment variable node.
  */
-void	ft_add_env_back(t_env **env_lst, t_env *new_env);
+void		ft_add_env_back(t_env **env_lst, t_env *new_env);
 
 /**
  * Retrieves the value associated with a given key in the environment.
@@ -137,7 +133,7 @@ void	ft_add_env_back(t_env **env_lst, t_env *new_env);
  * @param key The key to search for.
  * @return The value associated with the key, or NULL if the key is not found.
  */
-char	*ft_get_value(t_env *env, char *search);
+char		*ft_get_value(t_env *env, char *search);
 
 /**
  * Updates the value of an environment variable.
@@ -146,10 +142,10 @@ char	*ft_get_value(t_env *env, char *search);
  * @param key     The key of the environment variable to update.
  * @param replace The new value to assign to the environment variable.
  */
-void		ft_update_env(t_env *env_lst, char *key, char *replace, int visible);
+void		ft_update_env(t_env *env_lst, char *key,
+				char *replace, int visible);
 
-void free_env(t_env *env);
-
+void		free_env(t_env *env);
 
 /*********************************** UTILS ***********************************/
 
@@ -160,37 +156,39 @@ void free_env(t_env *env);
  * @param argc The number of command line arguments.
  * @param valid_argc The expected number of command line arguments.
  */
-void 	check_args(int argc, int valid_argc);
+void		check_args(int argc, int valid_argc);
 
 /**
  * Prints the content and type of each token in a token list.
  *
  * @param head The head of the token list.
  */
-void	ft_print_token_list(t_token *head);
+void		ft_print_token_list(t_token *head);
 
 /**
  * Prints the content of the environment list.
  *
  * @param token The head of the environment list.
  */
-void ft_print_env(t_commands *command);
+void		ft_print_env(t_commands *command);
 
 /**
  * @brief Prints an error message and sets the global exit status.
  *
  * This function is used to print an error message to the console. It can handle
  * different formats of the error message based on the provided parameters.
- * After printing the error message, it sets the global exit status to the provided exit code.
+ * After printing the error message, it sets the global exit status 
+ * to the provided exit code.
  *
- * @param msg The main error message to be printed. If this is NULL and key is provided,
+ * @param msg The main error message to be printed. 
+ * 			  If this is NULL and key is provided,
  *            the function will print a syntax error message with the key.
- * @param key Additional information to be included in the error message. This could be
+ * @param key Additional information to be included in the error message.
+ * 			  This could be
  *            the name of a command or a token that caused the error.
  * @param exit_code The exit code to be set after printing the error message.
  */
-void	print_error(char *msg, char *key, int exit_code);
-
+void		print_error(char *msg, char *key, int exit_code);
 
 /**
  * @brief Counts the number of pipes in a string.
@@ -201,8 +199,7 @@ void	print_error(char *msg, char *key, int exit_code);
  * @param str The string to count the pipes in.
  * @return The number of pipes in the string.
  */
-int count_pipes(char *str);
-
+int			count_pipes(char *str);
 
 /**
  * @brief Checks if a string has unclosed quotes.
@@ -218,8 +215,7 @@ int count_pipes(char *str);
  * @param str The string to be checked for unclosed quotes.
  * @return true if there are unclosed quotes in the string, false otherwise.
  */
-bool 		is_between_quotes(char *str);
-
+bool		is_between_quotes(char *str);
 
 /**
  * @brief Checks if a string contains only spaces.
@@ -232,46 +228,47 @@ bool 		is_between_quotes(char *str);
  * @param str The string to be checked for spaces.
  * @return true if the string contains only spaces, false otherwise.
  */
-bool	is_everything_space(char *str);
+bool		is_everything_space(char *str);
 
 /*********************************** PARSER ***********************************/
 
 /********************************** COMMANDS **********************************/
 
-void ft_unset(t_commands *command);
+void		ft_unset(t_commands *command);
 
 /**
  * Prints the current working directory.
  *
- * This function retrieves the current working directory using the `getcwd` function
- * and prints it using the `printf` function.
+ * This function retrieves the current working directory using the 
+ * `getcwd` function and prints it using the `printf` function.
  *
- * @note The maximum length of the current working directory is limited to 4096 characters.
+ * @note The maximum length of the current working directory 
+ * is limited to 4096 characters.
  *
  * @return void
  */
-void	ft_pwd(t_commands *command);
+void		ft_pwd(t_commands *command);
 
 /**
  * Prints the content of the given token list.
  *
  * @param token The head of the token list.
  */
-void ft_echo(t_token *token);
+void		ft_echo(t_token *token);
 
-void ft_export(t_commands *command);
+void		ft_export(t_commands *command);
 
 /*********************************** SIGNALS *********************************/
 
-void	ft_handler_ctrl(int signum);
+void		ft_handler_ctrl(int signum);
 
 /************************************* FREE ***********************************/
 
-void	free_all(t_commands *command, int option);
-void	ft_exit(t_commands *command, t_commands *exit);
-void	ft_free_token(t_token *token);
-void	ft_free_commands(t_commands *command, int option);
-void	ft_free_env(t_env *env);
+void		free_all(t_commands *command, int option);
+void		ft_exit(t_commands *command, t_commands *exit);
+void		ft_free_token(t_token *token);
+void		ft_free_commands(t_commands *command, int option);
+void		ft_free_env(t_env *env);
 t_commands	*pipe_commands(char *str, t_env *env);
 void		ft_expander(t_commands *command);
 char		**get_path(t_env *env_lst);
@@ -280,103 +277,103 @@ char		**ft_lst_to_arr(t_token *token);
 char		**ft_env_to_arr(t_env *env);
 int			ft_execution(t_commands *command, t_commands *head);
 int			env_size(t_env *env);
-char *ft_expand_join(char *s1, t_env *env);
-char* trim_right(const char *input_string);
-char *replace_substr(char *original, const char *substr,char
-*replacement, int i);
-void ft_special_handler(const char *input);
-char* ft_delete_quotes(char *input);
-void ft_remove_quotes(t_commands *commands);
-int ft_parser(char *input, t_commands **commands, t_env *env);
-void ft_execute(t_commands *command, t_commands *head);
-bool is_valid_input(char *input, t_env *env);
-bool syntax_checker(char *input);
-void ft_cleans_special_chars(t_commands *commands);
-void ft_cd(t_commands *command);
-bool can_execute(t_commands *command);
-t_env	*ft_fnd_env(t_env *env, char *search);
-bool	ft_has_special_char(char *str);
+char		*ft_expand_join(char *s1, t_env *env);
+char		*trim_right(const char *input_string);
+char		*replace_substr(char *original, const char *substr, char
+				*replacement, int i);
+void		ft_special_handler(const char *input);
+char		*ft_delete_quotes(char *input);
+void		ft_remove_quotes(t_commands *commands);
+int			ft_parser(char *input, t_commands **commands, t_env *env);
+void		ft_execute(t_commands *command, t_commands *head);
+bool		is_valid_input(char *input, t_env *env);
+bool		syntax_checker(char *input);
+void		ft_cleans_special_chars(t_commands *commands);
+void		ft_cd(t_commands *command);
+bool		can_execute(t_commands *command);
+t_env		*ft_fnd_env(t_env *env, char *search);
+bool		ft_has_special_char(char *str);
 
-void ft_create_file(char *filename);
+void		ft_create_file(char *filename);
 
-int ft_redirect(t_commands *command);
+int			ft_redirect(t_commands *command);
 
-
-void ft_handle_redirect(t_commands *command);
-int ft_check_redirect(t_commands *command);
-int ft_count_redirects(t_commands *commands);
-void check_fork(t_commands *command);
-void open_pipes(t_commands *command);
-bool has_double_pipe(char *input);
-void check_heredoc(t_commands *command);
-void ft_heredoc(char *delimiter, t_commands *command);
-t_commands *delete_redir(t_commands *command);
-void heredoc_cycle(char *line, t_commands *commands);
-bool has_here_doc(t_commands *commands);
-void remake_commands(t_commands *command);
+void		ft_handle_redirect(t_commands *command);
+int			ft_check_redirect(t_commands *command);
+int			ft_count_redirects(t_commands *commands);
+void		check_fork(t_commands *command);
+void		open_pipes(t_commands *command);
+bool		has_double_pipe(char *input);
+void		check_heredoc(t_commands *command);
+void		ft_heredoc(char *delimiter, t_commands *command);
+t_commands	*delete_redir(t_commands *command);
+void		heredoc_cycle(char *line, t_commands *commands);
+bool		has_here_doc(t_commands *commands);
+void		remake_commands(t_commands *command);
 //void	ft_signals_heredoc(void);
-bool files_exist(t_token *token);
-char *extract_home_path(const char *pwd);
-void heredoc_files(t_commands *command, int flag);
-void ft_expand_others(t_commands *commands);
-void	parent_process(int fd_in, int count_pipes);
-void	child_process(t_commands *command, int fd_in, int command_count);
-int		count_commands(t_commands *command);
-void	free_double_pointer_array(char **arr);
-bool	is_between_single_quotes(char *str);
-void	check_permissions(t_commands *command, char *string);
-void	ft_token_addback(t_token **token, t_token *new);
-void	free_tokens(t_token *token);
-void	ft_expander_heredoc(t_commands *commands);
-char	*needs_expansion(char *input, t_commands *command);
-char	*expand_variable(char *string, int i, t_commands *commands);
-char	*expand_exit_code(char *string);
-bool is_dollar_outside_single_quotes(char *str);
-void	main_signal(int signum);
-void	ft_handle_signals(int id);
-t_token	*check_redir_syntax(t_token *token);
-bool	redir_valid(t_token *token);
-t_type	ft_token_type(char *word);
-t_token	*ft_new_token(char *str, int flag);
+bool		files_exist(t_token *token);
+char		*extract_home_path(const char *pwd);
+void		heredoc_files(t_commands *command, int flag);
+void		ft_expand_others(t_commands *commands);
+void		parent_process(int fd_in, int count_pipes);
+void		child_process(t_commands *command, int fd_in, int command_count);
+int			count_commands(t_commands *command);
+void		free_double_pointer_array(char **arr);
+bool		is_between_single_quotes(char *str);
+void		check_permissions(t_commands *command, char *string);
+void		ft_token_addback(t_token **token, t_token *new);
+void		free_tokens(t_token *token);
+void		ft_expander_heredoc(t_commands *commands);
+char		*needs_expansion(char *input, t_commands *command);
+char		*expand_variable(char *string, int i, t_commands *commands);
+char		*expand_exit_code(char *string);
+bool		is_dollar_outside_single_quotes(char *str);
+void		main_signal(int signum);
+void		ft_handle_signals(int id);
+t_token		*check_redir_syntax(t_token *token);
+bool		redir_valid(t_token *token);
+t_type		ft_token_type(char *word);
+t_token		*ft_new_token(char *str, int flag);
 
-void	update_or_add_env(t_commands *command, char *key, char *value);
-bool	is_invalid_token(char *str);
-int compare_keys(const char *a, const char *b);
-void swap_nodes(t_env *a, t_env *b);
-t_env	*order_list(t_env *env);
-t_env	*dup_list(t_env *env);
-void	handle_export_token(t_commands *command, t_token *token);
-void	print_env(t_env *env);
-void	handle_env_update(t_commands *command, char *key, char *equal_sign);
-bool	validate_and_handle_key(char **key, char *equal_sign, t_token *token);
-int check_unset(t_token *head);
-void handle_child_execution(t_commands *command, t_commands *head, char **arr, char **arr_command, char **arr_env);
-void cleanup_exec(char **arr_command, char **arr_env, char **arr);
-void handle_child_process(t_commands *command, t_commands *head);
-int is_relative_path(const char *path);
-int is_absolute_path(const char *path);
-void ft_exec_command(t_commands *command, t_commands *head);
-void	exec_exit_status(int status);
-void	execute_with_path(char **path_arr, char *token_content,
-char **arr_command, char **arr_env);
-void	free_all_memory(char **arr_env, char **arr, char **arr_command);
-int handle_redir_in(t_token *token);
-int handle_redir_out2(t_token *token);
-int handle_redir_out(t_token *token);
-void handle_parent_pipes(int pipes[], int *fd_in);
-void process_child(t_commands *command, t_commands *head, int fd_in, int pipes[], int i, int command_count);
-char	*store_value(char *string);
-char	*expand_new_string(char *value, char *key, char *string);
-int	calculate_extra_length(char *string, int num_len);
-void process_token(t_token *token, t_commands *commands);
-char *process_token_content(char *content, t_commands *commands);
-size_t	get_new_string_length(char *value, char *key, char *string);
-char	*allocate_new_string(size_t length);
-void	replace_value_with_key(char **new_string, char *value, char *key, char *string);
-bool	check_quotes(char *str);
-char *replace_variable(char *string, char *key, char *value, int i);
-void	copy_key_to_new_string(char *new_string, int *j, char *key);
-char *perform_variable_replacement(char *string, char *key, char *value, int i);
-bool	is_dollar_outside_single_quotes(char *str);
-char *ft_strpbrk(char *s, char *delims);
+void		update_or_add_env(t_commands *command, char *key, char *value);
+bool		is_invalid_token(char *str);
+int			compare_keys(const char *a, const char *b);
+void		swap_nodes(t_env *a, t_env *b);
+t_env		*order_list(t_env *env);
+t_env		*dup_list(t_env *env);
+void		handle_export_token(t_commands *command, t_token *token);
+void		print_env(t_env *env);
+void		handle_env_update(t_commands *command, char *key, char *equal_sign);
+bool		validate_and_handle_key(char **key,
+				char *equal_sign, t_token *token);
+int			check_unset(t_token *head);
+void		cleanup_exec(char **arr_command, char **arr_env, char **arr);
+void		handle_child_process(t_commands *command, t_commands *head);
+int			is_relative_path(const char *path);
+int			is_absolute_path(const char *path);
+void		ft_exec_command(t_commands *command, t_commands *head);
+void		exec_exit_status(int status);
+void		execute_with_path(char **path_arr, char *token_content,
+				char **arr_command, char **arr_env);
+void		free_all_memory(char **arr_env, char **arr, char **arr_command);
+int			handle_redir_in(t_token *token);
+int			handle_redir_out2(t_token *token);
+int			handle_redir_out(t_token *token);
+void		handle_parent_pipes(int pipes[], int *fd_in);
+char		*store_value(char *string);
+char		*expand_new_string(char *value, char *key, char *string);
+int			calculate_extra_length(char *string, int num_len);
+void		process_token(t_token *token, t_commands *commands);
+char		*process_token_content(char *content, t_commands *commands);
+size_t		get_new_string_length(char *value, char *key, char *string);
+char		*allocate_new_string(size_t length);
+void		replace_value_with_key(char **new_string, char *value,
+				char *key, char *string);
+bool		check_quotes(char *str);
+char		*replace_variable(char *string, char *key, char *value, int i);
+void		copy_key_to_new_string(char *new_string, int *j, char *key);
+char		*perform_variable_replacement(char *string, char *key,
+				char *value, int i);
+bool		is_dollar_outside_single_quotes(char *str);
+char		*ft_strpbrk(char *s, char *delims);
 #endif
