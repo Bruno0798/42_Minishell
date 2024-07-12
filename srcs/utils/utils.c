@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 10:05:44 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:58:05 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,7 @@ char	**ft_lst_to_arr(t_token *token)
 
 	if (!token)
 		return (NULL);
-	i = 0;
-	tmp = token;
-	while (tmp)
-	{
-		if (tmp->type == redir_out || tmp->type == redir_out2 || tmp->type == redir_in)
-			break ;
-		i++;
-		tmp = tmp->next;
-	}
+	i = ft_token_size(token);
 	arr = malloc(sizeof(char *) * (i + 1));
 	if (!arr)
 		return (NULL);
@@ -36,14 +28,10 @@ char	**ft_lst_to_arr(t_token *token)
 	i = 0;
 	while (tmp)
 	{
-		if (tmp->type == redir_out || tmp->type == redir_out2 || tmp->type == redir_in)
-			break ;
 		arr[i] = ft_strdup(tmp->content);
 		if (!arr[i])
 		{
-			while (i > 0)
-				free(arr[--i]);
-			free(arr);
+			free_double_pointer_array(arr);
 			return (NULL);
 		}
 		i++;
@@ -81,4 +69,39 @@ bool	ft_has_special_char(char *str)
 		if (!(ft_isalnum(str[i]) || str[i] == '_'))
 			return (true);
 	return (false);
+}
+
+void	ft_remove_quotes(t_commands *commands)
+{
+	t_token		*curr;
+	t_commands	*head;
+
+	head = commands;
+	while (head != NULL)
+	{
+		curr = head->token;
+		while (curr)
+		{
+			if ((curr->type == command || curr->type == files)
+				&& is_between_quotes(curr->content))
+				curr->content = ft_delete_quotes(curr->content);
+			curr = curr->next;
+		}
+		head = head->next;
+	}
+}
+
+int	count_commands(t_commands *command)
+{
+	int			count;
+	t_commands	*token;
+
+	count = 0;
+	token = command;
+	while (token)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
 }

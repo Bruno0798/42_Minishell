@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/11 18:44:53 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:39:58 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,4 +376,5 @@ char		*perform_variable_replacement(char *string, char *key,
 				char *value, int i);
 bool		is_dollar_outside_single_quotes(char *str);
 char		*ft_strpbrk(char *s, char *delims);
+int			ft_token_size(t_token *token);
 #endif
