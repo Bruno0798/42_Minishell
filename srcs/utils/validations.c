@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 17:03:21 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:04:01 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,15 @@ bool	syntax_checker(char *input)
 		&& *input != '|')
 	{
 		if (ft_strcmp("<", input) && ft_strcmp(">", input)
-			&& !(ft_strchr(input, '|') && *(ft_strchr(input, '|') + 1) == '|'))
+			&& !(ft_strpbrk(input, "|")
+				&& *(ft_strpbrk(input, "|") + 1) == '|'))
 		{
 			free(input);
 			return (true);
 		}
 	}
-	if (ft_strchr(input, '|')
-		&& *(ft_strchr(input, '|') + 1) == '|')
+	if (ft_strpbrk(input, "|")
+		&& *(ft_strpbrk(input, "|") + 1) == '|')
 		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
 		print_error(ERROR_PIPE, NULL, 2);

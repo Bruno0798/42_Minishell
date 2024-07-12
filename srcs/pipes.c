@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipes.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 18:15:49 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:58:12 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	open_pipes(t_commands *command)
 void	parent_process(int fd_in, int count_pipes)
 {
 	int	i;
-	int status;
+	int	status;
 
 	i = 0;
 	close(fd_in);
@@ -43,12 +43,11 @@ void	parent_process(int fd_in, int count_pipes)
 		wait(&status);
 		if (WIFSIGNALED(status))
 		{
-		    if(WTERMSIG(status) == 2)
+			if (WTERMSIG(status) == 2)
 				printf("\n");
 			else
 				printf("Quit Core Dump.");
 		}
-
 		i++;
 	}
 }

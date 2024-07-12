@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:34:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 14:36:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:22:26 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,28 +64,28 @@ char	*needs_expansion(char *input, t_commands *command)
 			double_quotes = !double_quotes;
 		else if (input[i] == '$' && !single_quotes)
 		{
-			if (input[i + 1] != ' ' && input[i + 1] != '\'' && input[i + 1] != '\"')
+			if (!ft_strchr("'\"", input[i + 1]) && input[i + 1] != ' ')
 			{
 				length = ft_strlen(input);
 				input = expand_variable(input, i, command);
 				i += ft_strlen(input) - length;
 			}
 		}
-		if (i > ft_strlen(input))
+		if (i > (int)ft_strlen(input))
 			break ;
 	}
 	return (input);
 }
 
-char *expand_variable(char *string, int i, t_commands *commands)
+char	*expand_variable(char *string, int i, t_commands *commands)
 {
-	char *value;
-	char *key;
-	char *new_string;
+	char	*value;
+	char	*key;
+	char	*new_string;
 
 	key = store_value(&string[i]);
 	if (!key)
-		return NULL;
+		return (NULL);
 	value = ft_get_value(commands->env, key);
 	if (!value)
 		value = "";
@@ -95,17 +95,18 @@ char *expand_variable(char *string, int i, t_commands *commands)
 	return (new_string);
 }
 
-char *replace_variable(char *string, char *key, char *value, int i)
+char	*replace_variable(char *string, char *key, char *value, int i)
 {
-	char *new_string;
-	int h;
-	int k;
-	int j;
+	char	*new_string;
+	int		h;
+	int		k;
+	int		j;
 
 	h = 0;
 	k = 0;
 	j = 0;
-	new_string = malloc(ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1);
+	new_string = malloc(ft_strlen(string)
+			- ft_strlen(key) + ft_strlen(value) + 1);
 	while (string[h])
 	{
 		if (string[h] == '$' && ft_strncmp(&string[h + 1], key, ft_strlen(key)) == 0 && i == h)

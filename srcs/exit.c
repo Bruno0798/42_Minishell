@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/06/28 18:56:20 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:04:42 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,12 @@ void	print_error(char *msg, char *key, int exit_code)
 	if (key)
 	{
 		if (msg)
-			ft_fprintf(2,"%s: %s: %s\n", ERROR_TITLE, key, msg);
+			ft_fprintf(2, "%s: %s: %s\n", ERROR_TITLE, key, msg);
 		else
-			ft_fprintf(2,"%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
+			ft_fprintf(2, "%s: %s `%s'\n", ERROR_TITLE, ERROR_SYNTAX, key);
 	}
 	else
-		ft_fprintf(2,"%s: %s\n", ERROR_TITLE, msg);
+		ft_fprintf(2, "%s: %s\n", ERROR_TITLE, msg);
 	g_exit_status = exit_code;
 }
 

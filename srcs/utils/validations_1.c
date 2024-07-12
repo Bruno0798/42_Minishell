@@ -3,14 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   validations_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 14:21:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:26:45 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	check_pipes(char *input)
+{
+	char	*str;
+	char	*next;
+	char	*content;
+
+	str = input;
+	while (str)
+	{
+		next = ft_strpbrk(str, "|");
+		if (!next)
+			return (1);
+		content = ft_substr(str, 0, next - str);
+		if(is_everything_space(content))
+		{
+			free(content);
+			free(input);
+			return (0);
+		}
+		free(content);
+		str = next + 1;
+	}
+	return (1);
+}
 
 bool	is_valid_input(char *input, t_env *env)
 {
@@ -26,6 +51,11 @@ bool	is_valid_input(char *input, t_env *env)
 		return (false);
 	if (check_quotes(input))
 		return (false);
+	if (!check_pipes(input))
+	{
+		ft_fprintf(2, "???\n");
+		return (false);
+	}
 	return (true);
 }
 

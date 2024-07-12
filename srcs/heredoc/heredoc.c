@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 16:36:09 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:05:29 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ bool	files_exist(t_token *token)
 			if (fd == -1)
 			{
 				exist = false;
-				print_error(ERROR_DIR, NULL, 1);
+				// print_error(ERROR_DIR, NULL, 1);
 			}
 		}
 		curr = curr->next;

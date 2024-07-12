@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/11 17:48:18 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 10:05:51 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_check_redirect(t_commands *command)
 		if (temp->type == error)
 		{
 			print_error(ERROR_REDIR, NULL, 2);
-			return 0;
+			return (0);
 		}
 		if (temp->type == redir_out || temp->type == redir_out2
 			|| temp->type == redir_in)

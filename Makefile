@@ -30,7 +30,7 @@ AR      = ar -rcs
 #·                                                                                           ·#
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
-CFLAGS  = -g #TODO DONT FORGET THE FLAGS
+CFLAGS  = -g -Wall -Werror -Wextra #TODO DONT FORGET THE FLAGS
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
 
@@ -45,7 +45,7 @@ SRC_DIR = srcs
 OBJ_DIR = obj
 LIBFT   = libft
 LIBFT_LIB = $(LIBFT)/libft.a
-LIBS = -ltermcap -lncurses -lreadline
+LIBS =  -lncurses -lreadline
 LIBS_MAC = -ltermcap -lncurses -L/opt/homebrew/opt/readline/lib -lreadline
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
