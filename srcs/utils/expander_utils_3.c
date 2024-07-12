@@ -35,3 +35,16 @@ void	replace_value_with_key(char **new_string,
 	}
 	*new_string[j] = '\0';
 }
+
+char	*process_token_content(char *content, t_commands *commands)
+{
+	char	*dollar_pos;
+
+	dollar_pos = ft_strchr(content, '$');
+	if (*(dollar_pos + 1) == '?')
+		return (expand_exit_code(content));
+	else if (isdigit(*(dollar_pos + 1)))
+		return (expand_number(content));
+	else
+		return (needs_expansion(content, commands));
+}

@@ -24,9 +24,9 @@ void	main_signal(int signum)
 	}
 }
 
-void fork_signal(int signum)
+void	fork_signal(int signum)
 {
-	if(signum == SIGINT)
+	if (signum == SIGINT)
 		write(STDERR_FILENO, "\n", 1);
 	else if (signum == SIGQUIT)
 		write(STDERR_FILENO, "Quit (core dumped)\n", 19);

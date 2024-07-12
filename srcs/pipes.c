@@ -6,19 +6,19 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 12:37:52 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:22:29 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	close_pipes(int pipes[]);
+void	close_pipes(int pipes[], int fd_in, int option);
 void	setup_pipes(int pipes[], int i, int fd_in, int command_count);
 
 void	open_pipes(t_commands *command)
 {
 	int	fd_in;
-	int pid_pipe;
+	int	pid_pipe;
 	int	pipes_count;
 
 	pipes_count = count_commands(command);
@@ -70,14 +70,12 @@ int	child_process(t_commands *command, int fd_in, int command_count)
 		if (pid == 0)
 		{
 			setup_pipes(pipes, i, fd_in, command_count);
-			close_pipes(pipes);
-			close(fd_in);
+			close_pipes(pipes, fd_in, 1);
 			ft_execute(command, head);
-			free_all(head, 2);
-			exit(g_exit_status);
+			free_all(head, 3);
 		}
 		dup2(pipes[0], fd_in);
-		close_pipes(pipes);
+		close_pipes(pipes, fd_in, 0);
 		command = command->next;
 	}
 	return (pid);
@@ -91,8 +89,10 @@ void	setup_pipes(int pipes[], int i, int fd_in, int command_count)
 		dup2(pipes[1], STDOUT_FILENO);
 }
 
-void	close_pipes(int pipes[])
+void	close_pipes(int pipes[], int fd_in, int option)
 {
 	close(pipes[0]);
 	close(pipes[1]);
+	if (option)
+		close(fd_in);
 }

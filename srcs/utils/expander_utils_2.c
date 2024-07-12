@@ -94,7 +94,7 @@ size_t	get_new_string_length(char *value, char *key, char *string)
 	return (ft_strlen(string) - ft_strlen(value) + ft_strlen(key) + 1);
 }
 
-char	*allocate_new_string(size_t length)
+char	*ft_allocate_new_string(size_t length)
 {
 	char	*new_string;
 

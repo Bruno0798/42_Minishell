@@ -81,7 +81,7 @@ char	*expand_new_string(char *value, char *key, char *string)
 	char	*new_string;
 
 	new_string_length = get_new_string_length(value, key, string);
-	new_string = allocate_new_string(new_string_length);
+	new_string = ft_allocate_new_string(new_string_length);
 	if (!new_string)
 		return (NULL);
 	replace_value_with_key(&new_string, value, key, string);

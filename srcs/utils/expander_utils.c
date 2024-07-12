@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:34:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 12:04:28 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 14:11:55 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,101 +46,26 @@ char	*ft_get_value(t_env *env, char *key)
 	return (NULL);
 }
 
-char	*needs_expansion(char *input, t_commands *command)
+void	handle_quotes(char c, bool *single_quotes, bool *double_quotes)
 {
-	bool	single_quotes;
-	bool	double_quotes;
-	int		i;
+	if (c == '\'' && !*double_quotes)
+		*single_quotes = !*single_quotes;
+	else if (c == '"' && !*single_quotes)
+		*double_quotes = !*double_quotes;
+}
+
+bool	should_expand(char c, bool single_quotes)
+{
+	return (c == '$' && !single_quotes);
+}
+
+char	*process_expansion(char *input, size_t *i, t_commands *command)
+{
 	int		length;
+	char	*new_input;
 
-	single_quotes = false;
-	double_quotes = false;
-	i = -1;
-	while (input[++i])
-	{
-		if (input[i] == '\'' && !double_quotes)
-			single_quotes = !single_quotes;
-		else if (input[i] == '"' && !single_quotes)
-			double_quotes = !double_quotes;
-		else if (input[i] == '$' && !single_quotes)
-		{
-			if (!ft_strchr("'\"", input[i + 1]) && input[i + 1] != ' ')
-			{
-				length = ft_strlen(input);
-				input = expand_variable(input, i, command);
-				i += ft_strlen(input) - length;
-			}
-		}
-		if (i > (int)ft_strlen(input))
-			break ;
-	}
-	return (input);
-}
-
-char	*expand_variable(char *string, int i, t_commands *commands)
-{
-	char	*value;
-	char	*key;
-	char	*new_string;
-
-	key = store_value(&string[i]);
-	if (!key)
-		return (NULL);
-	value = ft_get_value(commands->env, key);
-	if (!value)
-		value = "";
-	new_string = replace_variable(string, key, value, i);
-	free(key);
-	free(string);
-	return (new_string);
-}
-
-char	*replace_variable(char *string, char *key, char *value, int i)
-{
-	char	*new_string;
-	int		h;
-	int		k;
-	int		j;
-
-	h = 0;
-	k = 0;
-	j = 0;
-	new_string = malloc(ft_strlen(string)
-			- ft_strlen(key) + ft_strlen(value) + 1);
-	while (string[h])
-	{
-		if (string[h] == '$' && ft_strncmp(&string[h + 1], key, ft_strlen(key)) == 0 && i == h)
-		{
-			h += ft_strlen(key) + 1;
-			while (value[k])
-				new_string[j++] = value[k++];
-			while (string[h])
-				new_string[j++] = string[h++];
-			break ;
-		}
-		new_string[j++] = string[h++];
-	}
-	new_string[j] = '\0';
-	return (new_string);
-}
-
-bool	is_dollar_outside_single_quotes(char *str)
-{
-	bool	s_quote;
-	bool	d_quote;
-	int		i;
-
-	i = -1;
-	s_quote = false;
-	d_quote = false;
-	while (str[++i])
-	{
-		if (str[i] == DOUBLE_QUOTE)
-			d_quote = !d_quote;
-		if (str[i] == SINGLE_QUOTE && !d_quote)
-			s_quote = !s_quote;
-		else if (str[i] == '$' && !s_quote)
-			return (true);
-	}
-	return (false);
+	length = ft_strlen(input);
+	new_input = expand_variable(input, *i, command);
+	*i += ft_strlen(new_input) - length;
+	return (new_input);
 }

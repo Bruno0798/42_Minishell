@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:49:13 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/02 16:57:22 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 13:20:14 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,6 @@ void	ft_free_commands(t_commands *command, int option)
 			free(current);
 		current = next;
 	}
+	if (option == 3)
+		exit(g_exit_status);
 }

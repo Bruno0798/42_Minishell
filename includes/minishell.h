@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/11 18:44:53 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 15:22:01 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -316,7 +316,7 @@ char		*extract_home_path(const char *pwd);
 void		heredoc_files(t_commands *command, int flag);
 void		ft_expand_others(t_commands *commands);
 void		parent_process(int fd_in, int count_pipes, int fork_pid);
-int		child_process(t_commands *command, int fd_in, int command_count);
+int			child_process(t_commands *command, int fd_in, int command_count);
 int			count_commands(t_commands *command);
 void		free_double_pointer_array(char **arr);
 bool		is_between_single_quotes(char *str);
@@ -366,7 +366,6 @@ int			calculate_extra_length(char *string, int num_len);
 void		process_token(t_token *token, t_commands *commands);
 char		*process_token_content(char *content, t_commands *commands);
 size_t		get_new_string_length(char *value, char *key, char *string);
-char		*allocate_new_string(size_t length);
 void		replace_value_with_key(char **new_string, char *value,
 				char *key, char *string);
 bool		check_quotes(char *str);
@@ -377,4 +376,22 @@ char		*perform_variable_replacement(char *string, char *key,
 bool		is_dollar_outside_single_quotes(char *str);
 char		*ft_strpbrk(char *s, char *delims);
 int			ft_token_size(t_token *token);
+void		ft_empty_nodes(t_commands *commands);
+char		*expand_number(char *content);
+void		copy_value_to_new_string(char *new_string, char *value, int *j);
+void		copy_remaining_string(char *new_string, char *string,
+				int *h, int *j);
+char		*allocate_new_string(char *string, char *key, char *value);
+char		*ft_allocate_new_string(size_t length);
+char		*process_expansion(char *input, size_t *i, t_commands *command);
+bool		should_expand(char c, bool single_quotes);
+void		handle_quotes(char c, bool *single_quotes, bool *double_quotes);
+size_t		word_count(char const *s, char c);
+void		free_split(char **arr, size_t j);
+size_t		letters_in_word(char const *s, char c, size_t i);
+t_commands	*ft_new_commands(char *str, t_env *env);
+void		ft_free_command(t_commands *command);
+void		cleanup(t_commands *command, char *str, char **words);
+void		set_null(t_commands **commands, t_token **head,
+				t_token **current, char ***words);
 #endif

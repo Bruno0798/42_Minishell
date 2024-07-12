@@ -25,56 +25,6 @@ int	count_pipes(char *str)
 	return (count);
 }
 
-t_commands	*ft_new_commands(char *str, t_env *env)
-{
-	t_commands	*command;
-	t_token		*head;
-	t_token		*current;
-	char		**words;
-	int			i;
-
-	i = 0;
-	if (is_everything_space(str))
-		return (NULL);
-	command = malloc(sizeof(t_commands));
-	command->env = env;
-	words = ft_split2(str, SPACE);
-	head = ft_new_token(words[0], 1);
-	if (head == NULL)
-	{
-		free(str);
-		free(words);
-		return (NULL);
-	}
-	current = head;
-	while (current->next)
-		current = current->next;
-	while (words[++i])
-	{
-		current->next = ft_new_token(words[i], 1);
-		if (current->next == NULL)
-		{
-			free(str);
-			free(words);
-			return (NULL);
-		}
-		current = current->next;
-		while (current->next)
-			current = current->next;
-	}
-	command->token = head;
-	command->next = NULL;
-	free(str);
-	free(words);
-	while (head)
-	{
-		if (head->next && head->type != 1 && head->type != 2 && head->type != 3)
-			head->next->type = 3;
-		head = head->next;
-	}
-	return (command);
-}
-
 t_commands	*pipe_commands(char *str, t_env *env)
 {
 	t_commands	*command;
