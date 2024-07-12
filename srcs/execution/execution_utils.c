@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 20:23:12 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 20:23:12 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:13:32 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_exec_command(t_commands *command, t_commands *head)
 	char	**arr_env;
 
 	content = command->token->content;
+	ft_handle_signals(CHILD);
 	pid = fork();
 	if (pid == 0)
 	{
@@ -48,13 +49,5 @@ void	exec_exit_status(int status)
 	{
 		exit_status = WEXITSTATUS(status);
 		g_exit_status = exit_status;
-	}
-	else if (WIFSIGNALED(status))
-	{
-		exit_status = WTERMSIG(status);
-		if (exit_status == 3)
-			printf("Quit (core dumped)");
-		printf("\n");
-		g_exit_status = 128 + exit_status;
 	}
 }

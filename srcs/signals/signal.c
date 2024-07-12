@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 14:55:13 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/04 11:16:49 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:21:24 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ void	main_signal(int signum)
 		rl_redisplay();
 		g_exit_status = 130;
 	}
+}
+
+void fork_signal(int signum)
+{
+	if(signum == SIGINT)
+		write(STDERR_FILENO, "\n", 1);
+	else if (signum == SIGQUIT)
+		write(STDERR_FILENO, "Quit (core dumped)\n", 19);
 }
 
 void	pipe_signal(int signum)
@@ -45,8 +53,8 @@ void	ft_handle_signals(int id)
 	}
 	else if (id == CHILD)
 	{
-		signal(SIGINT, SIG_DFL);
-		signal(SIGQUIT, SIG_DFL);
+		signal(SIGINT, fork_signal);
+		signal(SIGQUIT, fork_signal);
 		signal(SIGPIPE, pipe_signal);
 	}
 	else if (id == HERE_DOC)

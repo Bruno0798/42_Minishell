@@ -24,8 +24,15 @@
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft" beforeDir="false" afterPath="$PROJECT_DIR$/libft" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/libft/ft_str/ft_substr.c" beforeDir="false" afterPath="$PROJECT_DIR$/libft/ft_str/ft_substr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/builtins/export_utils_2.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/export_utils_2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/execution/execution.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/execution/execution_utils.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/execution/execution_utils.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/pipes.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/pipes.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/signals/signal.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/signals/signal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -205,6 +212,7 @@
       <workItem from="1720696038138" duration="21313000" />
       <workItem from="1720725947570" duration="848000" />
       <workItem from="1720727222141" duration="443000" />
+      <workItem from="1720776953824" duration="7454000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed error on echo when it had SINGLE QUOTES">
       <option name="closed" value="true" />

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:13:00 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 20:21:51 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:12:49 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	ft_exec_abs(t_commands *command, t_commands *head)
 
 	arr_command = ft_lst_to_arr(command->token);
 	arr_env = ft_env_to_arr(command->env);
+	ft_handle_signals(CHILD);
 	pid = fork();
 	if (pid == 0)
 	{

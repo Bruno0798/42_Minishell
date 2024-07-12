@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/11 18:44:53 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 12:37:34 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -315,8 +315,8 @@ bool		files_exist(t_token *token);
 char		*extract_home_path(const char *pwd);
 void		heredoc_files(t_commands *command, int flag);
 void		ft_expand_others(t_commands *commands);
-void		parent_process(int fd_in, int count_pipes);
-void		child_process(t_commands *command, int fd_in, int command_count);
+void		parent_process(int fd_in, int count_pipes, int fork_pid);
+int		child_process(t_commands *command, int fd_in, int command_count);
 int			count_commands(t_commands *command);
 void		free_double_pointer_array(char **arr);
 bool		is_between_single_quotes(char *str);

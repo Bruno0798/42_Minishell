@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:44:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 07:58:12 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/12 12:37:52 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,41 +18,42 @@ void	setup_pipes(int pipes[], int i, int fd_in, int command_count);
 void	open_pipes(t_commands *command)
 {
 	int	fd_in;
+	int pid_pipe;
 	int	pipes_count;
 
 	pipes_count = count_commands(command);
 	if (pipes_count > 1)
 	{
 		fd_in = dup(STDIN_FILENO);
-		child_process(command, fd_in, pipes_count);
-		parent_process(fd_in, pipes_count);
+		pid_pipe = child_process(command, fd_in, pipes_count);
+		parent_process(fd_in, pipes_count, pid_pipe);
 	}
 	else
 		ft_execute(command, command);
 }
 
-void	parent_process(int fd_in, int count_pipes)
+void	parent_process(int fd_in, int count_pipes, int fork_pid)
 {
 	int	i;
 	int	status;
 
 	i = 0;
 	close(fd_in);
+	if (waitpid(fork_pid, &status, 0) != -1)
+	{
+		if (WIFEXITED(status))
+			g_exit_status = WEXITSTATUS(status);
+		else if (WIFSIGNALED(status))
+			g_exit_status = WTERMSIG(status) + 128;
+	}
 	while (i < count_pipes)
 	{
 		wait(&status);
-		if (WIFSIGNALED(status))
-		{
-			if (WTERMSIG(status) == 2)
-				printf("\n");
-			else
-				printf("Quit Core Dump.");
-		}
 		i++;
 	}
 }
 
-void	child_process(t_commands *command, int fd_in, int command_count)
+int	child_process(t_commands *command, int fd_in, int command_count)
 {
 	int			i;
 	int			pipes[2];
@@ -63,12 +64,11 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 	head = command;
 	while (++i < command_count)
 	{
-		pipe(pipes);
 		ft_handle_signals(IGNORE);
+		pipe(pipes);
 		pid = fork();
 		if (pid == 0)
 		{
-			ft_handle_signals(CHILD);
 			setup_pipes(pipes, i, fd_in, command_count);
 			close_pipes(pipes);
 			close(fd_in);
@@ -80,6 +80,7 @@ void	child_process(t_commands *command, int fd_in, int command_count)
 		close_pipes(pipes);
 		command = command->next;
 	}
+	return (pid);
 }
 
 void	setup_pipes(int pipes[], int i, int fd_in, int command_count)
