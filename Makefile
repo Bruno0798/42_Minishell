@@ -45,7 +45,7 @@ SRC_DIR = srcs
 OBJ_DIR = obj
 LIBFT   = libft
 LIBFT_LIB = $(LIBFT)/libft.a
-LIBS = -ltermcap -lncurses -lreadline
+LIBS =  -lncurses -lreadline
 LIBS_MAC = -ltermcap -lncurses -L/opt/homebrew/opt/readline/lib -lreadline
 
 #· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#

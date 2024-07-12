@@ -75,14 +75,14 @@ bool	syntax_checker(char *input)
 		&& *input != '|')
 	{
 		if (ft_strcmp("<", input) && ft_strcmp(">", input)
-			&& !(ft_strchr(input, '|') && *(ft_strchr(input, '|') + 1) == '|'))
+			&& !(ft_strpbrk(input, "|") && *(ft_strpbrk(input, "|") + 1) == '|'))
 		{
 			free(input);
 			return (true);
 		}
 	}
-	if (ft_strchr(input, '|')
-		&& *(ft_strchr(input, '|') + 1) == '|')
+	if (ft_strpbrk(input, "|")
+		&& *(ft_strpbrk(input, "|") + 1) == '|')
 		print_error(ERROR_PIPE_2, NULL, 2);
 	else if (*input == '|')
 		print_error(ERROR_PIPE, NULL, 2);

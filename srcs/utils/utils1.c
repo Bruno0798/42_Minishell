@@ -120,6 +120,8 @@ t_commands	*ft_new_commands(char *str, t_env *env)
 	int			i;
 
 	i = 0;
+	if(is_everything_space(str))
+		return NULL;
 	command = malloc(sizeof(t_commands));
 	command->env = env;
 	words = ft_split2(str, SPACE);

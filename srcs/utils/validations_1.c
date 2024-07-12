@@ -12,6 +12,28 @@
 
 #include "../../includes/minishell.h"
 
+bool check_pipes(char *input)
+{
+	int saw_content = 0; // Flag to track if we saw non-space content
+	char	*str;
+
+	str = input;
+ 	while (*str != '\0')
+	{
+		if (isspace(*str)) 
+			;
+		else if (*str == '|') {
+			if (!saw_content) 
+				return 1;
+			saw_content = 0;
+		} 
+		else 
+			saw_content = 1;
+    	str++;
+	}
+	return (0);
+}
+
 bool	is_valid_input(char *input, t_env *env)
 {
 	if (!input)
@@ -26,6 +48,11 @@ bool	is_valid_input(char *input, t_env *env)
 		return (false);
 	if (check_quotes(input))
 		return (false);
+	if (check_pipes(input))
+	{
+		//print error message
+		return (false);
+	}
 	return (true);
 }
 
