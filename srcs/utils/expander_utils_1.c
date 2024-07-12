@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils_1.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:09:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 18:33:46 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:55:28 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-char	*expand_number(char *content, t_commands *commands)
+char	*expand_number(char *content)
 {
 	char	*result;
 	char	*start;
@@ -58,8 +58,8 @@ char	*store_value(char *string)
 
 	i = 1;
 	length = 0;
-	while (string[i] != '$' && string[i] != '\0' && string[i] != ' ' &&
-			ft_isalnum(string[i]))
+	while (string[i] != '$' && string[i] != '\0'
+		&& string[i] != ' ' && ft_isalnum(string[i]))
 	{
 		i++;
 		length++;

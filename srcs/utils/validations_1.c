@@ -3,36 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   validations_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/10 14:21:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:23:17 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool check_pipes(char *input)
-{
-	int saw_content = 0; // Flag to track if we saw non-space content
-	char	*str;
+// bool	check_pipes(char *input)
+// {
+// 	char	*str;
+// 	char	*next;
+// 	char	*content;
 
-	str = input;
- 	while (*str != '\0')
-	{
-		if (isspace(*str)) 
-			;
-		else if (*str == '|') {
-			if (!saw_content) 
-				return 1;
-			saw_content = 0;
-		} 
-		else 
-			saw_content = 1;
-    	str++;
-	}
-	return (0);
-}
+// 	str = input;
+// 	if (str)
+// 	{
+// 		next = ft_strpbrk(str, "|");
+// 		if (!next)
+// 			return (0);
+// 		content = ft_substr(str, 0, next - str);
+// 	}
+// 	return (0);
+// }
 
 bool	is_valid_input(char *input, t_env *env)
 {
@@ -48,11 +43,11 @@ bool	is_valid_input(char *input, t_env *env)
 		return (false);
 	if (check_quotes(input))
 		return (false);
-	if (check_pipes(input))
-	{
-		//print error message
-		return (false);
-	}
+//	if (check_pipes(input))
+//	{
+//		//print error message
+//		return (false);
+//	}
 	return (true);
 }
 

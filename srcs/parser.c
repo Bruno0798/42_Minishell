@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 17:05:35 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:53:05 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void ft_empty_nodes(t_commands *commands);
+void	ft_empty_nodes(t_commands *commands);
 
 bool	check_syntax(t_commands *commands)
 {
@@ -27,7 +27,10 @@ bool	check_syntax(t_commands *commands)
 		{
 			if (curr->type == redir_in || curr->type == redir_out)
 			{
-				if (curr->next && curr->next->type != command && curr->next->type != files || curr->next->type == redir_in2 || curr->next->type == redir_out2)
+				if (curr->next && curr->next->type != command
+					&& (curr->next->type != files
+						|| curr->next->type == redir_in2
+						|| curr->next->type == redir_out2))
 				{
 					ft_printf("error token: %s \n", curr->next->content);
 					return (true);
@@ -43,7 +46,7 @@ bool	check_syntax(t_commands *commands)
 int	ft_parser(char *input, t_commands **commands, t_env *env)
 {
 	*commands = pipe_commands(input, env);
-	if(*commands == NULL)
+	if (*commands == NULL)
 		return (EXIT_FAILURE);
 	if (check_syntax(*commands))
 		return (EXIT_FAILURE);
@@ -57,16 +60,22 @@ int	ft_parser(char *input, t_commands **commands, t_env *env)
 	return (EXIT_SUCCESS);
 }
 
-void ft_empty_nodes(t_commands *commands) {
-	t_commands *head = commands;
-	t_token *token_temp, *temp, *prev;
+void	ft_empty_nodes(t_commands *commands)
+{
+	t_commands	*head;
+	t_token		*token_temp;
+	t_token		*temp;
+	t_token		*prev;
 
-	while (commands) {
+	head = commands;
+	while (commands)
+	{
 		token_temp = commands->token;
 		prev = NULL;
 		while (commands->token != NULL)
 		{
-			if (commands->token->content != NULL && ft_strcmp(commands->token->content, "") == 0)
+			if (commands->token->content != NULL
+				&& ft_strcmp(commands->token->content, "") == 0)
 			{
 				temp = commands->token;
 				if (prev != NULL)
@@ -79,7 +88,8 @@ void ft_empty_nodes(t_commands *commands) {
 					commands->token = token_temp;
 				else
 					commands->token = prev->next;
-			}else
+			}
+			else
 			{
 				prev = commands->token;
 				commands->token = commands->token->next;
@@ -151,7 +161,8 @@ void	ft_remove_quotes(t_commands *commands)
 		curr = head->token;
 		while (curr)
 		{
-			if ((curr->type == command || curr->type == files) && is_between_quotes(curr->content))
+			if ((curr->type == command || curr->type == files)
+				&& is_between_quotes(curr->content))
 				curr->content = ft_delete_quotes(curr->content);
 			curr = curr->next;
 		}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
+/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/11 16:04:56 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/12 07:54:49 by bruno            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,20 +72,13 @@ void	check_permissions(t_commands *command, char *string)
 	exit(g_exit_status);
 }
 
-void	ft_token_addback(t_token **token, t_token *new)
+bool	ft_has_special_char(char *str)
 {
-	t_token	*temp;
+	int	i;
 
-	temp = *token;
-	if (token)
-	{
-		if (*token)
-		{
-			while (temp->next)
-				temp = temp->next;
-			temp->next = new;
-		}
-		else
-			*token = new;
-	}
+	i = -1;
+	while (str[++i])
+		if (!(ft_isalnum(str[i]) || str[i] == '_'))
+			return (true);
+	return (false);
 }
