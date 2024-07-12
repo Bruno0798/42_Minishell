@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 07:04:42 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:21:34 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,9 @@ void	ft_exit(t_commands *command, t_commands *head)
 	if (command->token->next)
 	{
 		if (command->token->next->next)
-		{
-			ft_fprintf(2, " too many arguments");
-			g_exit_status = 1;
-		}
-		else if (command->token->next->content && ft_isnum(command->token->next->content))
+			print_error(ERROR_ARG, NULL, 1);
+		else if (command->token->next->content
+			&& ft_isnum(command->token->next->content))
 		{
 			if (command->token->next->content[0] == '-')
 				g_exit_status = 256
@@ -32,10 +30,7 @@ void	ft_exit(t_commands *command, t_commands *head)
 				g_exit_status = ft_atoi(command->token->next->content);
 		}
 		else
-		{
-			ft_fprintf(2, " numeric argument required");
-			g_exit_status = 2;
-		}
+			print_error(ERROR_NUM, NULL, 2);
 	}
 	else
 		g_exit_status = 0;

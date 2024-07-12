@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 10:26:45 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/12 11:21:56 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	check_pipes(char *input)
 		if (!next)
 			return (1);
 		content = ft_substr(str, 0, next - str);
-		if(is_everything_space(content))
+		if (is_everything_space(content))
 		{
 			free(content);
 			free(input);

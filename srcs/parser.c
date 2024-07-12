@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 07:53:05 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/12 12:01:33 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,19 +105,23 @@ void	ft_expand_others(t_commands *commands)
 {
 	int		i;
 	t_token	*curr;
+	char	*str;
 
 	curr = commands->token;
 	while (curr)
 	{
 		i = -1;
-		while (curr->content[++i])
+		str = curr->content;
+		while (str[++i])
 		{
-			if ((curr->content[i] == '~') && (i == 0) && ft_get_value(commands->env, "HOME") && ((curr->content[i + 1] == ' ') || (curr ->content[i + 1] == '\0') || (curr->content[i + 1] == '/')))
-				curr->content = ft_strjoin(ft_get_value(commands->env, "HOME"), curr->content + 1);
-			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '+'))
-				curr->content = ft_strjoin(ft_get_value(commands->env, "PWD"), curr->content + 2);
-			else if ((curr->content[i] == '~') && (i == 0) && (curr->content[i + 1] == '-'))
-				curr->content = ft_strjoin(ft_get_value(commands->env, "OLDPWD"), curr->content + 2);
+			if ((str[i] == '~') && (i == 0)
+				&& ft_get_value(commands->env, "HOME") && ((str[i + 1] == ' ')
+					|| (curr ->content[i + 1] == '\0') || (str[i + 1] == '/')))
+				str = ft_strjoin(ft_get_value(commands->env, "HOME"), str + 1);
+			else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '+'))
+				str = ft_strjoin(ft_get_value(commands->env, "PWD"), str + 2);
+			else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '-'))
+				str = ft_strjoin(ft_get_value(commands->env, "OLDPWD"), str + 2);
 		}
 		curr = curr->next;
 	}
@@ -148,39 +152,4 @@ char	*ft_delete_quotes(char *input)
 	new_str[j] = '\0';
 	free(input);
 	return (new_str);
-}
-
-void	ft_remove_quotes(t_commands *commands)
-{
-	t_token		*curr;
-	t_commands	*head;
-
-	head = commands;
-	while (head != NULL)
-	{
-		curr = head->token;
-		while (curr)
-		{
-			if ((curr->type == command || curr->type == files)
-				&& is_between_quotes(curr->content))
-				curr->content = ft_delete_quotes(curr->content);
-			curr = curr->next;
-		}
-		head = head->next;
-	}
-}
-
-int	count_commands(t_commands *command)
-{
-	int			count;
-	t_commands	*token;
-
-	count = 0;
-	token = command;
-	while (token)
-	{
-		count++;
-		token = token->next;
-	}
-	return (count);
 }

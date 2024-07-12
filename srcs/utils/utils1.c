@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 21:14:51 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 07:54:10 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:44:32 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ t_token	*ft_new_token(char *str, int flag)
 	token->content = str;
 	token->type = ft_token_type(str);
 	token->next = NULL;
-	if ((ft_strchr(str, '<') || ft_strchr(str, '>')) && token->type == command && flag)
+	if (ft_strpbrk(str, "<>") && token->type == command && flag)
 		token = check_redir_syntax(token);
 	return (token);
 }
