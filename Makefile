@@ -117,7 +117,7 @@ valgrind: re
 	@clear
 	@echo "[$(RED)looking for valgrind leaks$(RESET)] $(GREEN)$(RESET)"
 	@sleep 1
-	@valgrind -s --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+	@valgrind -s --suppressions=readline.supp --leak-check=full --show-leak-kinds=all --track-fds=yes ./minishell
 
 .PHONY: all clean fclean re
 .SILENT:
