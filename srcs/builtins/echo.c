@@ -12,6 +12,8 @@
 
 #include "../../includes/minishell.h"
 
+static t_token	*while_option(t_token *token);
+
 void	print_token_content(t_token *token)
 {
 	int	i;
@@ -29,9 +31,9 @@ void	print_token_content(t_token *token)
 
 t_token	*process_options(t_token *token, int *flag)
 {
-	while (ft_strncmp(token->content, "-n", 2) == 0)
+	if (token->type == option)
 	{
-		token = token->next;
+		token = while_option(token);
 		*flag = 1;
 	}
 	return (token);
@@ -52,4 +54,11 @@ void	ft_echo(t_token *token)
 	if (!flag)
 		printf("\n");
 	g_exit_status = 0;
+}
+
+t_token	*while_option(t_token *token)
+{
+	while (token && token->type == option)
+		token = token->next;
+	return (token);
 }
