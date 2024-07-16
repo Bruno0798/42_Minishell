@@ -20,13 +20,16 @@ char	*expand_number(char *content)
 	start = ft_strchr(content, '$');
 	if (!start)
 		return (content);
-	if (content[1] == '0')
+	if (is_between_quotes(content))
 	{
-		result = ft_strdup("minishell");
-		return (result);
+		content = ft_delete_quotes(content);
+		start = ft_strchr(content, '$');
 	}
 	start += 2;
-	result = ft_strdup(start);
+	if (*(start - 1) == '0')
+		result = ft_strjoin("minishell", start);
+	else
+		result = ft_strdup(start);
 	free(content);
 	return (result);
 }
