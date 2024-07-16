@@ -84,7 +84,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT) --no-print-directory
-	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) $(LIBS_USED) -fsanitize=address-o $@
+	$(CC) $(CFLAGS) $(INCLUDE) $(OBJ) $(LIBFT_LIB) $(LIBS_USED) -o $@
 	@echo "$(GREEN)$(NAME)$(RESET) Created"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
