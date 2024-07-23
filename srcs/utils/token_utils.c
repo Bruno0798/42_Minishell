@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 06:57:17 by bruno             #+#    #+#             */
-/*   Updated: 2024/07/12 07:55:49 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/23 19:53:26 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ t_type	ft_token_type(char *word)
 		return (redir_in2);
 	if (!ft_strcmp(word, "<"))
 		return (redir_in);
-	if (!ft_strncmp(word, "-n", 2) && check_echo_option(word))
+	if ((!ft_strncmp(word, "-n", 2) && check_echo_option(word))
+		|| ft_check_option(word))
 		return (option);
 	if (!check_redirection(word))
 		return (error);

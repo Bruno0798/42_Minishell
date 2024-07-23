@@ -3,37 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 13:45:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 13:47:31 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:41:57 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+static char	*expand_value(t_commands *commands, t_token *curr, char *string);
+
 void	ft_expand_others(t_commands *commands)
 {
-	int		i;
 	t_token	*curr;
 	char	*str;
 
 	curr = commands->token;
 	while (curr)
 	{
-		i = -1;
 		str = curr->content;
-		while (str[++i])
+		str = expand_value(commands, curr, str);
+		if (curr->content != str)
 		{
-			if ((str[i] == '~') && (i == 0)
-				&& ft_get_value(commands->env, "HOME") && ((str[i + 1] == ' ')
-					|| (curr ->content[i + 1] == '\0') || (str[i + 1] == '/')))
-				str = ft_strjoin(ft_get_value(commands->env, "HOME"), str + 1);
-			else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '+'))
-				str = ft_strjoin(ft_get_value(commands->env, "PWD"), str + 2);
-			else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '-'))
-				str = ft_strjoin(ft_get_value(commands->env, "OLDPWD"),
-						str + 2);
+			free(curr->content);
+			curr->content = str;
 		}
 		curr = curr->next;
 	}
@@ -64,4 +58,24 @@ char	*ft_delete_quotes(char *input)
 	new_str[j] = '\0';
 	free(input);
 	return (new_str);
+}
+
+static char	*expand_value(t_commands *commands, t_token *curr, char	*str)
+{
+	int		i;
+
+	i = -1;
+	while (str[++i])
+	{
+		if ((str[i] == '~') && (i == 0)
+			&& ft_get_value(commands->env, "HOME") && ((str[i + 1] == ' ')
+				|| (curr ->content[i + 1] == '\0') || (str[i + 1] == '/')))
+			str = ft_strjoin(ft_get_value(commands->env, "HOME"), str + 1);
+		else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '+'))
+			str = ft_strjoin(ft_get_value(commands->env, "PWD"), str + 2);
+		else if ((str[i] == '~') && (i == 0) && (str[i + 1] == '-'))
+			str = ft_strjoin(ft_get_value(commands->env, "OLDPWD"),
+					str + 2);
+	}
+	return (str);
 }

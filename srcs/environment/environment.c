@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 19:34:14 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:44:39 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*extract_home_path(const char *pwd)
 				home = malloc(length + 1);
 				if (!home)
 					return (NULL);
-				ft_strlcpy(home, pwd, length);
+				ft_strlcpy(home, pwd, length + 1);
 				home[length] = '\0';
 			}
 		}

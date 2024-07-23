@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 14:00:00 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 20:02:01 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	heredoc_files(t_commands *command, int flag)
 {
 	int	flag_here;
 
+	flag_here = 0;
 	while (command)
 	{
 		if (flag == 1)

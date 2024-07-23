@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:11:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 17:27:24 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:47:52 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	update_env_vars(t_commands *commands, char *dir, int size)
 	ft_update_env(commands->env, "PWD", dir, 1);
 }
 
-void	handle_home_directory(t_commands *commands, char *pwd)
+void	handle_home_directory(t_commands *commands, char *pwd, size_t size)
 {
 	if (commands->token->next != NULL
 		&& !ft_strcmp(commands->token->next->content, "~"))
-		chdir(extract_home_path(getcwd(pwd, sizeof(pwd))));
+		chdir(extract_home_path(getcwd(pwd, size)));
 	else
 		print_error(ERROR_HOME, NULL, 1);
 }
@@ -80,7 +80,7 @@ void	ft_cd(t_commands *commands)
 		if (!commands->token->next
 			|| !ft_strcmp(commands->token->next->content, "~"))
 		{
-			handle_home_directory(commands, pwd);
+			handle_home_directory(commands, pwd, sizeof(pwd));
 			return ;
 		}
 		handle_cd_errors(commands);

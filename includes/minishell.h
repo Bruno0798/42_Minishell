@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/23 14:22:27 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:56:50 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -241,4 +241,6 @@ void		cleanup(t_commands *command, char *str, char **words);
 void		set_null(t_commands **commands, t_token **head,
 				t_token **current, char ***words);
 bool		ft_has_letters(char *str);
+int			ft_check_option(char *str);
+
 #endif

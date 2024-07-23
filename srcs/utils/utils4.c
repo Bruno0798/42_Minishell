@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:20:22 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 14:18:28 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 19:59:45 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,30 @@ bool	ft_has_letters(char *str)
 			return (false);
 		i++;
 	}
+	return (true);
+}
+
+int	ft_check_option(char *str)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	tmp = ft_strdup(str);
+	tmp = ft_delete_quotes(tmp);
+	if (tmp[0] != '-' || ft_strlen(tmp) == 1)
+	{
+		free(tmp);
+		return (false);
+	}
+	while (tmp[++i])
+	{
+		if (tmp[i] != 'n')
+		{
+			free(tmp);
+			return (false);
+		}
+	}
+	free(tmp);
 	return (true);
 }
