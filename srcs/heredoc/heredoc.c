@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 11:45:27 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:00:00 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,18 @@
 
 void	heredoc_files(t_commands *command, int flag)
 {
+	int	flag_here;
+
 	while (command)
 	{
 		if (flag == 1)
-			check_heredoc(command);
+			flag_here = check_heredoc(command);
 		else
 			files_exist(command->token);
 		command = command->next;
 	}
+	if (flag_here)
+		dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
 }
 
 bool	files_exist(t_token *token)
@@ -45,19 +49,24 @@ bool	files_exist(t_token *token)
 	return (exist);
 }
 
-void	check_heredoc(t_commands *command)
+int	check_heredoc(t_commands *command)
 {
 	t_token	*token;
+	int		flag;
 
+	flag = 0;
 	token = command->token;
 	while (token)
 	{
 		if (token->type == redir_in2 && token->next)
+		{
 			ft_heredoc(token->next->content, command);
+			flag = 1;
+		}
 		token = token->next;
 	}
-	dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
 	delete_redir(command);
+	return (flag);
 }
 
 void	ft_heredoc(char *delimiter, t_commands *command)

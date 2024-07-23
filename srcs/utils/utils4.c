@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:20:22 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 15:20:32 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/23 14:18:28 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,18 @@ void	set_null(t_commands **commands,
 	*head = NULL;
 	*current = NULL;
 	*words = NULL;
+}
+
+bool	ft_has_letters(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isdigit(str[i]))
+			return (false);
+		i++;
+	}
+	return (true);
 }

@@ -21,7 +21,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
-      <change beforePath="$PROJECT_DIR$/srcs/builtins/echo.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/builtins/echo.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/includes/minishell.h" beforeDir="false" afterPath="$PROJECT_DIR$/includes/minishell.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/exit.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/exit.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/heredoc/heredoc.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/utils/utils4.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/utils/utils4.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +88,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/bsousa-d/Desktop/42_Minishell",
+    "last_opened_file_path": "/home/bsousa-d/Desktop/BIGSHELL",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -176,6 +180,9 @@
       <workItem from="1720727222141" duration="443000" />
       <workItem from="1720776953824" duration="16165000" />
       <workItem from="1721147396376" duration="4000" />
+      <workItem from="1721397203388" duration="37000" />
+      <workItem from="1721423582410" duration="630000" />
+      <workItem from="1721738324494" duration="2623000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed error on echo when it had SINGLE QUOTES">
       <option name="closed" value="true" />
