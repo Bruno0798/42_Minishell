@@ -53,12 +53,10 @@ void	check_heredoc(t_commands *command)
 	while (token)
 	{
 		if (token->type == redir_in2 && token->next)
-		{
 			ft_heredoc(token->next->content, command);
-			dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
-		}
 		token = token->next;
 	}
+	dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
 	delete_redir(command);
 }
 

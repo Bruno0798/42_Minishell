@@ -1,8 +1,8 @@
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                        COLORS                                             ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                        COLORS                                             #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 RESET   = \033[0m
 BLACK   = \033[1;30m
@@ -14,32 +14,31 @@ PURPLE  = \033[1;35m
 CYAN    = \033[1;36m
 WHITE   = \033[1;37m
 
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                       COMMANDS                                            ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                       COMMANDS                                            #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 CC      = cc
 RM      = rm -rf
 AR      = ar -rcs
 
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                         FLAGS                                             ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                         FLAGS                                             #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 CFLAGS  = -g -Wall -Werror -Wextra #TODO DONT FORGET THE FLAGS
 INCLUDE = -I./includes
 INCLUDE += -I/opt/homebrew/opt/readline/include
 
-
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                        FOLDERS                                            ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                        FOLDERS                                            #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 SRC_DIR = srcs
 OBJ_DIR = obj
@@ -48,22 +47,35 @@ LIBFT_LIB = $(LIBFT)/libft.a
 LIBS =  -lncurses -lreadline
 LIBS_MAC = -ltermcap -lncurses -L/opt/homebrew/opt/readline/lib -lreadline
 
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                        FILES                                              ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                        FILES                                              #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 
 NAME    = minishell
-SRC = $(shell find $(SRC_DIR) -name '*.c' -type f)
+SRC_FILES = builtins/cd.c builtins/echo.c builtins/env.c builtins/export.c \
+		builtins/export_utils.c builtins/export_utils_2.c builtins/pwd.c \
+		builtins/unset.c environment/environment.c \
+		environment/environment_utils.c environment/environment_utils_2.c \
+		execution/execution.c execution/execution_utils.c execution/redir_handler.c \
+		execution/redir_handler_utils.c heredoc/heredoc.c heredoc/heredoc_utils.c \
+		signals/signal.c utils/expander.c utils/expander_utils.c utils/expander_utils_1.c \
+		utils/expander_utils_2.c utils/expander_utils_3.c utils/expander_utils_4.c utils/expander_utils_5.c \
+		utils/free.c utils/split2.c utils/split2_utils.c utils/split2_utils_2.c \
+		utils/token_utils.c utils/utils.c utils/utils1.c utils/utils2.c utils/utils3.c \
+		utils/utils4.c utils/validations.c utils/validations_1.c \
+		exit.c main.c parser.c parser_utils.c pipes.c redirections.c
+
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
+
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
-
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
-#·                                                                                           ·#
-#·                                         RULES                                             ·#
-#·                                                                                           ·#
-#· · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
+#                                                                                           #
+#                                         RULES                                             #
+#                                                                                           #
+# · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · · ·#
 OS := $(shell uname)
 
 ifeq ($(OS), Darwin)
@@ -71,8 +83,6 @@ ifeq ($(OS), Darwin)
 else
 	LIBS_USED = $(LIBS)
 endif
-
-
 
 all: $(NAME)
 	@printf "\n"
@@ -105,7 +115,7 @@ re: fclean all
 
 BUILDID=$(shell date +%Y%m%d-%H:%M:%S)
 
-commit:fclean
+commit: fclean
 	git add -A .
 	git commit -m 'Automatic commit of successful build $(BUILDID)'
 	git push origin main
