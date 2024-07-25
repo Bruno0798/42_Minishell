@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 10:25:44 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 19:44:39 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:22:20 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,34 +14,6 @@
 
 void	update_shlvl(t_env **env);
 t_env	*get_env_node(t_env *env, char *key);
-
-char	*extract_home_path(const char *pwd)
-{
-	char	*home;
-	char	*third_slash;
-	size_t	length;
-
-	home = NULL;
-	third_slash = ft_strchr(pwd, '/');
-	if (third_slash)
-	{
-		third_slash = ft_strchr(third_slash + 1, '/');
-		if (third_slash)
-		{
-			third_slash = ft_strchr(third_slash + 1, '/');
-			if (third_slash)
-			{
-				length = third_slash - pwd;
-				home = malloc(length + 1);
-				if (!home)
-					return (NULL);
-				ft_strlcpy(home, pwd, length + 1);
-				home[length] = '\0';
-			}
-		}
-	}
-	return (home);
-}
 
 void	init_env_from_system(t_env **env)
 {

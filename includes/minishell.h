@@ -159,7 +159,6 @@ void		heredoc_cycle(char *line, t_commands *commands);
 bool		has_here_doc(t_commands *commands);
 void		remake_commands(t_commands *command);
 bool		files_exist(t_token *token);
-char		*extract_home_path(const char *pwd);
 void		heredoc_files(t_commands *command, int flag);
 void		ft_expand_others(t_commands *commands);
 void		parent_process(int fd_in, int count_pipes, int fork_pid);
