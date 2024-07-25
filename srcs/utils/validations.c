@@ -18,7 +18,14 @@ bool	is_everything_space(char *str)
 
 	i = -1;
 	while (str[++i])
-		if (str[i] != ' ')
+	{
+		if (str[i] == '\t'
+			&& !is_char_between_quotes(str, str[i]))
+			str[i] = ' ';
+	}
+	i = -1;
+	while (str[++i])
+		if (str[i] != ' ' && str[i] != '\t')
 			return (false);
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 18:06:56 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:53:58 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,16 @@ void	heredoc_cycle(char *line, t_commands *commands)
 	int		fd;
 	char	*buff;
 
-	ft_handle_signals(HERE_DOC);
 	fd = open("heredoc.txt", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	buff = readline(">");
-	while (buff)
+	while (1)
 	{
-		if (!ft_strcmp(buff, line))
+		buff = readline(">");
+		if (buff == NULL || !ft_strcmp(buff, line))
+		{
+			if (buff == NULL)
+				eof_heredoc(line);
 			break ;
+		}
 		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1)
 			!= '\0' && is_dollar_outside_single_quotes(buff))
 		{
@@ -109,10 +112,7 @@ void	heredoc_cycle(char *line, t_commands *commands)
 			else
 				buff = needs_expansion(buff, commands);
 		}
-		buff = ft_strjoin(buff, "\n");
-		ft_fprintf(fd, "%s", buff);
-		free(buff);
-		buff = readline(">");
+		end_heredoc(buff, fd);
 	}
 	close(fd);
 }

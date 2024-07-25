@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 13:45:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 20:41:57 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:55:03 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,29 @@ static char	*expand_value(t_commands *commands, t_token *curr, char	*str)
 					str + 2);
 	}
 	return (str);
+}
+
+bool	is_char_between_quotes(const char *str, char target)
+{
+	int	s_quote;
+	int	d_quote;
+	int	i;
+
+	i = 0;
+	s_quote = 0;
+	d_quote = 0;
+	while (str[i])
+	{
+		if (str[i] == '"' && !s_quote)
+			d_quote = !d_quote;
+		else if (str[i] == '\'' && !d_quote)
+			s_quote = !s_quote;
+		if (str[i] == target)
+		{
+			if (d_quote || s_quote)
+				return (true);
+		}
+		i++;
+	}
+	return (false);
 }

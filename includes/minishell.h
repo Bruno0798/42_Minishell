@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/25 18:05:26 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 19:55:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,5 +242,7 @@ void		set_null(t_commands **commands, t_token **head,
 				t_token **current, char ***words);
 bool		ft_has_letters(char *str);
 int			ft_check_option(char *str);
-
+void		eof_heredoc(char *del);
+void		end_heredoc(char *str, int fd);
+bool		is_char_between_quotes(const char *str, char target);
 #endif
