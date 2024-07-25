@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 20:02:01 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:06:56 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 void	heredoc_files(t_commands *command, int flag)
 {
-	int	flag_here;
+	int			flag_here;
+	t_commands	*temp;
 
+	temp = command;
 	flag_here = 0;
-	while (command)
+	while (temp)
 	{
 		if (flag == 1)
-			flag_here = check_heredoc(command);
+			flag_here = check_heredoc(temp, command);
 		else
-			files_exist(command->token);
-		command = command->next;
+			files_exist(temp->token);
+		temp = temp->next;
 	}
 	if (flag_here)
 		dup2(open("heredoc.txt", O_RDONLY), STDIN_FILENO);
@@ -50,7 +52,7 @@ bool	files_exist(t_token *token)
 	return (exist);
 }
 
-int	check_heredoc(t_commands *command)
+int	check_heredoc(t_commands *command, t_commands *head)
 {
 	t_token	*token;
 	int		flag;
@@ -61,7 +63,7 @@ int	check_heredoc(t_commands *command)
 	{
 		if (token->type == redir_in2 && token->next)
 		{
-			ft_heredoc(token->next->content, command);
+			ft_heredoc(token->next->content, command, head);
 			flag = 1;
 		}
 		token = token->next;
@@ -70,7 +72,7 @@ int	check_heredoc(t_commands *command)
 	return (flag);
 }
 
-void	ft_heredoc(char *delimiter, t_commands *command)
+void	ft_heredoc(char *delimiter, t_commands *command, t_commands *head)
 {
 	int		temp;
 	pid_t	pid;
@@ -80,7 +82,7 @@ void	ft_heredoc(char *delimiter, t_commands *command)
 	if (pid == 0)
 	{
 		heredoc_cycle(delimiter, command);
-		free_all(command, 2);
+		free_all(head, 2);
 		exit(g_exit_status);
 	}
 	waitpid(pid, &temp, 0);

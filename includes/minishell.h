@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/23 19:56:50 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/25 18:05:26 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ int			ft_count_redirects(t_commands *commands);
 void		check_fork(t_commands *command);
 void		open_pipes(t_commands *command);
 bool		has_double_pipe(char *input);
-int			check_heredoc(t_commands *command);
-void		ft_heredoc(char *delimiter, t_commands *command);
+int			check_heredoc(t_commands *command, t_commands *head);
+void		ft_heredoc(char *delimiter, t_commands *command, t_commands *head);
 t_commands	*delete_redir(t_commands *command);
 void		heredoc_cycle(char *line, t_commands *commands);
 bool		has_here_doc(t_commands *commands);
