@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/19 16:08:20 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:30:36 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	handle_token_next(t_commands *command, t_commands *head)
 
 void	ft_exit(t_commands *command, t_commands *head)
 {
+	printf("exit\n");
 	if (command->token->next)
 	{
 		handle_token_next(command, head);
