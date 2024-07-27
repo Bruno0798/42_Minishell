@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 14:01:02 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:07:11 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void	process_token(t_token *token, t_commands *commands)
 	char	*dollar_pos;
 
 	dollar_pos = ft_strchr(token->content, '$');
+
 	if (dollar_pos && *(dollar_pos + 1) != '\0'
 		&& is_dollar_outside_single_quotes(token->content))
 	{

@@ -6,18 +6,20 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 10:46:08 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 14:13:07 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool ft_check_path(t_env *env);
 
 void	ft_print_env(t_commands *command)
 {
 	t_env	*current;
 
 	current = command->env;
-	if (command->env == NULL)
+	if (command->env == NULL || ft_check_path(current))
 		return ;
 	if (command->token->next != NULL)
 	{
@@ -37,4 +39,14 @@ void	ft_print_env(t_commands *command)
 			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+}
+
+bool ft_check_path(t_env *env)
+{
+	if (ft_get_value(env, "PATH") == NULL)
+	{
+		print_error(ERROR_DIR, NULL, 127);
+		return true;
+	}
+	return false;
 }

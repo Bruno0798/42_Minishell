@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:01:13 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 11:44:53 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 13:53:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	is_invalid_token(char *str)
 	while (str[i])
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_'
-			&& str[i] != '=' && str[i] == ' ')
+			&& str[i] != '=')
 			return (false);
 		i++;
 	}

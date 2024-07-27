@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:11:34 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 13:45:06 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:28:33 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	process_tokens(t_commands *cmd)
 	while (cmd->token != NULL)
 	{
 		if (cmd->token->content != NULL
-			&& ft_strcmp(cmd->token->content, "") == 0)
+			&& (ft_strcmp(cmd->token->content, "") == 0))
 			free_and_update_token(cmd, &token_temp, &prev);
 		else
 		{
