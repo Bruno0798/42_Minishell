@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:20:22 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 19:59:45 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:11:37 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,29 @@ int	ft_check_option(char *str)
 	}
 	free(tmp);
 	return (true);
+}
+
+int	ft_check(char *str)
+{
+	int		i;
+	char	*value;
+
+	value = ft_strpbrk(str, "<>");
+	while (value && ft_strchr("<>", value[0]))
+		value += 1;
+	while (value)
+	{
+		i = -1;
+		while (value[++i] == 32)
+			;
+		if (ft_strchr("<>", value[i]))
+		{
+			print_error(ERROR_REDIR, NULL, 2);
+			return (0);
+		}
+		value = ft_strpbrk(value + 1, "<>");
+		while (value && ft_strchr("<>", value[0]))
+			value += 1;
+	}
+	return (1);
 }

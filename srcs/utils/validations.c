@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validations.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
+/*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 10:27:45 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:11:49 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ bool	syntax_checker(char *input)
 		&& *input != '|')
 	{
 		if (ft_strcmp("<", input) && ft_strcmp(">", input)
-			&& !(ft_strpbrk(input, "|")
+			&& ft_check(input) && !(ft_strpbrk(input, "|")
 				&& *(ft_strpbrk(input, "|") + 1) == '|'))
 		{
 			free(input);
