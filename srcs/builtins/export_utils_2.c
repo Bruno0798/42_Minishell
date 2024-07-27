@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:17:14 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 12:30:20 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 11:10:23 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ char	*extract_key(char *content)
 		return (ft_strdup(content));
 }
 
-void	handle_error_and_cleanup(char *key)
+void	handle_error_and_cleanup(char *key, int exit_code)
 {
-	print_error(ERROR_EXP, NULL, 1);
+	print_error(ERROR_EXP, NULL, exit_code);
 	if (key != NULL)
 		free(key);
 }
@@ -45,13 +45,13 @@ void	handle_export_token(t_commands *command, t_token *token)
 	key = NULL;
 	if (starts_with_special_char(token->content))
 	{
-		handle_error_and_cleanup(key);
+		handle_error_and_cleanup(key, 1);
 		return ;
 	}
 	key = extract_key(token->content);
 	if (key == NULL)
 	{
-		handle_error_and_cleanup(key);
+		handle_error_and_cleanup(key, 1);
 		return ;
 	}
 	equal_sign = ft_strchr(token->content, '=');

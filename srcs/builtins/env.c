@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/08 17:37:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:46:08 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	ft_print_env(t_commands *command)
 		if (ft_strchr(command->token->next->content, '-') != NULL)
 		{
 			dup2(STDERR_FILENO, STDOUT_FILENO);
-			print_error(ERROR_OPTIONS, command->token->next->content, 1);
+			print_error(ERROR_OPTIONS, command->token->next->content, 125);
 			return ;
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
-		print_error(ERROR_DIR, "env", 1);
+		print_error(ERROR_DIR, "env", 127);
 		return ;
 	}
 	while (current != NULL)

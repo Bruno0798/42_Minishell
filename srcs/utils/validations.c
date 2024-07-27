@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 07:04:01 by bruno            ###   ########.fr       */
+/*   Updated: 2024/07/27 10:27:45 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ bool	check_quotes(char *str)
 	}
 	if (s_quote != 0 || d_quote != 0)
 	{
-		print_error(ERROR_QUOTE, NULL, 1);
+		print_error(ERROR_QUOTE, NULL, 2);
 		return (true);
 	}
 	return (false);

@@ -6,11 +6,12 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 20:41:48 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:13:06 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 void	remove_env_node(t_commands *command, t_env *previous, t_env *current)
 {
@@ -18,6 +19,11 @@ void	remove_env_node(t_commands *command, t_env *previous, t_env *current)
 		previous->next = current->next;
 	else
 		command->env = current->next;
+//	if(command->next != NULL)
+//		remove_env_node(command->next, previous, current);
+	free(current->key);
+	free(current->value);
+	free(current);
 }
 
 void	ft_unset(t_commands *command)

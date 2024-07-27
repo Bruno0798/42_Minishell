@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 11:21:56 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/27 10:27:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ bool	is_valid_input(char *input, t_env *env)
 		return (false);
 	if (!check_pipes(input))
 	{
-		ft_fprintf(2, "???\n");
+		ft_fprintf(2, "???\n"); //TODO WHAT IS THIS?
 		return (false);
 	}
 	return (true);
