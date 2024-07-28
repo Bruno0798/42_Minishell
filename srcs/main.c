@@ -43,9 +43,9 @@ void	main_cycle(int fd, int fd1, t_env *env)
 		command = NULL;
 		reset_fd_signals(fd, fd1);
 		input = readline("Minishell$>");
-		add_history(input);
 		if (is_valid_input(input, env))
 		{
+			add_history(input);
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
 			{
 				remake_commands(command);
