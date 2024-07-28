@@ -244,4 +244,5 @@ int			ft_check_option(char *str);
 void		eof_heredoc(char *del);
 void		end_heredoc(char *str, int fd);
 bool		is_char_between_quotes(const char *str, char target);
+int			ft_check(char *str);
 #endif

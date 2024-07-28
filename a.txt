@@ -1,3 +1,0 @@
-a.txt
-Makefile
-readline.supp

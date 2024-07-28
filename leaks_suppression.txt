@@ -1,0 +1,5 @@
+{
+    "readline suppressions"
+    "leak:libreadline"
+    "leak:libedit"
+}

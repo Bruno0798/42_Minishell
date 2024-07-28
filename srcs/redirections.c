@@ -15,10 +15,8 @@
 t_commands	*delete_redir(t_commands *command)
 {
 	t_token	*curr;
-	t_token	*prev;
 
 	curr = command->token;
-	prev = NULL;
 	while (curr)
 	{
 		if (curr->type == redir_in2)
@@ -28,7 +26,6 @@ t_commands	*delete_redir(t_commands *command)
 			curr->next->content = ft_strdup("heredoc.txt");
 			return (command);
 		}
-		prev = curr;
 		curr = curr->next;
 	}
 	return (command);
