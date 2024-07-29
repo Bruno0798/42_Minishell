@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 14:54:26 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/12 10:05:51 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:42:48 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	handle_redirection(t_token *token)
 		fd = handle_redir_in(token);
 	if (fd == -1)
 	{
-		print_error(ERROR_DIR, NULL, 1);
+		print_error(ERROR_DIR, token->content, 1);
 		return (0);
 	}
 	token->next->type = files;
