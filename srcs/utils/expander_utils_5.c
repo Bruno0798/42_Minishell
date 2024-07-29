@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:16:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:28:04 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:50:30 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	copy_value_to_new_string(char *new_string, char *value, int *j)
 		new_string[(*j)++] = value[k++];
 }
 
-char *expand_heredoc(char *input, t_commands *commands)
+char	*expand_heredoc(char *input, t_commands *commands)
 {
 	int		i;
 	int		length;

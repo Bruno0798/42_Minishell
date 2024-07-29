@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:17:14 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 13:56:59 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:44:01 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	cleanup_key(char *equal_sign, char *key);
 
 int	starts_with_special_char(const char *content)
 {
-	return (content[0] == '=' || content[0] == '-' ||
-			ft_strlen(content) == 0);
+	return (content[0] == '=' || content[0] == '-'
+		|| ft_strlen(content) == 0);
 }
 
 char	*extract_key(char *content)

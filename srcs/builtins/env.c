@@ -6,13 +6,13 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 14:13:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:43:13 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool ft_check_path(t_env *env);
+bool	ft_check_path(t_env *env);
 
 void	ft_print_env(t_commands *command)
 {
@@ -41,12 +41,12 @@ void	ft_print_env(t_commands *command)
 	}
 }
 
-bool ft_check_path(t_env *env)
+bool	ft_check_path(t_env *env)
 {
 	if (ft_get_value(env, "PATH") == NULL)
 	{
 		print_error(ERROR_DIR, NULL, 127);
-		return true;
+		return (true);
 	}
-	return false;
+	return (false);
 }
