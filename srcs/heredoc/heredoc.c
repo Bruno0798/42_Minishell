@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 13:59:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 19:53:58 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 17:28:16 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,12 @@ void	heredoc_cycle(char *line, t_commands *commands)
 			break ;
 		}
 		if (ft_strchr(buff, '$') && *(ft_strchr(buff, '$') + 1)
-			!= '\0' && is_dollar_outside_single_quotes(buff))
+			!= '\0')
 		{
 			if (*(ft_strchr(buff, '$') + 1) == '?')
 				buff = expand_exit_code(buff);
 			else
-				buff = needs_expansion(buff, commands);
+				buff = expand_heredoc(buff, commands);
 		}
 		end_heredoc(buff, fd);
 	}
