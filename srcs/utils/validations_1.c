@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 18:11:34 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 18:23:12 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool	is_valid_input(char *input, t_env *env)
 	if (!input)
 	{
 		free_env(env);
-		printf("cd\n");
+		printf("exit\n");
 		exit(g_exit_status);
 	}
 	if (is_everything_space(input))
