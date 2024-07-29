@@ -6,11 +6,11 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 20:17:44 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:41:58 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h" //TODO CHANGE THE NAME OF THE BURRO BRPEREIR
+#include "../includes/minishell.h"
 
 static int	init_and_set_fd(int argc, char **envp, t_env **env);
 static void	main_cycle(int fd, int fd1, t_env *env);
@@ -52,6 +52,7 @@ void	main_cycle(int fd, int fd1, t_env *env)
 				open_pipes(command);
 			}
 		}
+		env = command->env;
 		ft_free_commands(command, 1);
 	}
 }

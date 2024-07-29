@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/29 17:28:42 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:14:22 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define ERROR_NUM " numeric argument required"
 # define ERROR_ARG " too many arguments"
 # define ERROR_SUPPORT "Arguments and options aren't supported"
-# define ERROR_OPTIONS " illegal option"
+# define ERROR_OPTIONS " invalid option"
 # define ERROR_REDIR " syntax error near unexpected token `newline'"
 # define ERROR_SYNTAX " syntax error near unexpected token"
 # define EXPORT_NOTE "too few argumnts"

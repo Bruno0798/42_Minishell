@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:16:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:50:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:30:52 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*needs_expansion(char *input, t_commands *command)
 		handle_quotes(input[i], &single_quotes, &double_quotes);
 		if (should_expand(input[i], single_quotes))
 		{
-			if (!ft_strchr("'\"", input[i + 1]) && input[i + 1] != ' ')
+			if (input[i + 1] != ' ' && input[i + 1] != '.')
 				input = process_expansion(input, &i, command);
 		}
 		i++;

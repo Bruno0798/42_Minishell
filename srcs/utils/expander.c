@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/07 15:09:50 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:50:04 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:08:06 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,7 @@ void	expand_token_content(t_token *token, t_commands *cmd)
 		token->content = needs_expansion(token->content, cmd);
 	}
 	else
-	{
 		token->content = needs_expansion(token->content, cmd);
-	}
 }
 
 void	process_heredoc_tokens(t_commands *cmd)

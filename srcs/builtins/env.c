@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:43:13 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 19:51:29 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_print_env(t_commands *command)
 			return ;
 		}
 		dup2(STDERR_FILENO, STDOUT_FILENO);
-		print_error(ERROR_DIR, "env", 127);
+		print_error(ERROR_DIR, command->token->next->content, 127);
 		return ;
 	}
 	while (current != NULL)

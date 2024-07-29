@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:17:14 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:44:01 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/29 20:15:16 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*extract_key(char *content)
 
 void	handle_error_and_cleanup(char *str, char *key, int exit_code)
 {
+	if (str && str[0] == '-')
+		exit_code = 2;
 	print_error(ERROR_EXP, str, exit_code);
 	if (key != NULL)
 		free(key);

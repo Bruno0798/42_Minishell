@@ -6,11 +6,12 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 17:43:45 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/27 12:04:07 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
 
 void	remove_env_node(t_commands *command, t_env *previous, t_env *current)
 {

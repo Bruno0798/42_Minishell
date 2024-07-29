@@ -33,7 +33,7 @@ void	handle_cd_errors(t_commands *commands)
 {
 	if (commands->token->next->content[0] == '-')
 	{
-		print_error(ERROR_OPTIONS, "cd", 1);
+		print_error(ERROR_OPTIONS, "cd", 2);
 		return ;
 	}
 	print_error(ERROR_DIR, NULL, 1);
