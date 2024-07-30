@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 22:41:58 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:36:02 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ static void	main_cycle(int fd, int fd1, t_env *env);
 void		reset_fd_signals(int fd, int fd1);
 
 int	g_exit_status;
-
-//TODO cat | cat is printing 2 times core dump
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -51,8 +49,8 @@ void	main_cycle(int fd, int fd1, t_env *env)
 				remake_commands(command);
 				open_pipes(command);
 			}
-		}
 		env = command->env;
+		}
 		ft_free_commands(command, 1);
 	}
 }
