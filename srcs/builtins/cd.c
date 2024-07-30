@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:11:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 18:24:42 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:31:46 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,5 @@ void	ft_cd(t_commands *commands)
 		return ;
 	}
 	update_env_vars(commands, dir, sizeof(dir));
+	g_exit_status = 0;
 }

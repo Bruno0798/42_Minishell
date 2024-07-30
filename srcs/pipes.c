@@ -73,7 +73,7 @@ int	child_process(t_commands *command, int fd_in, int command_count)
 			close_pipes(pipes, fd_in, 1);
 			ft_execute(command, head);
 			head->env = command->env;
-			free_all(head, 3);
+			ft_free_commands(head, 3);
 		}
 		dup2(pipes[0], fd_in);
 		close_pipes(pipes, fd_in, 0);

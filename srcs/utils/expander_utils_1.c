@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:09:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 19:13:23 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:30:24 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ char	*expand_new_string(char *value, char *key, char *string)
 	size_t	new_string_length;
 	char	*new_string;
 
-	new_string_length = get_new_string_length(value, key, string);
+	new_string_length = (ft_strlen(string) - ft_strlen(value)
+			+ ft_strlen(key) + 1);
 	new_string = ft_allocate_new_string(new_string_length);
 	if (!new_string)
 		return (NULL);

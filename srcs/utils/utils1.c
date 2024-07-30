@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-int	count_pipes(char *str)
+int	count_pipes(char const *str)
 {
 	int	i;
 	int	count;

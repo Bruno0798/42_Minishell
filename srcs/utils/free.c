@@ -12,11 +12,6 @@
 
 #include "../../includes/minishell.h"
 
-void	free_all(t_commands *command, int option)
-{
-	ft_free_commands(command, option);
-}
-
 void	free_env(t_env *env)
 {
 	t_env	*current;

@@ -6,11 +6,18 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:16:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 19:30:52 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:30:07 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	ft_is_special_char(char c)
+{
+	if (c == ' ' || c == '.' || c == '%')
+		return (true);
+	return (false);
+}
 
 char	*needs_expansion(char *input, t_commands *command)
 {
@@ -26,7 +33,7 @@ char	*needs_expansion(char *input, t_commands *command)
 		handle_quotes(input[i], &single_quotes, &double_quotes);
 		if (should_expand(input[i], single_quotes))
 		{
-			if (input[i + 1] != ' ' && input[i + 1] != '.')
+			if (!ft_is_special_char(input[i + 1]))
 				input = process_expansion(input, &i, command);
 		}
 		i++;

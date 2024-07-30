@@ -6,16 +6,11 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:11:29 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/12 14:11:29 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:05:52 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-char	*allocate_new_string(char *string, char *key, char *value)
-{
-	return (malloc(ft_strlen(string) - ft_strlen(key) + ft_strlen(value) + 1));
-}
 
 bool	is_variable_match(char *string, char *key, int i, int h)
 {
@@ -31,7 +26,8 @@ char	*replace_variable(char *string, char *key, char *value, int i)
 
 	h = 0;
 	j = 0;
-	new_string = allocate_new_string(string, key, value);
+	new_string = malloc(ft_strlen(string) - ft_strlen(key)
+			+ ft_strlen(value) + 1);
 	while (string[h])
 	{
 		if (is_variable_match(string, key, i, h))

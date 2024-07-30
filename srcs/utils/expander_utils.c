@@ -6,13 +6,13 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:34:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/23 20:08:52 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:35:13 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	value_length(char *string)
+int	value_length(char const *string)
 {
 	int	i;
 	int	length;
@@ -32,7 +32,7 @@ int	value_length(char *string)
 	return (length);
 }
 
-char	*ft_get_value(t_env *env, char *key)
+char	*ft_get_value(t_env *env, char const *key)
 {
 	t_env	*current;
 

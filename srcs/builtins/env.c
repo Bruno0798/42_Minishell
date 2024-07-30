@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 15:30:08 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 19:51:29 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 13:32:02 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_print_env(t_commands *command)
 			printf("%s=%s\n", current->key, current->value);
 		current = current->next;
 	}
+	g_exit_status = 0;
 }
 
 bool	ft_check_path(t_env *env)

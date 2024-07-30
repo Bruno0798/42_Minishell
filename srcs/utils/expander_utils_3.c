@@ -43,8 +43,7 @@ char	*process_token_content(char *content, t_commands *commands)
 	dollar_pos = ft_strchr(content, '$');
 	if (*(dollar_pos + 1) == '?')
 		return (expand_exit_code(content));
-	else if (isdigit(*(dollar_pos + 1)))
+	if (isdigit(*(dollar_pos + 1)))
 		return (expand_number(content));
-	else
-		return (needs_expansion(content, commands));
+	return (needs_expansion(content, commands));
 }

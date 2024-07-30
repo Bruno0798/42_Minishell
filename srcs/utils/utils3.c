@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:39:10 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/25 18:01:30 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/30 12:20:26 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ bool	add_tokens(t_token **current, char **words, int i)
 	return (false);
 }
 
-void	update_command_tokens(t_token *head)
+void	update_command_tokens(t_token const *head)
 {
 	while (head)
 	{

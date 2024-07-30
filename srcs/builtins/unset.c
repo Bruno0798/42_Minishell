@@ -6,11 +6,30 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 23:10:22 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:31:30 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
+
+bool	is_invalid_unset_command(t_commands *command)
+{
+	if (!command || !command->token)
+		return (true);
+	if (command->token->next
+		&& ft_strcmp(command->token->next->content, "_") == 0)
+		return (true);
+	if (command->token->next
+		&& ft_strcmp(command->token->next->content, "-") == 0)
+		return (false);
+	if (command->token->next && (command->token->next->content[0] == '-'
+			|| !check_unset(command->token)))
+	{
+		print_error(ERROR_OPTIONS, NULL, 2);
+		return (true);
+	}
+	return (false);
+}
 
 void	remove_env_node(t_commands *command, t_env *previous, t_env *current)
 {
@@ -28,18 +47,10 @@ void	ft_unset(t_commands *command)
 	t_env	*current;
 	t_env	*previous;
 
+	if (is_invalid_unset_command(command))
+		return ;
 	current = command->env;
 	previous = NULL;
-	if (!command || !command->token)
-		return ;
-	if (command->token->next && command->token->next->content[0] == '_')
-		return ;
-	if (command->token->next && (command->token->next->content[0] == '-'
-			|| !check_unset(command->token)))
-	{
-		print_error(ERROR_OPTIONS, NULL, 2);
-		return ;
-	}
 	while (current && command->token->next)
 	{
 		if (!ft_strcmp(current->key, command->token->next->content))
@@ -65,11 +76,11 @@ int	check_unset(t_token *head)
 	{
 		cmd = current->content;
 		i = 0;
-		if (!ft_isdigit((unsigned char)cmd[i]))
+		if (!ft_isdigit(cmd[i]))
 			return (1);
 		while (cmd[i])
 		{
-			if (!ft_isalnum((unsigned char)cmd[i]) && cmd[i] != '_')
+			if (!ft_isalnum(cmd[i]) && cmd[i] != '_')
 				return (1);
 			i++;
 		}

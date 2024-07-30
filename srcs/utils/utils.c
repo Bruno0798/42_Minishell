@@ -56,7 +56,7 @@ void	check_permissions(t_commands *command, char *string)
 		print_error(ERROR_DIR, NULL, 127);
 	else
 		print_error(COMMAND_NOT_FOUND, string, 127);
-	free_all(command, 2);
+	ft_free_commands(command, 2);
 	exit(g_exit_status);
 }
 

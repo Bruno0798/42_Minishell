@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 14:38:25 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 18:03:00 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:55:04 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	handle_token_content(t_commands *command)
 			g_exit_status = number;
 	}
 	else
-		print_error(ERROR_NUM, NULL, 2);
+		print_error(ERROR_NUM, command->token->next->content, 2);
 }
 
 void	handle_token_next(t_commands *command, t_commands *head)
@@ -40,7 +40,7 @@ void	handle_token_next(t_commands *command, t_commands *head)
 	if (!ft_has_letters(command->token->next->content))
 	{
 		handle_token_content(command);
-		free_all(head, 2);
+		ft_free_commands(head, 2);
 		exit(g_exit_status);
 	}
 	if (command->token->next->next)
@@ -53,7 +53,7 @@ void	handle_token_next(t_commands *command, t_commands *head)
 	else
 	{
 		handle_token_content(command);
-		free_all(head, 2);
+		ft_free_commands(head, 2);
 		exit(g_exit_status);
 	}
 }
@@ -61,15 +61,13 @@ void	handle_token_next(t_commands *command, t_commands *head)
 void	ft_exit(t_commands *command, t_commands *head)
 {
 	if (head->next == NULL)
-		printf("exit\n");
+		ft_fprintf(0, "exit\n");
 	if (command->token->next)
 	{
 		handle_token_next(command, head);
 		return ;
 	}
-	else
-		g_exit_status = 0;
-	free_all(head, 2);
+	ft_free_commands(head, 2);
 	exit(g_exit_status);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bsousa-d <bsousa-d@student.42porto.com>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 18:01:13 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 13:53:12 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:52:41 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,6 @@ void	swap_nodes(t_env *a, t_env *b)
 	b->key = key;
 	b->value = value;
 	b->visible = visible;
-}
-
-int	compare_keys(const char *a, const char *b)
-{
-	return (ft_strcmp(a, b));
 }
 
 bool	is_invalid_token(char *str)
@@ -70,7 +65,7 @@ t_env	*order_list(t_env *env)
 		tmp = current->next;
 		while (tmp)
 		{
-			if (compare_keys(current->key, tmp->key) > 0)
+			if (ft_strcmp(current->key, tmp->key) > 0)
 				swap_nodes(current, tmp);
 			tmp = tmp->next;
 		}

@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 01:36:02 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/07/30 17:54:57 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		reset_fd_signals(int fd, int fd1);
 
 int	g_exit_status;
 
-int	main(int argc, char **argv, char **envp)
+int	main(int const argc, char **argv, char **envp)
 {
 	t_env	*env;
 	int		fd;
@@ -31,7 +31,7 @@ int	main(int argc, char **argv, char **envp)
 	return (0);
 }
 
-void	main_cycle(int fd, int fd1, t_env *env)
+void	main_cycle(int const fd, int const fd1, t_env *env)
 {
 	t_commands	*command;
 	char		*input;
@@ -49,20 +49,20 @@ void	main_cycle(int fd, int fd1, t_env *env)
 				remake_commands(command);
 				open_pipes(command);
 			}
-		env = command->env;
+			env = command->env;
 		}
 		ft_free_commands(command, 1);
 	}
 }
 
-void	reset_fd_signals(int fd, int fd1)
+void	reset_fd_signals(int const fd, int const fd1)
 {
 	ft_handle_signals(MAIN);
 	dup2(fd, STDIN_FILENO);
 	dup2(fd1, STDOUT_FILENO);
 }
 
-static int	init_and_set_fd(int argc, char **envp, t_env **env)
+static int	init_and_set_fd(int const argc, char **envp, t_env **env)
 {
 	int	fd;
 

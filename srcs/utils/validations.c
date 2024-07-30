@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 22:01:58 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/27 12:11:49 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/07/30 14:51:51 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ bool	is_everything_space(char *str)
 	return (true);
 }
 
-bool	is_between_quotes(char *str)
+bool	is_between_quotes(char const *str)
 {
 	int	s_quote;
 	int	d_quote;
