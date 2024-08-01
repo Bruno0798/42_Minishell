@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/23 12:25:21 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 18:31:30 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 00:46:52 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,20 +46,26 @@ void	ft_unset(t_commands *command)
 {
 	t_env	*current;
 	t_env	*previous;
+	t_token	*token;
 
 	if (is_invalid_unset_command(command))
 		return ;
-	current = command->env;
-	previous = NULL;
-	while (current && command->token->next)
+	token = command->token;
+	while (token)
 	{
-		if (!ft_strcmp(current->key, command->token->next->content))
+		current = command->env;
+		previous = NULL;
+		while (current && token->next)
 		{
-			remove_env_node(command, previous, current);
-			return ;
+			if (!ft_strcmp(current->key, token->next->content))
+			{
+				remove_env_node(command, previous, current);
+				break ;
+			}
+			previous = current;
+			current = current->next;
 		}
-		previous = current;
-		current = current->next;
+		token = token->next;
 	}
 }
 
