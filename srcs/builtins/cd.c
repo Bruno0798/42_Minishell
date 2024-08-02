@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 13:11:46 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 13:31:46 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 02:56:09 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	handle_cd_errors(t_commands *commands)
 		print_error(ERROR_OPTIONS, "cd", 2);
 		return ;
 	}
-	print_error(ERROR_DIR, NULL, 1);
+	print_error(ERROR_DIR, commands->token->next->content, 1);
 }
 
 bool	can_execute(t_commands *command)
