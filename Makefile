@@ -85,12 +85,12 @@ else
 endif
 
 all: $(NAME)
-	@printf "\n"
-	@echo $(G)"       _     _     _       _ _ "$(X)
-	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)
-	@echo $(G)"|     | |   | |_ -|   | -_| | |"$(X)
-	@echo $(G)"|_|_|_|_|_|_|_|___|_|_|___|_|_|"$(X)
-	@printf "\n\n"
+#	@printf "\n"
+#	@echo $(G)"       _     _     _       _ _ "$(X)
+#	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)
+#	@echo $(G)"|     | |   | |_ -|   | -_| | |"$(X)
+#	@echo $(G)"|_|_|_|_|_|_|_|___|_|_|___|_|_|"$(X)
+#	@printf "\n\n"
 
 $(NAME): $(OBJ)
 	@make -C $(LIBFT) --no-print-directory
@@ -130,4 +130,4 @@ valgrind: re
 	@valgrind -s --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 .PHONY: all clean fclean re
-.SILENT:
+#.SILENT:

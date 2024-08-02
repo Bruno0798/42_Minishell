@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/09 16:34:32 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 14:35:13 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 02:35:18 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,9 @@ void	handle_quotes(char c, bool *single_quotes, bool *double_quotes)
 		*double_quotes = !*double_quotes;
 }
 
-bool	should_expand(char c, bool single_quotes)
+bool	should_expand(char c, bool single_quotes, char *input)
 {
-	return (c == '$' && !single_quotes);
+	return (c == '$' && !single_quotes && ft_strcmp(input, "\"$\""));
 }
 
 char	*process_expansion(char *input, size_t *i, t_commands *command)

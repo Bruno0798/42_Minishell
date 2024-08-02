@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 17:57:05 by brpereir          #+#    #+#             */
-/*   Updated: 2024/07/30 18:20:15 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 02:37:57 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1590,7 +1590,7 @@ char		*process_expansion(char *input, size_t *i, t_commands *command);
  * \return True if the character is a dollar sign and not within single quotes,
  * false otherwise.
  */
-bool		should_expand(char c, bool single_quotes);
+bool		should_expand(char c, bool single_quotes, char *input);
 
 /**
  * \brief Handles the state of single and double quotes.

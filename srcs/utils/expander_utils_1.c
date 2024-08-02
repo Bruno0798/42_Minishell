@@ -6,7 +6,7 @@
 /*   By: bruno <bruno@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:09:06 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 18:30:24 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 02:11:52 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*store_value(char *string)
 	i = 1;
 	length = 0;
 	while (string[i] != '$' && string[i] != '\0'
-		&& string[i] != ' ' && ft_isalnum(string[i]))
+		&& string[i] != ' ' && (ft_isalnum(string[i]) || string[i] == '_'))
 	{
 		i++;
 		length++;

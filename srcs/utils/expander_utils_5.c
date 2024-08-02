@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 14:16:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/30 18:30:07 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 02:22:09 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*needs_expansion(char *input, t_commands *command)
 	while (input[i])
 	{
 		handle_quotes(input[i], &single_quotes, &double_quotes);
-		if (should_expand(input[i], single_quotes))
+		if (should_expand(input[i], single_quotes, input))
 		{
 			if (!ft_is_special_char(input[i + 1]))
 				input = process_expansion(input, &i, command);
@@ -77,7 +77,7 @@ char	*expand_heredoc(char *input, t_commands *commands)
 	char	*new_input;
 
 	i = 0;
-	while (input[i])
+	while (*input && input[i])
 	{
 		if (input[i] == '$')
 		{
