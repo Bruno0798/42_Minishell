@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:21:30 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 23:08:58 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:46:49 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ bool	is_valid_input(char *input, t_env *env)
 		printf("exit\n");
 		exit(g_exit_status);
 	}
+	if(ft_strcmp(input, "\0") != 0)
+		add_history(input);
 	if (is_everything_space(input))
 		return (false);
 	if (!syntax_checker(input))

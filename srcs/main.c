@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/08/02 00:47:28 by brpereir         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:46:26 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ void	main_cycle(int const fd, int const fd1, t_env *env)
 		input = readline("Minishell$>");
 		if (is_valid_input(input, env))
 		{
-			add_history(input);
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
 			{
 				remake_commands(command);
