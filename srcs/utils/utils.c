@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 18:08:16 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/07/29 18:42:36 by bsousa-d         ###   ########.fr       */
+/*   Updated: 2024/08/02 01:19:44 by brpereir         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ void	check_permissions(t_commands *command, char *string)
 	file = access(string, F_OK);
 	execution = access(string, X_OK);
 	if (!file && execution && ft_strchr(string, '/'))
-		print_error(EXECUTION_PERMISSION, NULL, 126);
+		print_error(EXECUTION_PERMISSION, string, 126);
 	else if (!file && !execution && string[0] != '.')
-		print_error(DIRECTORY_EXISTS, NULL, 126);
+		print_error(DIRECTORY_EXISTS, string, 126);
 	else if (ft_strchr(string, '/') || !ft_get_value(command->env, "PATH"))
-		print_error(ERROR_DIR, NULL, 127);
+		print_error(ERROR_DIR, string, 127);
 	else
 		print_error(COMMAND_NOT_FOUND, string, 127);
 	ft_free_commands(command, 2);
