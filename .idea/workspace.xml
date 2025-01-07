@@ -20,7 +20,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES" />
+    <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/srcs/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/srcs/main.c" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -125,6 +128,11 @@
   }
 }</component>
   <component name="RunManager" selected="Native Application.all">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="all" type="CLionNativeAppRunConfigurationType" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="42_Minishell" TARGET_NAME="all" CONFIG_NAME="all" version="1" RUN_PATH="$PROJECT_DIR$/minishell">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -221,6 +229,7 @@
       <workItem from="1722362782361" duration="571000" />
       <workItem from="1722363561440" duration="65000" />
       <workItem from="1722421334293" duration="4303000" />
+      <workItem from="1736264650881" duration="21000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed error on echo when it had SINGLE QUOTES">
       <option name="closed" value="true" />

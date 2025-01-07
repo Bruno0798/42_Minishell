@@ -6,7 +6,7 @@
 /*   By: brpereir <brpereir@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 14:25:43 by bsousa-d          #+#    #+#             */
-/*   Updated: 2024/08/02 01:46:26 by brpereir         ###   ########.fr       */
+/*   Updated: 2025/01/07 15:44:30 by bsousa-d         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	main_cycle(int const fd, int const fd1, t_env *env)
 		{
 			if (ft_parser(input, &command, env) == EXIT_SUCCESS)
 			{
+				
 				remake_commands(command);
 				open_pipes(command);
 			}
