@@ -41,16 +41,19 @@ Minishell implements the following built-in commands:
 
 ### Installation
 
-1. Clone the repository:
+1. Clone the repository with submodules:
    ```bash
-   git clone https://github.com/yourusername/42_Minishell.git
+   git clone git@github.com:Bruno0798/42_Minishell.git
    cd 42_Minishell
+   git submodule update --init --recursive
    ```
 
 2. Compile the program:
    ```bash
    make
    ```
+
+   This will compile both the libft library and the minishell program.
 
 ### Usage
 

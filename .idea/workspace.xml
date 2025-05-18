@@ -26,8 +26,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3106dd0a-e5c3-402c-b896-0375734ce700" name="Changes" comment="Fixed error on echo when it had SINGLE QUOTES">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -118,6 +116,7 @@
     "RunOnceActivity.RadMigrateCodeStyle": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
@@ -236,7 +235,7 @@
       <workItem from="1722363561440" duration="65000" />
       <workItem from="1722421334293" duration="4303000" />
       <workItem from="1736264650881" duration="21000" />
-      <workItem from="1747595244420" duration="3000" />
+      <workItem from="1747595244420" duration="385000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed error on echo when it had SINGLE QUOTES">
       <option name="closed" value="true" />
